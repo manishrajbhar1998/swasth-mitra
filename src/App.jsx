@@ -1,9 +1,10 @@
 import React from 'react';
-import './App.css';
+import './app.scss';
+import RouteConfig from './routes/RouteConfig';
 
 const App = () => {
   return (
-    <div id='root'>Swasth Mitra</div>
+    <RouteConfig/>  
   )
 }
 
