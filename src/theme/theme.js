@@ -4,7 +4,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#57a585', // Groww-style green
+            main: '#57a585',
             contrastText: '#ffffff',
         },
     },

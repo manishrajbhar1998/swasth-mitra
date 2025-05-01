@@ -23,7 +23,7 @@ const Header = () => {
                     <li><NavLink to="/about-us" >About Us</NavLink></li>
                     <li><NavLink to="/services" >Services</NavLink></li>
                     <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                    <li><NavLink to="/blog" >Inquery</NavLink></li>
+                    <li><NavLink to="/inquery" >Inquery</NavLink></li>
                 </ul>
             </div>
             <div className="login-btn">
@@ -48,8 +48,6 @@ const Header = () => {
                             <MenuIcon onClick={() => setShowMobileMenu(prev => !prev)} />
                     }
 
-
-
                 </div>
                 {
                     showMobileMenu &&
@@ -58,7 +56,7 @@ const Header = () => {
                             <li><NavLink to="/about-us" >About Us</NavLink></li>
                             <li><NavLink to="/services" >Services</NavLink></li>
                             <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                            <li><NavLink to="/blog" >Inquery</NavLink></li>
+                                <li><NavLink to="/inquery" >Inquery</NavLink></li>
                             <Button>
                                 Login/Register
                             </Button>

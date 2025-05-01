@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
-import Inquery from '../pages/Query/Inquery'
+import Inquery from '../pages/Inquery/Inquery'
 import LandingPage from '../pages/LandingPage/LandingPage'
 
 const RouteConfig = () => {

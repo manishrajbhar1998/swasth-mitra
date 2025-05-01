@@ -1,0 +1,27 @@
+@use './../../styles/variables.scss' as *;
+
+/* AppointmentForm.scss */
+.inquery-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin:auto;
+  margin-top: 20px;
+  
+
+  h6 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $primaryText;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  
+}
