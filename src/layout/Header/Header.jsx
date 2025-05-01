@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './header.scss';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import logo from './../../assets/images/swastha-mitra-logo2.png'
 import { Button } from '@mui/material';
 
@@ -30,8 +31,8 @@ const Header = () => {
 
                     <Button sx={{
                         display: {
-                            xs: 'none', 
-                            sm: 'none', 
+                            xs: 'none',
+                            sm: 'none',
                             md: 'inline-flex',
                         },
                     }}>
@@ -40,7 +41,15 @@ const Header = () => {
                 }
 
                 <div className='show-menu'>
-                    <MenuIcon onClick={() => setShowMobileMenu(prev => !prev)} />
+                    {
+                        showMobileMenu ?
+                            <CloseIcon onClick={() => setShowMobileMenu(prev => !prev)} />
+                            :
+                            <MenuIcon onClick={() => setShowMobileMenu(prev => !prev)} />
+                    }
+
+
+
                 </div>
                 {
                     showMobileMenu &&
