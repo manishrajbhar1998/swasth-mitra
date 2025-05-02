@@ -10,6 +10,7 @@ const RouteConfig = () => {
         <BrowserRouter basename="/swasth-mitra">
             <Routes>
                 <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/inquery" element={<Inquery />} />
 

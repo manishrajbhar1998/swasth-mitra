@@ -66,184 +66,197 @@ const Inquery = () => {
         console.log('Form Data:', data);
         try {
             const resp = await postInquery(data)
-            console.log("resp :: ",resp);
-        }catch(error){
-            console.log("error :: ",error)
+            console.log("resp :: ", resp);
+        } catch (error) {
+            console.log("error :: ", error)
         }
     };
 
     return (
-        <Box className="inquery-form">
-            <Typography variant="h6">
-                Inquiry Form
-            </Typography>
+        <Box className="inquery-container">
+            <Box className="inquery-form">
+                <Typography variant="h6">
+                    Inquiry Form
+                </Typography>
 
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <Box sx={{ display: 'flex', gap: '20px' }}>
-                    <Controller
-                        name="firstName"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="First Name"
-                                error={!!errors.firstName}
-                                helperText={errors.firstName?.message}
-                                fullWidth
-                                onChange={(e) => {
-                                    const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                    field.onChange(onlyLetters);
-                                }}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="lastName"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Last Name"
-                                error={!!errors.lastName}
-                                helperText={errors.lastName?.message}
-                                fullWidth
-                                onChange={(e) => {
-                                    const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                    field.onChange(onlyLetters);
-                                }}
-                            />
-                        )}
-                    />
-                </Box>
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <Box sx={{
+                        display: 'flex', gap: '20px', flexDirection: {
+                            xs: 'column',
+                            sm: 'row',
+                        },
+                    }}>
+                        <Controller
+                            name="firstName"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="First Name"
+                                    error={!!errors.firstName}
+                                    helperText={errors.firstName?.message}
+                                    fullWidth
+                                    onChange={(e) => {
+                                        const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
+                                        field.onChange(onlyLetters);
+                                    }}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="lastName"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Last Name"
+                                    error={!!errors.lastName}
+                                    helperText={errors.lastName?.message}
+                                    fullWidth
+                                    onChange={(e) => {
+                                        const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
+                                        field.onChange(onlyLetters);
+                                    }}
+                                />
+                            )}
+                        />
+                    </Box>
 
-                <Box sx={{ display: 'flex', gap: '20px', }}>
-                    <Controller
-                        name="mobile"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Mobile No"
-                                error={!!errors.mobile}
-                                helperText={errors.mobile?.message}
-                                fullWidth
-                                onChange={(e) => {
-                                    const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
-                                    field.onChange(onlyNumbers);
-                                }}
-                                inputProps={{ maxLength: 10 }}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="email"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Email Address"
-                                error={!!errors.email}
-                                helperText={errors.email?.message}
-                                fullWidth
-                            />
-                        )}
-                    />
-                </Box>
+                    <Box sx={{ display: 'flex', gap: '20px', flexDirection: {
+                            xs: 'column',
+                            sm: 'row',
+                        }, }}>
+                        <Controller
+                            name="mobile"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Mobile No"
+                                    error={!!errors.mobile}
+                                    helperText={errors.mobile?.message}
+                                    fullWidth
+                                    onChange={(e) => {
+                                        const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                                        field.onChange(onlyNumbers);
+                                    }}
+                                    inputProps={{ maxLength: 10 }}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name="email"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Email Address"
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                    fullWidth
+                                />
+                            )}
+                        />
+                    </Box>
 
-                <Box >
-                    <Controller
-                        name="address"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Address"
-                                error={!!errors.address}
-                                helperText={errors.address?.message}
-                                fullWidth
-                            />
-                        )}
-                    />
-                </Box>
+                    <Box >
+                        <Controller
+                            name="address"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Address"
+                                    error={!!errors.address}
+                                    helperText={errors.address?.message}
+                                    fullWidth
+                                />
+                            )}
+                        />
+                    </Box>
 
-                <Box sx={{ display: 'flex', gap: '20px' }}>
-                    <Controller
-                        name="city"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="City"
-                                error={!!errors.city}
-                                helperText={errors.city?.message}
-                                fullWidth
-                            />
-                        )}
-                    />
+                    <Box sx={{ display: 'flex', gap: '20px' , flexDirection: {
+                            xs: 'column',
+                            sm: 'row',
+                        },}}>
+                        <Controller
+                            name="city"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="City"
+                                    error={!!errors.city}
+                                    helperText={errors.city?.message}
+                                    fullWidth
+                                />
+                            )}
+                        />
 
-                    <Controller
-                        name="state"
-                        control={control}
-                        render={({ field }) => (
-                            <Autocomplete
-                                options={indianStates}
-                                value={field.value || null}
-                                onChange={(_, data) => field.onChange(data)}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Select State"
-                                        error={!!errors.state}
-                                        helperText={errors.state?.message}
-                                    />
-                                )}
-                                fullWidth
-                            />
-                        )}
-                    />
+                        <Controller
+                            name="state"
+                            control={control}
+                            render={({ field }) => (
+                                <Autocomplete
+                                    options={indianStates}
+                                    value={field.value || null}
+                                    onChange={(_, data) => field.onChange(data)}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label="Select State"
+                                            error={!!errors.state}
+                                            helperText={errors.state?.message}
+                                        />
+                                    )}
+                                    fullWidth
+                                />
+                            )}
+                        />
 
-                    <Controller
-                        name="pincode"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Pincode"
-                                error={!!errors.pincode}
-                                helperText={errors.pincode?.message}
-                                fullWidth
-                                onChange={(e) => {
-                                    const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
-                                    field.onChange(onlyNumbers);
-                                }}
-                                inputProps={{ maxLength: 6 }}
-                            />
-                        )}
-                    />
-                </Box>
+                        <Controller
+                            name="pincode"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Pincode"
+                                    error={!!errors.pincode}
+                                    helperText={errors.pincode?.message}
+                                    fullWidth
+                                    onChange={(e) => {
+                                        const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                                        field.onChange(onlyNumbers);
+                                    }}
+                                    inputProps={{ maxLength: 6 }}
+                                />
+                            )}
+                        />
+                    </Box>
 
-                <Box >
-                    <Controller
-                        name="message"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label="Message"
-                                multiline
-                                rows={2}
-                                error={!!errors.message}
-                                helperText={errors.message?.message}
-                                fullWidth
-                            />
-                        )}
-                    />
-                </Box>
+                    <Box >
+                        <Controller
+                            name="message"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Message"
+                                    multiline
+                                    rows={2}
+                                    error={!!errors.message}
+                                    helperText={errors.message?.message}
+                                    fullWidth
+                                />
+                            )}
+                        />
+                    </Box>
 
-                <Button variant="contained" type="submit">
-                    Submit
-                </Button>
-            </form>
+                    <Button variant="contained" type="submit">
+                        Submit
+                    </Button>
+                </form>
+            </Box>
         </Box>
     );
 };

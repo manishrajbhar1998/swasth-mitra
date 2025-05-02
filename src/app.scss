@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -7,7 +7,10 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f0f0f0; // Light background color
   color: #333; // Dark text color
   line-height: 1.6;
+  background:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url('./assets/images/background.jpg');
+  background-size: cover;
+  
 }

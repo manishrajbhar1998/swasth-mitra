@@ -1,4 +1,3 @@
-// theme.js
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -13,18 +12,41 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     textTransform: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '4px',
                     fontWeight: 600,
                     padding: '8px 16px',
-                    background:"#57a585",
-                    color:"#fff",
+                    background: "#57a585",
+                    color: "#fff",
                     '&:hover': {
                         backgroundColor: '#00b88a',
                     },
                 },
-                
             },
         },
+        // MuiTextField: {
+        //     styleOverrides: {
+        //         root: ({ theme }) => ({
+        //             [theme.breakpoints.down('sm')]: {
+        //                 '& .MuiInputBase-root': {
+        //                     height: 40, // reduce height on mobile
+        //                     fontSize: '0.9rem',
+        //                 },
+        //             },
+        //         }),
+        //     },
+        // },
+        // MuiAutocomplete: {
+        //     styleOverrides: {
+        //         root: ({ theme }) => ({
+        //             [theme.breakpoints.down('sm')]: {
+        //                 '& .MuiInputBase-root': {
+        //                     height: 40, // reduce height on mobile
+        //                     fontSize: '0.9rem',
+        //                 },
+        //             },
+        //         }),
+        //     },
+        // },
     },
 });
 

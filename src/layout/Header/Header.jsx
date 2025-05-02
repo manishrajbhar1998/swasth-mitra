@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './header.scss';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,6 +10,7 @@ import { Button } from '@mui/material';
 const Header = () => {
 
     const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const navigate = useNavigate()
 
 
 
@@ -35,7 +36,7 @@ const Header = () => {
                             sm: 'none',
                             md: 'inline-flex',
                         },
-                    }}>
+                    }} onClick={() => navigate('/login')}>
                         Login/Register
                     </Button>
                 }
@@ -56,8 +57,8 @@ const Header = () => {
                             <li><NavLink to="/about-us" >About Us</NavLink></li>
                             <li><NavLink to="/services" >Services</NavLink></li>
                             <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                                <li><NavLink to="/inquery" >Inquery</NavLink></li>
-                            <Button>
+                            <li><NavLink to="/inquery" >Inquery</NavLink></li>
+                            <Button onClick={() => navigate('/login')} >
                                 Login/Register
                             </Button>
                         </ul>
