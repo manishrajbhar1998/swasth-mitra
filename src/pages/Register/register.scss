@@ -39,6 +39,10 @@
 
             img {
                 width: 150px;
+
+                @media screen and (max-width: 891px) {
+                    width: 100px;
+                }
             }
 
             &-text {

@@ -21,6 +21,7 @@
         img {
             width: 100%;
             object-fit: cover;
+            
         }
     }
 
@@ -40,6 +41,10 @@
 
             img {
                 width: 150px;
+
+                @media screen and (max-width: 891px) {
+                    width: 100px;
+                }
             }
 
             &-text {

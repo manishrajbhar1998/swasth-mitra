@@ -81,7 +81,7 @@ const Inquery = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Box sx={{
-                        display: 'flex', gap: '20px', flexDirection: {
+                        display: 'flex', gap: '30px', flexDirection: {
                             xs: 'column',
                             sm: 'row',
                         },
@@ -122,7 +122,7 @@ const Inquery = () => {
                         />
                     </Box>
 
-                    <Box sx={{ display: 'flex', gap: '20px', flexDirection: {
+                    <Box sx={{ display: 'flex', gap: '30px', flexDirection: {
                             xs: 'column',
                             sm: 'row',
                         }, }}>
@@ -175,7 +175,7 @@ const Inquery = () => {
                         />
                     </Box>
 
-                    <Box sx={{ display: 'flex', gap: '20px' , flexDirection: {
+                    <Box sx={{ display: 'flex', gap: '30px' , flexDirection: {
                             xs: 'column',
                             sm: 'row',
                         },}}>
