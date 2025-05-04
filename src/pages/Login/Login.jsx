@@ -38,16 +38,16 @@ const Login = () => {
 
     return (
         <Box className='login-wrapper'>
-            <Box className="login-image" sx={{display: { xs: 'none', sm: 'none', md: 'block' }}} >
+            <Box className="login-image" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} >
                 <img src={login} alt="" />
             </Box>
 
-            <Box className="login-form" sx={{flexBasis: { xs: '95%', sm: '90%', md: '30%' }}} >
+            <Box className="login-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }} >
                 <Box className="login-form-header">
                     <img src={logo} alt="" />
                     <Box className="login-form-header-text">
                         <Typography variant="h5">
-                            Swasth Mitra
+                            Welcome to Swasth Mitra
                         </Typography>
                         <Typography variant="h6" >
                             Your Health, Our Priority
@@ -55,19 +55,10 @@ const Login = () => {
                     </Box>
                 </Box>
                 <Typography className='welcome-text'>
-                    <Typography component="span">Welcome Back, </Typography>
                     Please login to your account.
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                        fullWidth
-                        label="Phone Number"
-                        margin="normal"
-                        {...register('phone')}
-                        error={!!errors.phone}
-                        helperText={errors.phone?.message}
-                    />
-                    <Typography sx={{marginBottom:"-5px"}}>OR  </Typography>
+
                     <TextField
                         fullWidth
                         label="Email"
