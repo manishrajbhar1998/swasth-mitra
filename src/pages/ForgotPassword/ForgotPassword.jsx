@@ -34,7 +34,7 @@ const ForgotPassword = () => {
         console.log(data);
     };
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     return (
         <Box className='forgotPassword-wrapper'>
