@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import Inquery from '../pages/Inquery/Inquery'
 import LandingPage from '../pages/LandingPage/LandingPage'
+import ForgotPassword from '../pages/ForgotPassword/ForgotPassword'
 
 const RouteConfig = () => {
     return (
@@ -12,7 +13,9 @@ const RouteConfig = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgotpass" element={<ForgotPassword />} />
                 <Route path="/inquery" element={<Inquery />} />
+
 
                 <Route path="*" element={<Login />} />
 

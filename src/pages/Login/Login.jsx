@@ -94,7 +94,7 @@ const Login = () => {
                                 color="primary"
                                 sx={{ cursor: 'pointer' }}
                                 onClick={() => {
-                                    // handle forgot password logic or navigation
+                                    navigate("/forgotpass")
                                 }}
                             >
                                 Forgot Password?
