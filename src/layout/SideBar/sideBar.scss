@@ -1,0 +1,27 @@
+
+.active{
+  .MuiListItem-root .MuiTypography-root,.MuiListItemIcon-root {
+    color: red;
+  }
+
+}
+
+.dactive{
+  
+  
+  .MuiListItemButton-root{
+    background-color: #fff !important;
+    border-left: none !important;
+    
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.04) !important;
+      
+    }
+    
+  }
+  
+  .MuiListItem-root .MuiTypography-root{
+    color:rgba(71, 85, 98, 1) !important;
+  }
+}
+

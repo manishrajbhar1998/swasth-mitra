@@ -8,3 +8,22 @@ export const indianStates = [
     'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu',
     'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'
 ];
+
+
+export const DRAWER_WIDTH = 250;
+
+export const DRAWER_LIST = [
+    {
+        label: "InqueryDetails",
+        icon: "icon-icon-dashboard",
+        path: "/dashboard-page/",
+        Component: null,
+    },
+    {
+        label: "Add Members",
+        icon: "icon-icon-dashboard",
+        path: "/dashboard-page/",
+        Component: null,
+    },
+
+];

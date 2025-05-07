@@ -1,0 +1,51 @@
+@use './../../styles/variables.scss' as *;
+
+.login-form-header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // <-- centers everything horizontally
+
+    img {
+        width: 150px;
+
+        @media screen and (max-width: 891px) {
+            width: 100px;
+        }
+    }
+
+    &-text {
+        text-align: center; // <-- center-align text
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+
+        h5 {
+            font-weight: 600;
+            color: $primaryText;
+        }
+
+        h6 {
+            font-size: 16px;
+            margin-left: 0px; // <-- remove or override left margin
+        }
+    }
+}
+
+
+.welcome-text {
+    font-size: 14px;
+
+    span {
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: $primaryText;
+
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
