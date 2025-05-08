@@ -13,7 +13,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './sideBar.scss';
-import { DRAWER_WIDTH,DRAWER_LIST} from '../../constant/constant';
+import { DRAWER_WIDTH, DRAWER_LIST } from '../../constant/constant';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 
 const Drawer = styled(MuiDrawer, {
@@ -110,8 +110,8 @@ const SideBar = ({ open, setOpen }) => {
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
         {open && (
-          <Box style={{ display: 'flex', alignItems:"center" }}>
-            <img src={logo} alt="Swastha Mitra " style={{ width: '70px',height:"auto", cursor: "pointer" }} onClick={() => navigate('/dashboard-page/')} />
+          <Box style={{ display: 'flex', alignItems: "center" }}>
+            <img src={logo} alt="Swastha Mitra " style={{ width: '70px', height: "auto", cursor: "pointer" }} onClick={() => navigate('/dashboard-page/')} />
             <span>Swastha Mitra</span>
           </Box>
         )}
@@ -132,8 +132,8 @@ const SideBar = ({ open, setOpen }) => {
               key={index}
               style={({ isActive }) => ({
                 textDecoration: 'none',
-                backgroundColor: isActive ? '#FBF6E9' : '#fff',
-                color: isActive ? "#2B333B !important" : '#475562',
+                backgroundColor: isActive ? '#57a585' : '#fff',
+                color: isActive ? "#000 !important" : '#475562',
               })}
               onClick={(e) => handleLinkClick(e, list)}
               className={list.label === "Reports" ? "dactive" : ""}
@@ -142,29 +142,19 @@ const SideBar = ({ open, setOpen }) => {
                 <ListItemButton
                   sx={{ minHeight: 48, padding: "0px !important", paddingLeft: '10px !important', display: "flex", justifyContent: 'center' }}
                 >
-                  <ListItemIcon sx={{ minWidth: 35 }} className="icon-link" style={{color:list.label === "Reports"? "rgba(0, 0, 0, 0.54)" : ""}}>
-                    {typeof list.icon === "string" ? (
-                      <span className={list.icon} style={{ fontSize: "24px" }}></span>
-                    ) : (
-                      React.createElement(list.icon, { fontSize: "medium"})
-                    )}
+                  <ListItemIcon sx={{ minWidth: 35,color:"#000" }} className="icon-link"  >
+                    {React.createElement(list.icon, {fontSize: "medium"})}
                   </ListItemIcon>
 
                   <ListItemText
                     primary={list?.label}
-                    sx={{ opacity: open ? 1 : 0, color: 'inherit' }}
+                    sx={{ opacity: open ? 1 : 0, color: '#000' }}
                   />
-                  {
-                    list?.openArrow && open &&
-                    <ListItemIcon sx={{ minWidth: 35 }}>
-                       <span style={{color:"#DAA520",display:"flex",alignContent:"center"}}>{React.createElement(openSubMenu ? list.openArrow : list?.closeArrow, { fontSize: "medium", color: "#DAA520 !important" })}</span>
-                    </ListItemIcon>
-                  }
-
+                
                 </ListItemButton>
               </ListItem>
             </NavLink>
-            
+
           </div>
         ))}
       </List>

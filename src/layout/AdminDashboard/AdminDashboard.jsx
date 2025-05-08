@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
 import './adminDashboard.scss';
 import SideBar from '../SideBar/SideBar';
+import { Outlet } from 'react-router-dom';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -27,10 +28,10 @@ const   AdminDashboard = () => {
     }}>
       <DashboardHeader open={open} setOpen={setOpen} />
       <SideBar open={open} setOpen={setOpen} />/
-      {/* <Box component="main" sx={{ flexGrow: 1, padding: '12px', }} >
+      <Box component="main" sx={{ flexGrow: 1, padding: '12px', }} >
         <DrawerHeader />
         <Outlet />
-      </Box> */}
+      </Box>
     </Box>
   )
 }
