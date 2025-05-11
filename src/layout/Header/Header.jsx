@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import logo from './../../assets/images/swastha-mitra-logo2.png'
 import { Button } from '@mui/material';
+import { Link } from 'react-scroll';
 
 
 const Header = () => {
@@ -21,8 +22,8 @@ const Header = () => {
             </div>
             <div className="menu">
                 <ul>
-                    <li><NavLink to="/about-us" >About Us</NavLink></li>
-                    <li><NavLink to="/services" >Services</NavLink></li>
+                    <li><Link to="about" smooth={true} duration={500}>About Us</Link></li>
+                    <li><Link to="services" smooth={true} duration={500} >Services</Link></li>
                     <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
                     <li><NavLink to="/inquery" >Inquery</NavLink></li>
                 </ul>
@@ -54,8 +55,8 @@ const Header = () => {
                     showMobileMenu &&
                     <div className="mobile-menu">
                         <ul>
-                            <li><NavLink to="/about-us" >About Us</NavLink></li>
-                            <li><NavLink to="/services" >Services</NavLink></li>
+                            <li><Link to="about" onClick={()=>setShowMobileMenu((prev)=>!prev)} smooth={true} duration={500}>About Us</Link></li>
+                            <li><Link to="services" onClick={()=>setShowMobileMenu((prev)=>!prev)} smooth={true} duration={500} >Services</Link></li>
                             <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
                             <li><NavLink to="/inquery" >Inquery</NavLink></li>
                             <Button onClick={() => navigate('/login')} >

@@ -1,0 +1,140 @@
+@use './../../styles/variables.scss' as *;
+
+.about-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px;
+    background: rgba(230, 230, 148, 0.1);
+
+
+    .liner {
+        height: 3px;
+        width: 200px;
+        background: linear-gradient(to right, $primaryText 30%, rgba(239, 243, 180, 0.2) 70%);
+        border-radius: 10px;
+    }
+
+    .sub-title {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .header-inner-content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+
+            @media screen and (max-width: 650px) {
+                flex-direction: column;
+                gap: 20px;
+
+
+            }
+
+
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: $primaryText;
+        }
+
+
+
+        .text {
+            font-size: 14px;
+            max-width: 500px;
+            color: $gray;
+        }
+
+
+    }
+
+    .body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
+
+        @media screen and (max-width: 1000px) {
+            flex-direction: column;
+            gap: 20px;
+            font-size: 16px;
+            padding: 20px;
+
+
+        }
+
+        .img {
+            flex-basis: 40%;
+
+            img {
+                width: 100%;
+                max-width: 600px;
+            }
+
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .sec-one {
+                text-align: left;
+
+                .text {
+                    color: $gray;
+                    font-size: 14px;
+
+                }
+            }
+
+            .sec-two {
+                ul li {
+                    color: $gray;
+                    font-size: 14px;
+                }
+            }
+
+            .sec-three {
+                .sub-sec-one {
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+
+                    @media screen and (max-width: 650px) {
+                        flex-direction: column;
+                        gap: 0;
+                        align-items: flex-start;
+                    }
+
+
+                    .title {
+                        font-size: 24px;
+                        font-weight: 600;
+                        flex-basis: 40%;
+
+                    }
+
+                    .text {
+                        color: $gray;
+                        font-size: 14px;
+                        flex-basis: 50%;
+                        padding: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+@use './../../styles/variables.scss' as *;
+
+.footer-wrapper {
+    // border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    // background: linear-gradient(to right, rgba(90, 239, 120, 0.5), rgba(145, 233, 223, 0.5));
+    background: #fff;
+   
+    padding: 0 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top:1px solid $primaryText ;
+
+
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        padding: 30px 50px;
+
+        @media screen and (max-width: 650px) {
+            flex-direction: column;
+            gap: 20px;
+            font-size: 16px;
+            padding: 20px;
+
+
+        }
+
+        .column-title {
+            font-weight: 500;
+            font-size: 16px
+        }
+
+        .logo {
+
+            img {
+                width: 50px;
+                height: auto;
+            }
+
+            .logo-title {
+                color: #333;
+                font-weight: 500;
+            }
+
+        }
+
+        .contact,
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            div{
+                display: flex;
+                gap: 15px;
+            }
+
+            a {
+                text-decoration: none;
+                color: #333;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .copyright {
+        border-top: 1px solid rgb(232, 230, 230);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        font-weight: 500;
+
+        @media screen and (max-width: 650px) {
+            gap: 10px;
+            padding: 10px 0px;
+            font-size: 14px;
+
+        }
+    }
+}

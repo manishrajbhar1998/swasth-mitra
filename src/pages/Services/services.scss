@@ -1,0 +1,131 @@
+@use './../../styles/variables.scss' as *;
+
+.services-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: rgba(230, 230, 148, 0.1);
+    padding-bottom: 50px;
+    // border-top: 1px solid #000;
+
+
+    .liner {
+        height: 3px;
+        width: 200px;
+        background: linear-gradient(to right, $primaryText 30%, rgba(239, 243, 180, 0.2) 70%);
+        border-radius: 10px;
+    }
+
+
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: $primaryText;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .text {
+            font-size: 14px;
+            max-width: 500px;
+            text-align: center;
+            color: $gray;
+        }
+
+
+    }
+
+    .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        gap: 100px;
+        padding-top: 20px;
+
+        @media screen and (max-width: 650px) {
+            flex-direction: column;
+            gap: 20px;
+
+        }
+
+
+
+        .product {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px 2px lightgray;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 450px;
+
+
+            .pro-header {
+                text-align: center;
+                background: rgb(247, 236, 126);
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+                padding: 5px 0;
+
+            }
+
+            .pro-body {
+                padding: 10px;
+
+                p {
+                    margin: 5px 0;
+                }
+
+                ul li {
+                    list-style: inside;
+                    list-style-type: square;
+                }
+            }
+
+            .pro-act {
+                padding: 10px;
+
+                button {
+                    background: #fff;
+                    color: #57a585;
+                    border: 1px solid #57a585;
+                }
+            }
+        }
+
+        .gold {
+            position: relative;
+            border: 1px solid gold;
+
+            &::before {
+                content: "Gold Plan";
+                position: absolute;
+                top: -10px;
+                right: -30px;
+                background: gold;
+                padding: 0px 10px;
+                border-radius: 20px;
+
+                @media screen and (max-width: 650px) {
+                right: -10px;
+                    
+
+
+                }
+
+            }
+        }
+    }
+}

@@ -4,6 +4,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 50px;
+    background: url("./../../assets/images/login.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 
     @media screen and (max-width: 1000px) {
         justify-content: center;
@@ -21,6 +25,24 @@
 
     .content {
         padding: 20px;
-        max-width: 400px;
+        max-width: 800px;
+
+        .icon{
+            font-size: 40px;
+        }
+
+        h1{
+            font-size: 40px;
+            margin-bottom: 10px;
+
+              @media screen and (max-width: 650px) {
+                font-size: 30px;
+            }
+
+        }
+
+        p{
+            margin-top: 15px;
+        }
     }
 }

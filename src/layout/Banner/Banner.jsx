@@ -7,12 +7,16 @@ const Banner = () => {
   return (
     <div className='banner-wrapper'>
       <div className='image'>
-        <img src={banner} alt="" />
+        {/* <img src={banner} alt="" />  */}
       </div>
-        <div className="content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis eligendi soluta officia hic fuga cumque cupiditate, adipisci quis velit deleniti eum. Velit reprehenderit, ut aut explicabo ab debitis adipisci labore.</p>
-            <Button sx={{marginTop:"20px"}}>Click here</Button>
-        </div>
+      <div className="content">
+        <p className='icon'>🩺</p>
+        <h1> Swasth Mitra – Your Health Ally, Always On Call</h1>
+        <h2>Bridging the Gap Between You and Quality Healthcare</h2>
+        <p>We empower every citizen with 24x7 support in medical emergencies—connecting hospitals and people through digital solutions, whether in cities or villages. Your health is our mission.</p>
+        <p>👉 Because every life matters.</p>
+        <Button sx={{ marginTop: "20px" }}>Check Plans</Button>
+      </div>
     </div>
   )
 }
