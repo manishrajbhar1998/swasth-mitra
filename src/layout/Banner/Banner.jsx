@@ -2,6 +2,7 @@ import React from 'react';
 import './banner.scss';
 import { Button } from '@mui/material';
 import banner from './../../assets/images/hospital.png';
+import { Link } from 'react-scroll';
 
 const Banner = () => {
   return (
@@ -15,7 +16,8 @@ const Banner = () => {
         <h2>Bridging the Gap Between You and Quality Healthcare</h2>
         <p>We empower every citizen with 24x7 support in medical emergencies—connecting hospitals and people through digital solutions, whether in cities or villages. Your health is our mission.</p>
         <p>👉 Because every life matters.</p>
-        <Button sx={{ marginTop: "20px" }}>Check Plans</Button>
+        <Link to="services" smooth={true} duration={500}><Button sx={{ marginTop: "20px" }}>Check Plans</Button></Link>
+
       </div>
     </div>
   )

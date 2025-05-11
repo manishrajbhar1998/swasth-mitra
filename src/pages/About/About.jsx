@@ -30,7 +30,6 @@ const About = () => {
                     </div>
                     <div className="content">
                         <div className="sec-one">
-                            {/* <p className='liner'></p> */}
                             <h3 className='sub-title'>What We Do</h3>
                             <div>
                                 <h4>Connect Patients to Hospitals Digitally</h4>
@@ -50,7 +49,6 @@ const About = () => {
 
                         <div className="sec-three">
                             <h3 className='sub-title'>Our Impact</h3>
-
                             <div className='sub-sec-one'>
                                 <p className='title'>
                                     ✅ 300+ Medical Collaborations
