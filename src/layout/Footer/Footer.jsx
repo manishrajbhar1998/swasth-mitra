@@ -16,8 +16,16 @@ const Footer = () => {
                 </div>
                 <div className='contact'>
                     <p className='column-title'>Contact Details</p>
-                    <p>78965412365 / 78965412365</p>
+                    <p>+91 8886815815</p>
                     <p>swastha.mitra@gmail.com</p>
+                </div>
+                <div className='address'>
+                    <p className='column-title'>Address</p>
+                    <p>Swasth Mitra</p>
+                    <p>Next to paperbox company</p>
+                    <p>Mahakali caves roads</p>
+                    <p>Andheri east</p>
+                    <p>Mumbai 400093</p>
                 </div>
                 <div className='links'>
                     <p className='column-title'>Socail Links</p>
