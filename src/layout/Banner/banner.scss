@@ -13,20 +13,32 @@
     @media screen and (max-width: 1000px) {
         justify-content: center;
         flex-direction: column;
-        height: 95vh;
+        height: 100vh;
         padding: 20px;
     }
 
     .image {
-        img {
-            width: 100%;
-            max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
-            @media screen and (max-width: 1000px) {
-                max-width: 330px;
-            }
+    img {
+        width: 100%;
+        height: auto;
+        max-width: 500px; // Optional: Controls how big it gets on large screens
+        object-fit: contain;
+
+        @media screen and (max-width: 1000px) {
+            max-width: 400px;
+        }
+
+        @media screen and (max-width: 650px) {
+            max-width: 320px;
         }
     }
+}
+
 
     .content {
         padding: 20px;
@@ -34,6 +46,7 @@
 
         @media screen and (max-width: 650px) {
             padding: 10px;
+            
         }
 
         .icon {
@@ -49,7 +62,7 @@
             margin-bottom: 10px;
 
             @media screen and (max-width: 650px) {
-                font-size: 24px;
+                font-size: 20px;
             }
         }
 
@@ -58,7 +71,7 @@
             margin-bottom: 10px;
 
             @media screen and (max-width: 650px) {
-                font-size: 20px;
+                font-size: 18px;
             }
         }
 
