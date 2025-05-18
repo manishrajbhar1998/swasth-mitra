@@ -1,24 +1,11 @@
-@use './../../styles/variables.scss' as *;
+@use "./../../styles/variables.scss" as *;
 
 .about-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 50px 20px;
+    padding: 50px 50px;
     background: rgba(230, 230, 148, 0.1);
-
-
-    .liner {
-        height: 3px;
-        width: 200px;
-        background: linear-gradient(to right, $primaryText 30%, rgba(239, 243, 180, 0.2) 70%);
-        border-radius: 10px;
-    }
-
-    .sub-title {
-        font-size: 20px;
-        font-weight: 500;
-    }
-
+    gap: 20px;
 
     .header {
         display: flex;
@@ -26,21 +13,16 @@
         justify-content: center;
         align-items: center;
 
-        .header-inner-content {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 100px;
-
-            @media screen and (max-width: 650px) {
-                flex-direction: column;
-                gap: 20px;
-
-
-            }
-
-
-        }
+        .liner {
+        height: 3px;
+        width: 150px;
+        background: linear-gradient(
+            to right,
+            $primaryText 30%,
+            rgba(239, 243, 180, 0.2) 70%
+        );
+        border-radius: 10px;
+    }
 
         .title {
             font-size: 24px;
@@ -48,8 +30,26 @@
             margin-bottom: 10px;
             color: $primaryText;
         }
+    }
 
+    .body {
+        display: grid;
+        grid-template-columns: 1.2fr 2fr;
+        gap: 50px;
 
+        @media screen and (max-width: 1000px) {
+            grid-template-columns: 1fr;
+        }
+
+        .sub-title {
+            font-size: 18px;
+            font-weight: 500;
+            background-color: #57a585;
+            color: #fff;
+            width: fit-content;
+            padding: 0 10px;
+            border-radius: 20px;
+        }
 
         .text {
             font-size: 14px;
@@ -57,53 +57,35 @@
             color: $gray;
         }
 
-
-    }
-
-    .body {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 50px;
-
-        @media screen and (max-width: 1000px) {
-            flex-direction: column;
-            gap: 20px;
-            font-size: 16px;
-            padding: 20px;
-
-
-        }
-
         .img {
-            flex-basis: 40%;
-
             img {
                 width: 100%;
-                max-width: 600px;
             }
-
         }
 
         .content {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-
-            .sec-one {
-                text-align: left;
-
-                .text {
-                    color: $gray;
-                    font-size: 14px;
-
-                }
-            }
+            gap: 25px;
 
             .sec-two {
-                ul li {
-                    color: $gray;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+
+                @media screen and (max-width: 1000px) {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .sec-one {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                .text {
                     font-size: 14px;
+                    max-width: 100%;
+                    color: $gray;
                 }
             }
 
@@ -113,17 +95,14 @@
                     gap: 20px;
                     align-items: center;
 
-    
-
                     @media screen and (max-width: 650px) {
                         flex-direction: column;
                         gap: 0;
                         align-items: flex-start;
                     }
 
-
                     .title {
-                        font-size: 24px;
+                        font-size: 22px;
                         font-weight: 600;
                         flex-basis: 40%;
 
@@ -131,7 +110,6 @@
                             font-size: 18px;
                             margin-top: 10px;
                         }
-
                     }
 
                     .text {

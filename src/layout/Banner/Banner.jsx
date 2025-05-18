@@ -2,13 +2,14 @@ import React from 'react';
 import './banner.scss';
 import { Button } from '@mui/material';
 import banner from './../../assets/images/hospital.png';
+import banner1 from './../../assets/images/banner-10.jpg';
 import { Link } from 'react-scroll';
 
 const Banner = () => {
   return (
     <div className='banner-wrapper'>
       <div className='image'>
-        {/* <img src={banner} alt="" />  */}
+        <img src={banner1} alt="" /> 
       </div>
       <div className="content">
         <p className='icon'>🩺</p>

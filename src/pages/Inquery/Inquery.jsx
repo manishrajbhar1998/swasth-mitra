@@ -12,6 +12,8 @@ import {
 } from '@mui/material';
 import { indianStates } from '../../constant/constant';
 import { postInquery } from '../../apis/postInquery';
+import logo from './../../assets/images/swastha-mitra-logo2.png';
+
 
 // Schema
 const schema = yup.object().shape({
@@ -75,6 +77,17 @@ const Inquery = () => {
     return (
         <Box className="inquery-container">
             <Box className="inquery-form">
+                <Box className="inquery-form-header">
+                    <img src={logo} alt="" />
+                    <Box className="inquery-form-header-text">
+                        <Typography variant="h5">
+                            Welcome to Swasth Mitra
+                        </Typography>
+                        <Typography variant="h6" >
+                            Your Health, Our Priority
+                        </Typography>
+                    </Box>
+                </Box>
                 <Typography variant="h6">
                     Inquiry Form
                 </Typography>
@@ -122,10 +135,12 @@ const Inquery = () => {
                         />
                     </Box>
 
-                    <Box sx={{ display: 'flex', gap: '30px', flexDirection: {
+                    <Box sx={{
+                        display: 'flex', gap: '30px', flexDirection: {
                             xs: 'column',
                             sm: 'row',
-                        }, }}>
+                        },
+                    }}>
                         <Controller
                             name="mobile"
                             control={control}
@@ -175,10 +190,12 @@ const Inquery = () => {
                         />
                     </Box>
 
-                    <Box sx={{ display: 'flex', gap: '30px' , flexDirection: {
+                    <Box sx={{
+                        display: 'flex', gap: '30px', flexDirection: {
                             xs: 'column',
                             sm: 'row',
-                        },}}>
+                        },
+                    }}>
                         <Controller
                             name="city"
                             control={control}

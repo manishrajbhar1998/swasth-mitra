@@ -13,52 +13,95 @@ const Services = () => {
                     <p className='text'>Choose the right support for you and your loved ones.</p>
                 </div>
                 <div className="body">
-                    <div className='product'>
+                    {/* Individual Plan */}
+                    <div className="product">
                         <div className="pro-header">
-                            <h3>👤 Individual Plan</h3>
+                            <h3>👤 Individual Plan <span>₹299 / yearly</span></h3>
                         </div>
                         <div className="pro-body">
-                            <p>Personal health security, anytime, anywhere.</p>
-                            <p>
-                                Key Features:</p>
+                            <p>Key Features:</p>
                             <ul>
-                                <li>24x7 emergency medical support</li>
-                                <li>Direct digital connection with nearby hospitals</li>
-                                <li>Real-time guidance in case of medical emergencies</li>
-                                <li>Personalized health alerts and updates</li>
-                                <li>Easy access to health records and reports</li>
+                                <li>Instant help on mobile</li>
+                                <li>Chat help during emergencies</li>
+                                <li>Support in maintaining patient medical documents</li>
+                                <li>Guidance to avail government schemes like Ayushman Bharat</li>
+                                <li>Emergency attendant in hospital</li>
+                                <li>24x7 hospital assistance</li>
+                                <li>24x7 call and chat support</li>
+                                <li>Dedicated person available in-state hospitals</li>
+                                <li>Emergency help for patients outside the state via call/chat (24x7)</li>
+                                <li>Awareness campaigns and health tips</li>
+                                <li>Help with stay needs like government/private guest houses</li>
                             </ul>
-                            <p>💡 Perfect for students, working professionals, and senior citizens living alone.</p>
+                            <p>💡 Ideal for individuals: students, professionals, or seniors.</p>
                         </div>
-                        <div className='pro-act'>
-                            <Button fullWidth>Go for</Button>
+                        <div className="pro-act">
+                            <Button fullWidth>Choose Plan</Button>
                         </div>
-
                     </div>
-                    <div className='product gold'>
+
+                    {/* Family Plan */}
+                    <div className="product">
                         <div className="pro-header">
-                            <h3>‍👩‍👧‍👦 Family Plan</h3>
+                            <h3>👨‍👩‍👧‍👦 Family Plan <span>₹499 / yearly</span></h3>
                         </div>
                         <div className="pro-body">
-                            <p>One plan to protect your whole family.</p>
-                            <p>
-                                Key Features:</p>
+                            <p>Key Features:</p>
                             <ul>
-                                <li>24x7 emergency medical support</li>
-                                <li>Coverage for all family members under one plan</li>
-                                <li>Priority assistance in emergencies (state & out-of-state)</li>
-                                <li>Dedicated health coordinator for your family</li>
-                                <li>Home care guidance & emergency ambulance help</li>
-                                <li>Secure family health data management</li>
+                                <li>Instant help on mobile</li>
+                                <li>Chat help during emergencies</li>
+                                <li>Support in maintaining patient medical documents</li>
+                                <li>Guidance to avail government schemes like Ayushman Bharat</li>
+                                <li>Emergency attendant in hospital</li>
+                                <li>24x7 hospital assistance</li>
+                                <li>24x7 call and chat support</li>
+                                <li>Dedicated person available in-state hospitals</li>
+                                <li>Emergency help for patients outside the state via call/chat (24x7)</li>
+                                <li>Awareness campaigns and health tips</li>
+                                <li>Help with stay needs like government/private guest houses</li>
                             </ul>
-                            <p>💡 Ideal for families with kids, elders, and dependents.</p>
+                            <p>💡 Ideal for families: kids, elders, and dependents.</p>
                         </div>
-                        <div className='pro-act'>
-                            <Button fullWidth variant="text" sx={{}}>Go for</Button>
+                        <div className="pro-act">
+                            <Button fullWidth variant="text">Choose Plan</Button>
                         </div>
+                    </div>
 
+                    {/* Gold Plan */}
+                    <div className="product gold">
+                        <div className="pro-header">
+                            <h3>🌟 Gold Plan <span>₹799 / yearly</span></h3>
+                        </div>
+                        <div className="pro-body">
+                            <p>Key Features:</p>
+                            <ul>
+                                <li>Instant help on mobile</li>
+                                <li>Chat help during emergencies</li>
+                                <li>Support in maintaining patient medical documents</li>
+                                <li>Guidance to avail government schemes like Ayushman Bharat</li>
+                                <li>Emergency attendant in hospital</li>
+                                <li>24x7 hospital assistance</li>
+                                <li>24x7 call and chat support</li>
+                                <li>Dedicated person available in-state hospitals</li>
+                                <li>Emergency help for patients outside the state via call/chat (24x7)</li>
+                                <li>Awareness campaigns and health tips</li>
+                                <li>Help with stay needs like government/private guest houses</li>
+                                <li>Dedicated support person in any state hospital</li>
+                                <li>Emergency help for out-of-state patients (on-site, call, chat)</li>
+                                <li>Discount on lab tests</li>
+                                <li>Assistance with discounted generic medicines</li>
+                                <li>Highest priority 24x7 support and emergency handling</li>
+                                <li>Personalized health awareness and follow-ups</li>
+                            </ul>
+                            <p>💡 Ideal for premium users: full service and nationwide support.</p>
+                        </div>
+                        <div className="pro-act">
+                            <Button fullWidth variant="outlined">Choose Gold Plan</Button>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         </Element>
     )

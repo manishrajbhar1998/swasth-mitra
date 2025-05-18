@@ -40,6 +40,8 @@ const Login = () => {
         <Box className='login-wrapper'>
             <Box className="login-image" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} >
                 <img src={login} alt="" />
+                <img src={logo} alt="" className='logo_1' />
+                <img src={logo} alt="" className='logo_2' />
             </Box>
 
             <Box className="login-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }} >
