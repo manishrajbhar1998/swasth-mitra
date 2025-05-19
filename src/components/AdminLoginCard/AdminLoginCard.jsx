@@ -6,6 +6,9 @@ import * as Yup from 'yup';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import './adminLoginCard.scss';
+import api from '../../apis/api';
+import { LOGIN_API } from '../../constant/config';
+
 
 
 const LoginSchema = Yup.object().shape({
@@ -20,6 +23,9 @@ const LoginSchema = Yup.object().shape({
         .required('Password is required'),
 });
 
+
+
+
 const AdminLoginCard = () => {
 
     const navigate = useNavigate()
@@ -33,13 +39,21 @@ const AdminLoginCard = () => {
         resolver: yupResolver(LoginSchema),
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // eslint-disable-next-line no-debugger
-        debugger
-        navigate("/admin/dashboard")
+    const onSubmit = async (data) => {
+        const reqBody = {
+            userName: data.email,
+            password: data.password
+        };
+        try {
+            const response = await api.post(LOGIN_API, reqBody);
+            if (response?.data) {
+                // Update state only if the response is valid
+                navigate("/admin/dashboard");
+            }
+        } catch (error) {
+            console.error("invalid userid and password ", error);
+        }
     };
-
 
     return (
         <Box>

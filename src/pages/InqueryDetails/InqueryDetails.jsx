@@ -1,72 +1,61 @@
-import React, { useState } from 'react'
-import { getCustRegColumn } from '../../constant/constant'
-import { Container, Grid } from '@mui/material'
-import { MaterialReactTable } from 'material-react-table'
+import { useMemo, useRef } from 'react';
+import { MaterialReactTable } from 'material-react-table';  // Fixed Import
+// import 'material-react-table/dist/index.css';
+import * as XLSX from 'xlsx';
+import { Button } from '@mui/material';
+import { FileDownload } from '@mui/icons-material';
 
-const rowData = [
-  {
-  fName:"Akash",
-  lName:"Saroj",
-  email:"akash@gmail.com",
-  mobile:"7896541236",
-  inquery:"hell world inquery inquery inquery inquery inquery"
-},
-{
-  fName:"Akash",
-  lName:"Saroj",
-  email:"akash@gmail.com",
-  mobile:"7896541236",
-  inquery:"hell world inquery inquery inquery inquery inquery"
-}, {
-  fName:"Akash",
-  lName:"Saroj",
-  email:"akash@gmail.com",
-  mobile:"7896541236",
-  inquery:"hell world inquery inquery inquery inquery inquery"
-}, {
-  fName:"Akash",
-  lName:"Saroj",
-  email:"akash@gmail.com",
-  mobile:"7896541236",
-  inquery:"hell world inquery inquery inquery inquery inquery"
-},
-]
-const InqueryDetails = () => {
+const data = [
+  { id: 1, name: 'Gold', price: 1800, quantity: 50 },
+  { id: 2, name: 'Silver', price: 25.5, quantity: 100 },
+  { id: 3, name: 'Platinum', price: 1000, quantity: 30 },
+  { id: 4, name: 'Palladium', price: 1500, quantity: 20 }
+];
 
-  const [customerData,setCustomerData] = useState([rowData])
+export default function InqueryDetails() {
+  const tableRef = useRef(null);
+
+  const columns = useMemo(
+    () => [
+      { header: 'ID', accessorKey: 'id' },
+      { header: 'Name', accessorKey: 'name' },
+      { header: 'Price', accessorKey: 'price' },
+      { header: 'Quantity', accessorKey: 'quantity' }
+    ],
+    []
+  );
+
+  const handleExport = () => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    XLSX.writeFile(workbook, 'MaterialReactTable_Export.xlsx');
+  };
 
   return (
-    <Container sx={{ minWidth: '100%' }} className='customer-registration-wrapper'>
-      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam sit ipsum ducimus delectus rerum est, mollitia molestiae dolores dolorum, quidem eos sunt! Cupiditate molestiae aliquam ea commodi dolor laudantium debitis.</h1>
-    <Grid spacing={2} size={{ xs: 12, lg: 12 }}>
-      {/* <MaterialReactTable
-        style={{ padding: '0.5rem' }}
-        columns={getCustRegColumn()}
-        data={customerData}
-        title=""
-        options={{
-          paging: true,
-          search: false,
-          pageSizeOptions: customerData?.length <= 10 ? [5, 10] : [5, 10, 20],
-          filtering:true 
+    <div className="p-4">
+      <h2 className="text-xl font-semibold mb-2">Material React Table with Excel Export</h2>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<FileDownload />}
+        onClick={handleExport}
+        className="mb-4"
+      >
+        Export to Excel
+      </Button>
+      <MaterialReactTable
+        columns={columns}
+        data={data}
+        enableColumnOrdering
+        enableRowSelection
+        enableEditing
+        enableSorting
+        enableGlobalFilter
+        muiTableProps={{
+          ref: tableRef
         }}
-        localization={{
-          pagination: {
-            labelRowsPerPage: "",
-          },
-          body: {
-            emptyDataSourceMessage: (
-              <div className="custom-no-records-message">
-                No records found
-              </div>
-            ),
-          }
-        }}
-        
-      /> */}
-    </Grid>
-  </Container>
-  )
+      />
+    </div>
+  );
 }
-
-export default InqueryDetails
