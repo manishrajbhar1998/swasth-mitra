@@ -5,15 +5,15 @@
     align-items: center;
     padding: 50px;
     // background: url("./../../assets/images/login.jpg");
-    background-color: #cce4e9;
+    // background-color: #cce4e9;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 
     @media screen and (max-width: 1000px) {
-        justify-content: center;
+        // justify-content: center;
         flex-direction: column;
-        height: 100vh;
+        height: 89vh;
         padding: 20px;
     }
 

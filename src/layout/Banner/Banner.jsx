@@ -1,8 +1,9 @@
 import React from 'react';
 import './banner.scss';
 import { Button } from '@mui/material';
-import banner from './../../assets/images/hospital.png';
-import banner1 from './../../assets/images/banner-10.jpg';
+// import banner from './../../assets/images/hospital.png';
+// import banner1 from './../../assets/images/banner-10.jpg';
+import banner1 from './../../assets/images/care.jpg';
 import { Link } from 'react-scroll';
 
 const Banner = () => {
@@ -13,7 +14,7 @@ const Banner = () => {
       </div>
       <div className="content">
         <p className='icon'>🩺</p>
-        <h1> Swasth Mitra – Your Health Ally, Always On Call</h1>
+        <h1> Swasth Mitra – Your Health Partner, Always On Call</h1>
         <h2>Bridging the Gap Between You and Quality Healthcare</h2>
         <p>We empower every citizen with 24x7 support in medical emergencies—connecting hospitals and people through digital solutions, whether in cities or villages. Your health is our mission.</p>
         <p>👉 Because every life matters.</p>

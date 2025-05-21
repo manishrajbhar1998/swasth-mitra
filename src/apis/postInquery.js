@@ -2,9 +2,6 @@ import axios from "axios";
 
 export const postInquery = (resp) => {
 
-
-    debugger
-
     let data = JSON.stringify({
         "userName": `${resp.firstName} ${resp.lastName}`,
         "email": resp.email,
