@@ -14,7 +14,7 @@ import { indianStates } from '../../constant/constant';
 import { postInquery } from '../../apis/postInquery';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import api from '../../apis/api';
-import { POST_INQUERY_API } from '../../constant/config';
+import { POST_ENQUIRY_API } from '../../constant/config';
 
 
 // Schema
@@ -66,7 +66,6 @@ const Inquery = () => {
     });
 
     const onSubmit = async (data) => {
-        debugger
         let reqBody = {
             userName: `${data.firstName} ${data.lastName}`,
             email: data.email,
@@ -79,11 +78,10 @@ const Inquery = () => {
             pinCode: data.pincode
         };
         try {
-            const response = await api.post(POST_INQUERY_API, reqBody);
-            debugger
+            const response = await api.post(POST_ENQUIRY_API, reqBody);
             if (response?.data) {
-                // Update state only if the response is valid
-                navigate("/admin/dashboard");
+
+                navigate("/");
             }
         } catch (error) {
             console.error("invalid userid and password ", error);

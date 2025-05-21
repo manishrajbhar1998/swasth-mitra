@@ -40,6 +40,8 @@ const AdminLoginCard = () => {
     });
 
     const onSubmit = async (data) => {
+
+        console.log("data", data);
         const reqBody = {
             userName: data.email,
             password: data.password
