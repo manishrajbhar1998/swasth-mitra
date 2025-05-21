@@ -11,10 +11,10 @@
     background-position: center center;
 
     @media screen and (max-width: 1000px) {
-        // justify-content: center;
         flex-direction: column;
+        justify-content: flex-start;
         height: 89vh;
-        padding: 20px;
+        padding: 10px 16px;
     }
 
     .image {
@@ -22,6 +22,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+
+    @media screen and (max-width: 1000px) {
+       justify-content: flex-start;
+    }
+
 
     img {
         width: 100%;
