@@ -19,6 +19,12 @@
         justify-content: space-between;
         font-size: 14px;
         padding: 30px 150px;
+
+        p{
+            font-size: 14px;
+            color: $gray;
+        }
+
       
         
 
@@ -33,7 +39,9 @@
 
         .column-title {
             font-weight: 500;
-            font-size: 16px
+            font-size: 16px;
+            color: #000;
+            
         }
 
         .logo {

@@ -54,6 +54,7 @@
             width: fit-content;
             padding: 0 10px;
             border-radius: 20px;
+            margin-bottom: 5px;
         }
 
         .text {
@@ -95,6 +96,10 @@
                 flex-direction: column;
                 gap: 5px;
 
+                .sub-title{
+                    margin-bottom: 0px;
+                }
+
                 .text {
                     font-size: 14px;
                     max-width: 100%;
@@ -124,6 +129,11 @@
                             margin-top: 10px;
                         }
                     }
+
+                    .sub-title{
+                        margin-bottom: 0px;
+                    }
+
 
                     .text {
                         color: $gray;

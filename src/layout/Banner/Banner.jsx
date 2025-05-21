@@ -13,8 +13,8 @@ const Banner = () => {
         <img src={banner1} alt="" /> 
       </div>
       <div className="content">
-        <p className='icon'>🩺</p>
-        <h1> Swasth Mitra – Your Health Partner, Always On Call</h1>
+      
+        <h1> Swasth Mitra – Your Health Partner, Always On Call   <span className='icon'>🩺</span></h1>
         <h2>Bridging the Gap Between You and Quality Healthcare</h2>
         <p>We empower every citizen with 24x7 support in medical emergencies—connecting hospitals and people through digital solutions, whether in cities or villages. Your health is our mission.</p>
         <p>👉 Because every life matters.</p>
