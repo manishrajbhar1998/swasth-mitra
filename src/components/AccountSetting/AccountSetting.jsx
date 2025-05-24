@@ -6,24 +6,25 @@ import { Logout } from "@mui/icons-material";
 
 
 
-const AccountSetting= () => {
-    
+const AccountSetting = () => {
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open1 = Boolean(anchorEl);
 
-    const handleClick1 = () => {
+    const handleClick1 = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const handleLogout = async () => {}
-    
+    const handleLogout = async () => { }
+
 
     return (
-        <div className="account_id" style={{display:"flex",alignItems:"center"}}>
+        <div className="account_id" style={{ display: "flex", alignItems: "center" }}>
             <div>
                 <div>Manish Rai</div>
             </div>
@@ -36,7 +37,7 @@ const AccountSetting= () => {
                         aria-controls={open1 ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open1 ? 'true' : undefined}
-                        sx={{position:"relative"}}
+                        sx={{ position: "relative" }}
                     >
                         <ArrowDropDownIcon />
                     </IconButton>
@@ -79,18 +80,18 @@ const AccountSetting= () => {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                    sx={{position:"absolute",top:"50px !important",right:"0px"}}
                 >
                     <MenuItem onClick={handleClose}>
                         <Avatar /> Profile
                     </MenuItem>
-                    <MenuItem onClick={handleLogout} >
+                    <MenuItem onClick={handleLogout}>
                         <ListItemIcon>
                             <Logout fontSize="small" />
-                        </ListItemIcon>50px
+                        </ListItemIcon>
                         Logout
                     </MenuItem>
                 </Menu>
+
             </div>
         </div>
     )

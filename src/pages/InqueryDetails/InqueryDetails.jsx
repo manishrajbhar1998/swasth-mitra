@@ -1,29 +1,53 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect, useState } from 'react';
 import { MaterialReactTable } from 'material-react-table';  // Fixed Import
 // import 'material-react-table/dist/index.css';
 import * as XLSX from 'xlsx';
 import { Button } from '@mui/material';
 import { FileDownload } from '@mui/icons-material';
+import { GET_ENQUIRY_API } from '../../constant/config';
+import { authApi } from '../../apis/api';
 
-const data = [
-  { id: 1, name: 'Gold', price: 1800, quantity: 50 },
-  { id: 2, name: 'Silver', price: 25.5, quantity: 100 },
-  { id: 3, name: 'Platinum', price: 1000, quantity: 30 },
-  { id: 4, name: 'Palladium', price: 1500, quantity: 20 }
-];
 
 export default function InqueryDetails() {
   const tableRef = useRef(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const columns = useMemo(
     () => [
-      { header: 'ID', accessorKey: 'id' },
-      { header: 'Name', accessorKey: 'name' },
-      { header: 'Price', accessorKey: 'price' },
-      { header: 'Quantity', accessorKey: 'quantity' }
+      { header: 'User Name', accessorKey: 'userName' },
+      { header: 'Email', accessorKey: 'email' },
+      { header: 'Mobile No', accessorKey: 'mobileNo' },
+      { header: 'Address', accessorKey: 'address' },
+      { header: 'City', accessorKey: 'city' },
+      { header: 'State', accessorKey: 'state' },
+      { header: 'Country', accessorKey: 'country' },
+      { header: 'Pin Code', accessorKey: 'pinCode' }
     ],
     []
   );
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await authApi.get(GET_ENQUIRY_API); // Axios call
+        setData(response.data.data || []);
+      } catch (err) {
+        console.error('Error fetching inquiries:', err?.response?.data || err.message);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  console.log("data", data);
 
   const handleExport = () => {
     const worksheet = XLSX.utils.json_to_sheet(data);
@@ -34,7 +58,7 @@ export default function InqueryDetails() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-2">Material React Table with Excel Export</h2>
+      <h2 className="text-xl font-semibold mb-2">Enquiry Details</h2>
       <Button
         variant="contained"
         color="primary"
@@ -52,6 +76,7 @@ export default function InqueryDetails() {
         enableEditing
         enableSorting
         enableGlobalFilter
+        positionActionsColumn="last"
         muiTableProps={{
           ref: tableRef
         }}

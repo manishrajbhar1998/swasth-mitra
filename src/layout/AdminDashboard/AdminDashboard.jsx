@@ -13,27 +13,35 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const   AdminDashboard = () => {
+const AdminDashboard = () => {
   const [open, setOpen] = useState(true);
 
   return (
-    <Box sx={{
-      display: 'flex', backgroundImage: `url('/assets/login-main-page-bg.png')`,
-      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-      backgroundBlendMode: 'overlay',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      height:'100vh'
-    }}>
-      <DashboardHeader open={open} setOpen={setOpen} />
-      <SideBar open={open} setOpen={setOpen} />/
-      <Box component="main" sx={{ flexGrow: 1, padding: '12px', }} >
-        <DrawerHeader />
-        <Outlet />
+    <>
+      <Box sx={{
+        display: 'flex', backgroundImage: `url('/assets/login-main-page-bg.png')`,
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        backgroundBlendMode: 'overlay',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '100vh'
+      }}>
+        <DashboardHeader open={open} setOpen={setOpen} />
+        <SideBar open={open} setOpen={setOpen} />/
+        <Box component="main" sx={{ flexGrow: 1, padding: '12px', }} >
+          <DrawerHeader />
+          <Outlet />
+
+        </Box>
       </Box>
-    </Box>
-  )
+      <div className='footer-wrapper'>
+        <div className='copyright'>
+          <p> Copyright &copy; 2025 swasthmitra.org All Rights Reserved.</p>
+        </div>
+      </div>
+
+    </>)
 }
 
 export default AdminDashboard;

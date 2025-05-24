@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import './adminLoginCard.scss';
-import api from '../../apis/api';
+import { api } from '../../apis/api';
 import { LOGIN_API } from '../../constant/config';
+
 
 
 
@@ -49,7 +50,9 @@ const AdminLoginCard = () => {
         try {
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
+                console.log("response", response.data);
                 // Update state only if the response is valid
+                localStorage.setItem("accessToken", response.data.data.accessToken);
                 navigate("/admin/dashboard");
             }
         } catch (error) {

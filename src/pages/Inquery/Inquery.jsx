@@ -11,10 +11,10 @@ import {
     Autocomplete,
 } from '@mui/material';
 import { indianStates } from '../../constant/constant';
-import { postInquery } from '../../apis/postInquery';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
-import api from '../../apis/api';
+import { api } from '../../apis/api';
 import { POST_ENQUIRY_API } from '../../constant/config';
+import { GET_ENQUIRY_API } from '../../constant/config';
 
 
 // Schema
@@ -72,7 +72,7 @@ const Inquery = () => {
             mobileNo: data.mobile,
             address: data.address,
             city: data.city,
-            district: "",
+            district: "Palghar",
             state: data.state,
             country: "India",
             pinCode: data.pincode
