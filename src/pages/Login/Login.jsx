@@ -7,6 +7,7 @@ import login from './../../assets/images/login-register.jpg';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 
 const LoginSchema = Yup.object().shape({
@@ -38,6 +39,7 @@ const Login = () => {
 
     return (
         <Box className='login-wrapper'>
+
             <Box className="login-image" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }} >
                 <img src={login} alt="" />
                 <img src={logo} alt="" className='logo_1' />
