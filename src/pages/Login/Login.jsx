@@ -8,6 +8,8 @@ import logo from './../../assets/images/swastha-mitra-logo2.png';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { api } from '../../apis/api';
+import { LOGIN_API } from '../../constant/config';
 
 
 const LoginSchema = Yup.object().shape({
@@ -31,8 +33,23 @@ const Login = () => {
         resolver: yupResolver(LoginSchema),
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
+        const reqBody = {
+            userName: data.email,
+            password: data.password
+        };
+        try {
+            const response = await api.post(LOGIN_API, reqBody);
+            if (response?.data) {
+                console.log("response", response.data);
+                // Update state only if the response is valid
+                localStorage.setItem("accessToken", response.data.data.accessToken);
+                navigate("/admin/dashboard");
+            }
+        } catch (error) {
+            console.error("invalid userid and password ", error);
+        }
     };
 
     const navigate = useNavigate()
