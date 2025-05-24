@@ -25,7 +25,8 @@ const AdminDashboard = () => {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        height: '100vh'
+        height: '100vh',
+        overflowX: "hidden"
       }}>
         <DashboardHeader open={open} setOpen={setOpen} />
         <SideBar open={open} setOpen={setOpen} />/
@@ -35,11 +36,11 @@ const AdminDashboard = () => {
 
         </Box>
       </Box>
-      <div className='footer-wrapper'>
+      {/* <div className='footer-wrapper'>
         <div className='copyright'>
           <p> Copyright &copy; 2025 swasthmitra.org All Rights Reserved.</p>
         </div>
-      </div>
+      </div> */}
 
     </>)
 }
