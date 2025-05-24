@@ -1,17 +1,20 @@
 import { useMemo, useRef, useEffect, useState } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import * as XLSX from 'xlsx';
-import { Button, Container, Grid } from '@mui/material';
-import { FileDownload } from '@mui/icons-material';
+import { Box, Button, Container, Grid } from '@mui/material';
+import { FileDownload, PersonAddAltOutlined } from '@mui/icons-material';
 import { GET_ENQUIRY_API, GET_REGISTERED_USERS } from '../../constant/config';
 import { authApi } from '../../apis/api';
 import './manageAdmin.scss';
+import RegisterCard from '../../components/RegisterCard/RegisterCard';
 
 const ManageAdmin = () => {
 
     const tableRef = useRef(null);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showRegisterUser, setShowRegisterUser] = useState(false);
+
 
     const columns = useMemo(
         () => [
@@ -37,7 +40,6 @@ const ManageAdmin = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            debugger
             setLoading(true);
             try {
                 const response = await authApi.get(GET_REGISTERED_USERS, {
@@ -64,6 +66,10 @@ const ManageAdmin = () => {
         XLSX.writeFile(workbook, 'MaterialReactTable_Export.xlsx');
     };
 
+    const handleRegister = () => {
+        setShowRegisterUser(true);
+    }
+
     return (
         <div className='manageAdmin-wrapper'>
             <Container>
@@ -80,17 +86,35 @@ const ManageAdmin = () => {
                         ref: tableRef
                     }}
                     renderTopToolbarCustomActions={() => (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<FileDownload />}
-                            onClick={handleExport}
-                        >
-                            Export to Excel
-                        </Button>
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<FileDownload />}
+                                onClick={handleExport}
+                                sx={{ height: "35px" }}
+                            >
+                                Export to Excel
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<PersonAddAltOutlined />}
+                                onClick={handleRegister}
+                                sx={{ height: "35px" }}
+                            >
+                                Create Admin
+                            </Button>
+                        </Box>
                     )}
                 />
             </Container>
+            {
+                showRegisterUser &&
+                <Box className="registerCard-wrapper">
+                    <RegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
+                </Box>
+            }
         </div>
 
     )

@@ -52,7 +52,6 @@ const AdminLoginCard = () => {
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
                 localStorage.setItem("accessToken", response.data.data.accessToken);
-                navigate("/admin/dashboard/inquery");
                 setAdminDetails({
                     userFirst: response.data.data.firstName,
                     userLast: response.data.data.lastName,
@@ -60,7 +59,7 @@ const AdminLoginCard = () => {
                 });
                 console.log("response", response.data);
                 setTimeout(() => {
-                    navigate("/admin/dashboard");
+                    navigate("/admin/dashboard/inquery");
                 }, 1000);
             }
         } catch (error) {

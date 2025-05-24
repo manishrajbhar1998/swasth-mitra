@@ -78,6 +78,7 @@ export default function InqueryDetails() {
             startIcon={<FileDownload />}
             onClick={handleExport}
             className="mb-4"
+            sx={{ height: "35px" }}
           >
             Export to Excel
           </Button>

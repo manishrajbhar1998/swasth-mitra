@@ -56,7 +56,7 @@ const LoginSchema = Yup.object().shape({
     district: Yup.string().required('District is required')
 });
 
-const RegisterCard = ({ setShowRegisterUser }) => {
+const RegisterCard = ({ setShowRegisterUser, type }) => {
     const { loading, setLoading } = useLoading();
 
     const {
@@ -72,7 +72,6 @@ const RegisterCard = ({ setShowRegisterUser }) => {
 
     const onSubmit = async (data) => {
         console.log(data);
-        debugger
 
         console.log("data", data);
         const reqBody = {
@@ -121,7 +120,10 @@ const RegisterCard = ({ setShowRegisterUser }) => {
 
                 <Box className="header">
                     <Typography className='welcome-text'>
-                        User Registration Form
+                        {
+                            type == "admin" ? "Create Admin" : " User Registration Form"
+                        }
+
                     </Typography>
 
                     <ClearOutlinedIcon onClick={() => setShowRegisterUser(false)} />
@@ -446,7 +448,7 @@ const RegisterCard = ({ setShowRegisterUser }) => {
 
                         <Box className="btn-wrapper" sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
                             <Button fullWidth variant="contained" color="primary" type="submit" >
-                                Register User
+                                {type === "admin" ? "Create Admin" : "Register User"}
                             </Button>
 
                         </Box>

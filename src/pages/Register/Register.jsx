@@ -71,8 +71,7 @@ const Register = () => {
     console.log(errors.gender)
 
     const onSubmit = async (data) => {
-        console.log(data);
-        debugger
+
 
         console.log("data", data);
         const reqBody = {
