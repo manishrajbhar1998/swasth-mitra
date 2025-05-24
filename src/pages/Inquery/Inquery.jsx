@@ -14,7 +14,7 @@ import { indianStates } from '../../constant/constant';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { api } from '../../apis/api';
 import { POST_ENQUIRY_API } from '../../constant/config';
-import { GET_ENQUIRY_API } from '../../constant/config';
+import { useNavigate } from 'react-router-dom';
 
 
 // Schema
@@ -46,6 +46,7 @@ const schema = yup.object().shape({
 });
 
 const Inquery = () => {
+    const navigate = useNavigate();
     const {
         handleSubmit,
         control,

@@ -85,12 +85,14 @@ const Register = () => {
             "address": data.address,
             "city": data.city,
             "state": data.state,
+            "district": data.district,
             "role": "USER",
             "pinCode": data.pincode,
             "planSelection": "",
             "patientHistory": "",
             "existingDiseases": "",
             "password": data.password
+
         }
         try {
             setLoading(true)

@@ -34,7 +34,6 @@ const Login = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
         const reqBody = {
             userName: data.email,
             password: data.password
@@ -43,11 +42,12 @@ const Login = () => {
             setLoading(true)
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
-                console.log("response", response.data);
                 // Update state only if the response is valid
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 setLoading(false)
-                navigate("/admin/dashboard");
+                // navigate("/admin/dashboard");
+                alert("Login Successful");
+                navigate("/");
             }
         } catch (error) {
             setLoading(false)
