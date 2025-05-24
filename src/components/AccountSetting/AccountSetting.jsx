@@ -3,13 +3,19 @@ import React, { useState } from "react";
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Logout } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
+
 
 
 
 const AccountSetting = () => {
-
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open1 = Boolean(anchorEl);
+    const { adminDetails, setAdminDetails } = useLoadingAdminDeatils();
+
+    console.log("adminDetails", adminDetails);
 
     const handleClick1 = (event) => {
         setAnchorEl(event.currentTarget);
@@ -20,13 +26,16 @@ const AccountSetting = () => {
         setAnchorEl(null);
     };
 
-    const handleLogout = async () => { }
+    const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        navigate("/admin");
+    };
 
 
     return (
         <div className="account_id" style={{ display: "flex", alignItems: "center" }}>
             <div>
-                <div>Manish Rai</div>
+                <div>{`${adminDetails.userFirst} ${adminDetails.userLast}`}</div>
             </div>
             <div>
                 <Tooltip title="Account settings">

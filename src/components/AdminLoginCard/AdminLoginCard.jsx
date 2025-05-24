@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import React, { use } from 'react'
+import { set, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
@@ -8,6 +8,8 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import './adminLoginCard.scss';
 import { api } from '../../apis/api';
 import { LOGIN_API } from '../../constant/config';
+import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
+
 
 
 
@@ -30,7 +32,7 @@ const LoginSchema = Yup.object().shape({
 const AdminLoginCard = () => {
 
     const navigate = useNavigate()
-
+    const { adminDetails, setAdminDetails } = useLoadingAdminDeatils();
 
     const {
         register,
@@ -42,7 +44,6 @@ const AdminLoginCard = () => {
 
     const onSubmit = async (data) => {
 
-        console.log("data", data);
         const reqBody = {
             userName: data.email,
             password: data.password
@@ -50,10 +51,17 @@ const AdminLoginCard = () => {
         try {
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
-                console.log("response", response.data);
-                // Update state only if the response is valid
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 navigate("/admin/dashboard/inquery");
+                setAdminDetails({
+                    userFirst: response.data.data.firstName,
+                    userLast: response.data.data.lastName,
+                    role: response.data.data.role,
+                });
+                console.log("response", response.data);
+                setTimeout(() => {
+                    navigate("/admin/dashboard");
+                }, 1000);
             }
         } catch (error) {
             console.error("invalid userid and password ", error);
