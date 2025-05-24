@@ -53,7 +53,7 @@ const AdminLoginCard = () => {
                 console.log("response", response.data);
                 // Update state only if the response is valid
                 localStorage.setItem("accessToken", response.data.data.accessToken);
-                navigate("/admin/dashboard");
+                navigate("/admin/dashboard/inquery");
             }
         } catch (error) {
             console.error("invalid userid and password ", error);
