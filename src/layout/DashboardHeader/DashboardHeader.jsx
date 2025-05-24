@@ -58,7 +58,7 @@ const DashboardHeader = ({ open, setOpen }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'flex-start',
-                            padding:"5px 0"
+                            padding: "5px 0"
                         }}
                     >
                         <img src={logo} alt="Swastha Mitra " style={{ width: '70px', height: "auto", cursor: "pointer" }} onClick={() => navigate('/dashboard-page/')} />
@@ -82,8 +82,8 @@ const DashboardHeader = ({ open, setOpen }) => {
                         }}
                     >
                         <Box className="live_chip">
+                            <span className="text">Super Admin</span>
                             <span className="chip"></span>
-                            <span className="text">Live</span>
                         </Box>
                         {/* <IconButton color="inherit">
                             <SettingsIcon

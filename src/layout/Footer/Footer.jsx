@@ -38,8 +38,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className='copyright'>
-                <p>C 2025 All right reserved</p>
-                <p>Privacy Policy</p>
+                <p> Copyright &copy; 2025 swasthmitra.org All Rights Reserved.</p>
             </div>
         </div>
     )
