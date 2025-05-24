@@ -58,16 +58,7 @@ export default function InqueryDetails() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-2">Enquiry Details</h2>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<FileDownload />}
-        onClick={handleExport}
-        className="mb-4"
-      >
-        Export to Excel
-      </Button>
+
       <MaterialReactTable
         columns={columns}
         data={data}
@@ -80,6 +71,17 @@ export default function InqueryDetails() {
         muiTableProps={{
           ref: tableRef
         }}
+        renderTopToolbarCustomActions={() => (
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<FileDownload />}
+            onClick={handleExport}
+            className="mb-4"
+          >
+            Export to Excel
+          </Button>
+        )}
       />
     </div>
   );

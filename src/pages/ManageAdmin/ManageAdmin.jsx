@@ -1,0 +1,99 @@
+import { useMemo, useRef, useEffect, useState } from 'react';
+import { MaterialReactTable } from 'material-react-table';
+import * as XLSX from 'xlsx';
+import { Button, Container, Grid } from '@mui/material';
+import { FileDownload } from '@mui/icons-material';
+import { GET_ENQUIRY_API, GET_REGISTERED_USERS } from '../../constant/config';
+import { authApi } from '../../apis/api';
+import './manageAdmin.scss';
+
+const ManageAdmin = () => {
+
+    const tableRef = useRef(null);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const columns = useMemo(
+        () => [
+            { header: 'First Name', accessorKey: 'firstName' },
+            { header: 'Last Name', accessorKey: 'lastName' },
+            { header: 'Date of Birth', accessorKey: 'dateOfBirth' },
+            { header: 'Role', accessorKey: 'role' },
+            { header: 'Gender', accessorKey: 'gender' },
+            { header: 'Marital Status', accessorKey: 'maritalStatus' },
+            { header: 'Email', accessorKey: 'email' },
+            { header: 'Phone Number', accessorKey: 'phoneNumber' },
+            { header: 'Address', accessorKey: 'address' },
+            { header: 'Pin Code', accessorKey: 'pinCode' },
+            { header: 'Plan Selection', accessorKey: 'planSelection' },
+            { header: 'Patient History', accessorKey: 'patientHistory' },
+            { header: 'Existing Diseases', accessorKey: 'existingDiseases' },
+            { header: 'City', accessorKey: 'city' },
+            { header: 'State', accessorKey: 'state' }
+        ],
+        []
+    );
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            debugger
+            setLoading(true);
+            try {
+                const response = await authApi.get(GET_REGISTERED_USERS, {
+                    params: {
+                        role: "SUPER_ADMIN"
+                    }
+                });
+                setData(response.data.data || []);
+            } catch (err) {
+                console.error('Error fetching inquiries:', err?.response?.data || err.message);
+                setData([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleExport = () => {
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+        XLSX.writeFile(workbook, 'MaterialReactTable_Export.xlsx');
+    };
+
+    return (
+        <div className='manageAdmin-wrapper'>
+            <Container>
+                <MaterialReactTable
+                    columns={columns}
+                    data={data}
+                    enableColumnOrdering
+                    enableRowSelection
+                    enableEditing
+                    enableSorting
+                    enableGlobalFilter
+                    positionActionsColumn="last"
+                    muiTableProps={{
+                        ref: tableRef
+                    }}
+                    renderTopToolbarCustomActions={() => (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<FileDownload />}
+                            onClick={handleExport}
+                        >
+                            Export to Excel
+                        </Button>
+                    )}
+                />
+            </Container>
+        </div>
+
+    )
+}
+
+export default ManageAdmin

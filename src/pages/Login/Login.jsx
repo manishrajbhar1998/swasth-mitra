@@ -7,15 +7,13 @@ import login from './../../assets/images/login-register.jpg';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { api } from '../../apis/api';
 import { LOGIN_API } from '../../constant/config';
+import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
 const LoginSchema = Yup.object().shape({
-    phone: Yup.string()
-        .matches(/^\d{10}$/, 'Phone number must be 10 digits')
-        .required('Phone number is required'),
     email: Yup.string()
         .email('Invalid email')
         .required('Email is required'),
@@ -25,6 +23,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+    const { loading, setLoading } = useLoading();
+
     const {
         register,
         handleSubmit,
@@ -40,15 +40,20 @@ const Login = () => {
             password: data.password
         };
         try {
+            setLoading(true)
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
                 console.log("response", response.data);
                 // Update state only if the response is valid
                 localStorage.setItem("accessToken", response.data.data.accessToken);
+                setLoading(false)
                 navigate("/admin/dashboard");
             }
         } catch (error) {
+            setLoading(false)
+
             console.error("invalid userid and password ", error);
+            toast.error(error?.response?.data?.errors[0])
         }
     };
 
@@ -79,7 +84,6 @@ const Login = () => {
                     Please login to your account.
                 </Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-
                     <TextField
                         fullWidth
                         label="Email"
