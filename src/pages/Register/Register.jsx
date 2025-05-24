@@ -18,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import api from '../../apis/api';
+import { api } from '../../apis/api';
 import { POST_USER_REGISTER } from '../../constant/config';
 
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
