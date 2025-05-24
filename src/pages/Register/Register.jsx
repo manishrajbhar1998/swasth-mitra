@@ -94,15 +94,22 @@ const Register = () => {
             "password": data.password
         }
         try {
+            setLoading(true)
             const response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));
             if (response?.data) {
-
                 toast.success("Registration Successfull")
-                navigate("/login");
+                setLoading(false)
+
+                setTimeout(() => {
+                    navigate("/login");
+                }, 10)
             }
         } catch (error) {
             console.log("error", error?.response?.data?.errors[0]);
+            setLoading(false)
+
             toast.error(error?.response?.data?.errors[0])
+
         }
     };
 
@@ -112,20 +119,7 @@ const Register = () => {
 
     return (
         <>
-            <Loader />
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
+
             <Box className='register-wrapper'>
 
 
