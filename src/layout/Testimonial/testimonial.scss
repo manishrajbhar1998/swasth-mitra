@@ -1,0 +1,51 @@
+@use './../../styles/variables.scss' as *;
+.testimonial-wrapper {
+    width: 100%;
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .liner {
+            height: 3px;
+            width: 150px;
+            background: linear-gradient(
+                to right,
+                $primaryText 30%,
+                rgba(239, 243, 180, 0.2) 70%
+            );
+            border-radius: 10px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: $primaryText;
+        }
+    }
+
+    .testimonial-slider {
+        width: 90%;
+        max-width: 1200px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        .slick-slide>div {
+            margin: 0 10px;
+        }
+
+        .slick-list {
+            margin: 0 -10px;
+        }
+
+    }
+}

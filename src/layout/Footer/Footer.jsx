@@ -30,9 +30,9 @@ const Footer = () => {
                 <div className='links'>
                     <p className='column-title'>Socail Links</p>
                     <div>
-                        <a href="#" ><XIcon /></a>
-                        <a href="#"><FacebookIcon /></a>
-                        <a href="#"><YouTubeIcon /></a>
+                        <a href="#" ><XIcon color='' /></a>
+                        <a href="#"><FacebookIcon  style={{color:'#0879e6'}} /></a>
+                        <a href="#"><YouTubeIcon style={{color:'#f70000'}}/></a>
                     </div>
 
                 </div>

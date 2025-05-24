@@ -10,26 +10,7 @@ const About = () => {
             <div className='about-wrapper'>
                 <div className='header'>
                     <p className='liner'></p>
-                    <h3 className='title'>ABOUT US</h3>
-                    {/* <div className='header-inner-content'> */}
-                        {/* <div>
-                            <h4 className='sub-title'>Who We Are</h4>
-                            <p className='text'>Swasth Mitra is committed to supporting the nation's healthcare system by acting as a reliable backbone during medical challenges. In today’s fast-paced world, many individuals face health issues due to a lack of awareness, delayed treatments, overcrowded hospitals, and limited resources like funds and timely medical support.</p>
-                        </div> */}
-                        {/* <div>
-                            <h4 className='sub-title'>Our Mission</h4>
-                            <p className='text'>Our mission is to ensure every citizen in India has access to timely and reliable healthcare support. Whether you're in a metro city or a remote village, our platform bridges the gap between people and hospitals using modern digital technologies. We are available 24x7 to assist during medical emergencies — whether it's a minor health issue or a life-threatening situation.</p>
-                        </div>
-                        <div>
-                            <h4 className='sub-title'>We Believe In</h4>
-                            <ul className='text'>
-                                <li>Building a digitally connected healthcare ecosystem</li>
-                                <li>Prioritizing life-saving response during emergencies</li>
-                                <li>Offering continuous support and guidance for healthier living</li>
-
-                            </ul>
-                        </div> */}
-                    {/* </div> */}
+                    <h3 className='title'>ABOUT US</h3> 
                 </div>
 
                 <div className='body'>
