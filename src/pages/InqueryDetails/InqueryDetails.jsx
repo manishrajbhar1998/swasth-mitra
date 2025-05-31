@@ -2,16 +2,17 @@ import { useMemo, useRef, useEffect, useState } from 'react';
 import { MaterialReactTable } from 'material-react-table';  // Fixed Import
 // import 'material-react-table/dist/index.css';
 import * as XLSX from 'xlsx';
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { FileDownload } from '@mui/icons-material';
 import { GET_ENQUIRY_API } from '../../constant/config';
 import { authApi } from '../../apis/api';
 
 
+
 export default function InqueryDetails() {
   const tableRef = useRef(null);
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const columns = useMemo(
     () => [
@@ -22,7 +23,8 @@ export default function InqueryDetails() {
       { header: 'City', accessorKey: 'city' },
       { header: 'State', accessorKey: 'state' },
       { header: 'Country', accessorKey: 'country' },
-      { header: 'Pin Code', accessorKey: 'pinCode' }
+      { header: 'Pin Code', accessorKey: 'pinCode' },
+      { header: 'Status', accessorKey: 'status' }
     ],
     []
   );
@@ -32,9 +34,12 @@ export default function InqueryDetails() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('accessToken');
         const response = await authApi.get(GET_ENQUIRY_API); // Axios call
-        setData(response.data.data || []);
+        const enrichedData = (response.data.data || []).map(item => ({
+          ...item,
+          status: 'New',
+        }));
+        setData(enrichedData);
       } catch (err) {
         console.error('Error fetching inquiries:', err?.response?.data || err.message);
         setData([]);
@@ -47,8 +52,6 @@ export default function InqueryDetails() {
   }, []);
 
 
-  console.log("data", data);
-
   const handleExport = () => {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
@@ -58,32 +61,68 @@ export default function InqueryDetails() {
 
   return (
     <div className="p-4">
+      <Container maxWidth="lg">
+        {/* <MaterialReactTable
+          columns={columns}
+          data={data}
+          enableColumnOrdering
+          enableRowSelection
+          enableEditing
+          enableSorting
+          enableGlobalFilter
+          positionActionsColumn="last"
+          muiTableProps={{
+            ref: tableRef
+          }}
+          renderTopToolbarCustomActions={() => (
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<FileDownload />}
+              onClick={handleExport}
+              className="mb-4"
+              sx={{ height: "35px" }}
+            >
+              Export to Excel
+            </Button>
+          )}
+        /> */}
+        <MaterialReactTable
+          columns={columns}
+          data={data}
+          enableColumnOrdering
+          enableRowSelection
+          enableEditing
+          enableSorting
+          enableGlobalFilter
+          positionActionsColumn="last"
+          muiTableProps={{
+            ref: tableRef,
+          }}
+          renderTopToolbarCustomActions={() => (
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<FileDownload />}
+              onClick={handleExport}
+              className="mb-4"
+              sx={{ height: "35px" }}
+            >
+              Export to Excel
+            </Button>
+          )}
+          editingMode="modal" // important: enables modal editing
+          onEditingRowSave={({ values, row }) => {
+            // update the row in state
+            setData(prevData =>
+              prevData.map((item, index) =>
+                index === row.index ? { ...item, ...values } : item
+              )
+            );
+          }}
+        />
 
-      <MaterialReactTable
-        columns={columns}
-        data={data}
-        enableColumnOrdering
-        enableRowSelection
-        enableEditing
-        enableSorting
-        enableGlobalFilter
-        positionActionsColumn="last"
-        muiTableProps={{
-          ref: tableRef
-        }}
-        renderTopToolbarCustomActions={() => (
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<FileDownload />}
-            onClick={handleExport}
-            className="mb-4"
-            sx={{ height: "35px" }}
-          >
-            Export to Excel
-          </Button>
-        )}
-      />
+      </Container>
     </div>
   );
 }

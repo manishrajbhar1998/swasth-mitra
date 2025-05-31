@@ -15,6 +15,8 @@ import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { api } from '../../apis/api';
 import { POST_ENQUIRY_API } from '../../constant/config';
 import { useNavigate } from 'react-router-dom';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
 // Schema
@@ -47,6 +49,7 @@ const schema = yup.object().shape({
 
 const Inquery = () => {
     const navigate = useNavigate();
+    const { loading, setLoading } = useLoading();
     const {
         handleSubmit,
         control,
@@ -79,10 +82,12 @@ const Inquery = () => {
             pinCode: data.pincode
         };
         try {
+            setLoading(true);
             const response = await api.post(POST_ENQUIRY_API, reqBody);
             if (response?.data) {
-
+                toast.success("Thank you for your inquiry, we will get back to you soon!")
                 navigate("/");
+                setLoading(false);
             }
         } catch (error) {
             console.error("invalid userid and password ", error);

@@ -21,18 +21,15 @@ const Footer = () => {
                 </div>
                 <div className='address'>
                     <p className='column-title'>Address</p>
-                    <p>Swasth Mitra</p>
-                    <p>Next to paperbox company</p>
-                    <p>Mahakali caves roads</p>
-                    <p>Andheri east</p>
-                    <p>Mumbai 400093</p>
+                    <p>Swasth Mitra Next to paperbox company,</p>
+                    <p>Mahakali caves roads, Andheri east, Mumbai-400093.</p>
                 </div>
                 <div className='links'>
                     <p className='column-title'>Socail Links</p>
                     <div>
                         <a href="#" ><XIcon color='' /></a>
-                        <a href="#"><FacebookIcon  style={{color:'#0879e6'}} /></a>
-                        <a href="#"><YouTubeIcon style={{color:'#f70000'}}/></a>
+                        <a href="#"><FacebookIcon style={{ color: '#0879e6' }} /></a>
+                        <a href="#"><YouTubeIcon style={{ color: '#f70000' }} /></a>
                     </div>
 
                 </div>
