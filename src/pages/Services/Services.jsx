@@ -2,8 +2,21 @@ import React from 'react';
 import './services.scss';
 import { Button } from '@mui/material';
 import { Element } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 
-const Services = () => {
+const Services = ({ type }) => {
+
+    const navigate = useNavigate();
+
+    const handlePlan = (plan, amount) => {
+        if (type == "registed") {
+
+            navigate("/purchase", { state: { plan, amount } })
+        } else {
+            navigate("/register")
+        }
+    }
+
     return (
         <Element name="services">
             <div className='services-wrapper'>
@@ -36,7 +49,7 @@ const Services = () => {
                             <p>💡 Ideal for individuals: students, professionals, or seniors.</p>
                         </div>
                         <div className="pro-act">
-                            <Button fullWidth>Choose Plan</Button>
+                            <Button fullWidth onClick={() => handlePlan("Individual Plan", "299")}>Purchase Plan</Button>
                         </div>
                     </div>
 
@@ -63,7 +76,7 @@ const Services = () => {
                             <p>💡 Ideal for families: kids, elders, and dependents.</p>
                         </div>
                         <div className="pro-act">
-                            <Button fullWidth variant="text">Choose Plan</Button>
+                            <Button fullWidth variant="text" onClick={() => handlePlan("Family Plan ", 499)}>Purchase Plan</Button>
                         </div>
                     </div>
 
@@ -96,7 +109,7 @@ const Services = () => {
                             <p>💡 Ideal for premium users: full service and nationwide support.</p>
                         </div>
                         <div className="pro-act">
-                            <Button fullWidth variant="outlined">Choose Gold Plan</Button>
+                            <Button fullWidth variant="outlined" onClick={() => handlePlan("Gold Plan", 799)}>Purchase Plan</Button>
                         </div>
                     </div>
                 </div>

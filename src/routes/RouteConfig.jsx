@@ -9,6 +9,7 @@ import AdminDashboard from '../layout/AdminDashboard/AdminDashboard'
 import ForgetPassword from '../pages/ForgetPassword/ForgetPassword'
 import { DRAWER_LIST } from '../constant/constant'
 import CustomerDashboard from '../layout/CustomerDashboard/CustomerDashboard'
+import PurchasePlan from '../pages/PurchasePlan/PurchasePlan'
 
 const RouteConfig = () => {
     return (
@@ -17,6 +18,7 @@ const RouteConfig = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/purchase" element={<PurchasePlan />} />
                 <Route path="/forgetpass" element={<ForgetPassword />} />
                 <Route path="/inquery" element={<Inquery />} />
                 <Route path="/dashboard" element={<CustomerDashboard />} />

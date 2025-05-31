@@ -10,13 +10,13 @@ import FAQ from '../../layout/Faq/Faq'
 const LandingPage = () => {
   return (
     <div>
-        <Header/>
-        <Banner/>
-        <Testimonial/>
-        <About/>
-        <Services/>
-        <FAQ/>
-        <Footer/>
+      <Header />
+      <Banner />
+      <Testimonial />
+      <About />
+      <Services />
+      <FAQ />
+      <Footer />
     </div>
   )
 }
