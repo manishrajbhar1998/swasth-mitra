@@ -41,7 +41,7 @@
             text-align: center;
 
             img {
-                width: 130px;
+                width: 100px;
 
                 @media screen and (max-width: 891px) {
                     width: 100px;
@@ -88,13 +88,6 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 20px;
-
-                .datepicker {
-                    // border: 1px solid;
-                    width: 100%;
-                    // margin: 11px 0 5px 0;
-                    // height: 20px;
-                }
             }
 
             .MuiFormControl-root,
@@ -105,11 +98,31 @@
             .btn-wrapper {
                 // border: 1px solid;
                 width: 100%;
+                margin-top: -6px;
 
                 @media screen and (max-width: 891px) {
                     margin-top: 16px;
                 }
             }
+
+            .login-link {
+                font-size: 14px;
+
+                span {
+                    color: $primaryText;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    @media screen and (max-width: 350px) {
+                        display: block;
+                    }
+                }
+            }
         }
     }
+}
+
+.MuiPickersOutlinedInput,
+.MuiPickersInputBase {
+    height: 45px !important;
 }

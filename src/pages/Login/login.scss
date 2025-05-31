@@ -122,6 +122,20 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+
+            .register-link {
+                font-size: 14px;
+
+                span {
+                    color: $primaryText;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    @media screen and (max-width: 350px) {
+                        display: block;
+                    }
+                }
+            }
         }
     }
 }

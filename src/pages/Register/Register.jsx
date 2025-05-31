@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import './register.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,7 +23,7 @@ import { POST_USER_REGISTER } from '../../constant/config';
 
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import Loader from '../../components/Loader/Loader';
-import { indianStates } from '../../constant/constant';
+import { district, indianStates } from '../../constant/constant';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const CustomRadio = styled(Radio)({
@@ -58,6 +58,7 @@ const LoginSchema = Yup.object().shape({
 const Register = () => {
 
     const { loading, setLoading } = useLoading();
+    const [districtOption, setDistrictOption] = useState([]);
 
     const {
         register,
@@ -72,7 +73,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
 
-
+        debugger
         console.log("data", data);
         const reqBody = {
             "firstName": data?.firstName,
@@ -251,16 +252,28 @@ const Register = () => {
 
                                                     />
                                                 )}
+
                                                 slotProps={{
                                                     textField: {
                                                         InputProps: {
                                                             sx: {
                                                                 '& .MuiPickersInputBase-sectionsContainer': {
-                                                                    // padding: '11px',
+                                                                    padding: '11.5px 0',
 
-                                                                }
+                                                                },
+
+
                                                             }
-                                                        }
+                                                        },
+                                                        sx: {
+                                                            '& .MuiInputLabel-root': {
+                                                                fontSize: '12px !important',
+                                                            },
+                                                            '& .MuiPickersSectionList-sectionContent': {
+                                                                fontSize: '12px !important',
+
+                                                            }
+                                                        },
                                                     }
                                                 }}
                                             />
@@ -292,8 +305,6 @@ const Register = () => {
                                     sm: 'row',
                                 },
                             }}>
-
-
                                 <Controller
                                     name="state"
                                     control={control}
@@ -301,7 +312,11 @@ const Register = () => {
                                         <Autocomplete
                                             options={indianStates}
                                             value={field.value || null}
-                                            onChange={(_, data) => field.onChange(data)}
+                                            onChange={(_, data) => {
+
+                                                setDistrictOption(district[data].districts)
+                                                field.onChange(data)
+                                            }}
                                             renderInput={(params) => (
                                                 <TextField
                                                     {...params}
@@ -319,24 +334,24 @@ const Register = () => {
                                     name="district"
                                     control={control}
                                     render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            label="District"
-                                            error={!!errors.district}
-                                            helperText={errors.district?.message}
+                                        <Autocomplete
+                                            options={districtOption}
+                                            value={field.value || null}
+                                            onChange={(_, data) => field.onChange(data)}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label="Select Dsitrict"
+                                                    error={!!errors.state}
+                                                    helperText={errors.state?.message}
+                                                />
+                                            )}
                                             fullWidth
-                                            onChange={(e) => {
-                                                const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                                field.onChange(onlyLetters);
-                                            }}
-                                            inputProps={{ maxLength: 6 }}
                                         />
                                     )}
                                 />
 
-
                             </Box>
-
                             <Box sx={{
                                 display: 'flex', gap: '20px', flexDirection: {
                                     xs: 'column',
@@ -462,13 +477,14 @@ const Register = () => {
                                 </Box>
                             </Box>
 
-                            <Box className="btn-wrapper" sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+                            <Box className="btn-wrapper" sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                                 <Button fullWidth variant="contained" color="primary" type="submit" >
                                     Sign up
                                 </Button>
-                                <Button fullWidth variant="contained" color="primary" onClick={() => navigate("/login")}>
-                                    Login
-                                </Button>
+                                <p className='login-link'>
+                                    Already have an account?{' '}
+                                    <span onClick={() => navigate("/login")}> Click here to login</span>.
+                                </p>
                             </Box>
                         </form>
                     </LocalizationProvider>

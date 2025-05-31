@@ -9,6 +9,7 @@ import { authApi } from '../../apis/api';
 import './registeredUser.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
 
+
 const RegisteredUser = () => {
 
     const tableRef = useRef(null);
@@ -71,8 +72,9 @@ const RegisteredUser = () => {
     }
 
     return (
-        <div className='registeredUser-wrapper'>
-            <Container>
+
+        <Container sx={{ minWidth: '100%' }} className='registeredUser-wrapper'>
+            <Grid spacing={2} size={{ xs: 12, lg: 12 }}>
                 <MaterialReactTable
                     columns={columns}
                     data={data}
@@ -108,14 +110,14 @@ const RegisteredUser = () => {
                         </Box>
                     )}
                 />
-            </Container>
+            </Grid>
             {
                 showRegisterUser &&
                 <Box className="registerCard-wrapper">
                     <RegisterCard setShowRegisterUser={setShowRegisterUser} />
                 </Box>
             }
-        </div>
+        </Container>
 
     )
 }

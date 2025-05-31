@@ -42,12 +42,9 @@ const Login = () => {
             setLoading(true)
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
-                // Update state only if the response is valid
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 setLoading(false)
-                // navigate("/admin/dashboard");
-                alert("Login Successful");
-                navigate("/");
+                navigate("/dashboard");
             }
         } catch (error) {
             setLoading(false)
@@ -118,17 +115,18 @@ const Login = () => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Button fullWidth variant="contained" color="primary" type="submit">
                             Login
                         </Button>
-                        <Button fullWidth variant="contained" color="primary" onClick={() => navigate("/register")}>
-                            Sign up
-                        </Button>
+                        <p className='register-link'>
+                            Don't have an account?{' '}
+                            <span onClick={() => navigate("/register")}> Click here to register</span>.
+                        </p>
                     </Box>
                 </form>
-            </Box>
-        </Box>
+            </Box >
+        </Box >
     );
 };
 

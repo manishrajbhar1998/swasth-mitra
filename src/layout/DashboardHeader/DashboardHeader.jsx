@@ -10,6 +10,7 @@ import AccountSetting from '../../components/AccountSetting/AccountSetting';
 import { DRAWER_WIDTH } from '../../constant/constant';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { useLoadingAdminDeatils } from '../../context/AdminContext/AdminContext';
+import './dashboardHeader.scss';
 
 const AppBar = styled(MuiAppBar, {
 
@@ -40,7 +41,9 @@ const DashboardHeader = ({ open, setOpen }) => {
 
     return (
 
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open}
+
+        >
             <Toolbar>
                 <IconButton
                     color="inherit"
@@ -89,15 +92,7 @@ const DashboardHeader = ({ open, setOpen }) => {
                             <span className="text">{adminDetails?.role === "SUPER_ADMIN" && "Super Admin"}</span>
                             <span className="chip"></span>
                         </Box>
-                        {/* <IconButton color="inherit">
-                            <SettingsIcon
-                                sx={{
-                                    fill: 'none',
-                                    stroke: 'currentColor',
-                                    strokeWidth: 1.5,
-                                }}
-                            />
-                        </IconButton> */}
+
                     </Box>
                     <AccountSetting />
                 </Box>
