@@ -1,13 +1,27 @@
 @use "./../../styles/variables.scss" as *;
 
 .purchase-plan-wrapper {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    padding: 20px 50px;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
     align-items: center;
+    justify-content: center;
     background-color: #f9f9f9;
-    // height: 100vh;
+    height: 100vh;
 
-    @media screen and (max-width: 891px) {
+    @media screen and (max-width: 900px) {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .left-side {
+        img {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
         background-color: transparent;
         align-items: flex-start;
     }
@@ -33,84 +47,6 @@
             position: absolute;
             top: 31%;
             left: 42.5%;
-        }
-    }
-
-    .purchase-plan-form {
-        padding: 20px;
-        height: auto;
-
-        @media screen and (max-width: 891px) {
-            background-color: #fff;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        // .purchase-plan-form-header {
-        //     margin-bottom: 20px;
-        //     display: flex;
-        //     flex-direction: column;
-        //     align-items: center;
-
-        //     img {
-        //         width: 150px;
-
-        //         @media screen and (max-width: 891px) {
-        //             width: 100px;
-        //         }
-        //     }
-
-        //     &-text {
-        //         text-align: center; // <-- center-align text
-        //         font-size: 20px;
-        //         font-weight: 600;
-        //         margin-bottom: 10px;
-
-        //         h5 {
-        //             font-weight: 600;
-        //             color: $primaryText;
-        //         }
-
-        //         h6 {
-        //             font-size: 16px;
-        //             margin-left: 0px; // <-- remove or override left margin
-        //         }
-        //     }
-        // }
-
-        .back {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            font-size: 14px;
-            gap: 5px;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            .dob {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
-            .register-link {
-                font-size: 14px;
-
-                span {
-                    color: $primaryText;
-                    text-decoration: underline;
-                    cursor: pointer;
-
-                    @media screen and (max-width: 350px) {
-                        display: block;
-                    }
-                }
-            }
         }
     }
 }

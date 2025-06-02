@@ -1,0 +1,56 @@
+@use "./../../styles/variables.scss" as *;
+
+.medical-detail {
+    padding: 20px;
+    height: auto;
+    background-color: #fff;
+
+    @media screen and (max-width: 891px) {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    .back {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 14px;
+        gap: 5px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .dob {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .register-link {
+            font-size: 14px;
+
+            span {
+                color: $primaryText;
+                text-decoration: underline;
+                cursor: pointer;
+
+                @media screen and (max-width: 350px) {
+                    display: block;
+                }
+            }
+        }
+
+        .disease-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            @media screen and (max-width: 900px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}

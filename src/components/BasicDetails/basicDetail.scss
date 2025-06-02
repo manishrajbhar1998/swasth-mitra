@@ -1,0 +1,37 @@
+.basicDetail-wrapper {
+    padding: 20px;
+    height: auto;
+    background-color: #fff;
+
+    @media screen and (max-width: 891px) {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 600;
+        background: gold;
+        padding: 10px 5px;
+        // border-radius: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+
+        .form-group {
+            // border: 1px solid;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 24px;
+
+            @media screen and (max-width: 800px) {
+                gap: 1px;
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}
