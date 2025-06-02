@@ -4,7 +4,10 @@
     margin: 25px 50px;
     border-radius: 10px;
     display: flex;
-    gap: 50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; // ✅ Cards ko center mein align karta hai
+    gap: 40px 50px;
 
     @media screen and (max-width: 650px) {
         flex-direction: column;
