@@ -1,4 +1,13 @@
 .customer-dob {
+    width: 100% !important;
+    display: block !important;
     margin-top: 8px !important;
-    width: 100%;
+
+    .MuiFormControl-root {
+        width: 100% !important;
+    }
+
+    input {
+        width: 100% !important;
+    }
 }

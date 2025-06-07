@@ -1,0 +1,26 @@
+@use "./../../styles/variables.scss" as *;
+
+.purchase-policyplan-wrapper {
+    max-width: 800px;
+    margin: 10px auto;
+
+    .header {
+        background-color: orange;
+        padding: 20px;
+    }
+
+    form {
+        .form-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+    }
+}
+
+.MuiFormControl-root {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+}

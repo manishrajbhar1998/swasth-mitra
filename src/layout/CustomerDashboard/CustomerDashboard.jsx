@@ -9,7 +9,7 @@ import Services from '../../pages/Services/Services';
 
 const CustomerDashboard = () => {
   const [open, setOpen] = useState(true);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <>

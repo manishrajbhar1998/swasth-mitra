@@ -18,11 +18,14 @@ const CustomerDatePicker = ({ control, name, label, error }) => {
                         value={field.value}
                         onChange={(date) => field.onChange(date)}
                         className="customer-dob"
+                        fullWidth
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 fullWidth
                                 name={name}
+
+
                             />
                         )}
                         slotProps={{
@@ -37,6 +40,7 @@ const CustomerDatePicker = ({ control, name, label, error }) => {
                                 sx: {
                                     '& .MuiInputLabel-root': {
                                         fontSize: '12px !important',
+
                                     },
                                     '& .MuiPickersSectionList-sectionContent': {
                                         fontSize: '12px !important',
