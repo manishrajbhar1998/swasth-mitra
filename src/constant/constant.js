@@ -6,6 +6,8 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import RegisteredUser from "../pages/RegisteredUser/RegisteredUser";
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import ManageAdmin from "../pages/ManageAdmin/ManageAdmin";
+import * as Yup from 'yup';
+
 
 export const indianStates = [
     "Andhra Pradesh",
@@ -982,6 +984,55 @@ export const DRAWER_LIST = [
 export const getCustRegColumn = () => {
 
 };
+
+export const getPersonSchema = () =>
+    Yup.object().shape({
+        name: Yup.string(),
+        dob: Yup.date()
+            .nullable()
+            .when('name', {
+                is: (nameVal) => !!nameVal && nameVal.trim().length > 0,
+                then: (schema) => schema.required('DOB is required'),
+                otherwise: (schema) => schema.notRequired(),
+            }),
+        mobile: Yup.string()
+            .nullable()
+            .notRequired()
+            .matches(/^[6-9]\d{9}$/, {
+                message: 'Enter a valid mobile number',
+                excludeEmptyString: true
+            }),
+        avatar: Yup.array()
+            .of(
+                Yup.mixed().test('fileType', 'Unsupported File Format', (value) => {
+                    if (!value) return true;
+                    return ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type);
+                })
+            ),
+        pastDisease: Yup.string().required('Please select an option'),
+
+        pastDiseaseInput: Yup.string().when('pastDisease', {
+            is: 'yes',
+            then: (schema) => schema.required('Please provide details of the past disease'),
+            otherwise: (schema) => schema.notRequired(),
+        }),
+        presentDisease: Yup.string().required('Please select an option'),
+        existingDiseases: Yup.array()
+            .of(Yup.string())
+            .when('presentDisease', {
+                is: 'yes',
+                then: (schema) => schema.min(1, 'Please select at least one existing disease'),
+                otherwise: (schema) => schema.notRequired(),
+            }),
+        presentDiseaseOther: Yup.string().when('existingDiseases', {
+            is: (val) => val && val.includes('Others'),
+            then: (schema) => schema.required('Please specify other disease'),
+            otherwise: (schema) => schema.notRequired(),
+        }),
+
+    });
+
+
 
 
 
