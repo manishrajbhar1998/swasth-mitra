@@ -5,7 +5,7 @@ import Footer from '../../layout/Footer/Footer'
 import About from '../About/About'
 import Services from '../Services/Services'
 import Testimonial from '../../layout/Testimonial/Testimonial'
-import FAQ from '../../layout/Faq/Faq'
+// import FAQ from '../../layout/Faq/Faq'
 
 const LandingPage = () => {
   return (
@@ -15,7 +15,7 @@ const LandingPage = () => {
       <Testimonial />
       <About />
       <Services />
-      <FAQ />
+      {/* <FAQ /> */}
       <Footer />
     </div>
   )
