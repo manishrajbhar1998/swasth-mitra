@@ -24,6 +24,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import MyDropzone from '../../components/MyDropZone/MyDropZone';
 import { getPersonSchema } from '../../constant/constant';
 import { useLocation } from 'react-router-dom';
+import PastDiseaseQuestionary from '../../components/PastDiseaseQuestionary/PastDiseaseQuestionary';
 
 // const generateChildFields = (count = 0) => {
 //     const fields = {};
@@ -176,7 +177,7 @@ const PurchasePolicyPlan = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             {
                                 plan === "Individual Plan" ?
-                                    <Box>
+                                    <Box className>
                                         <Box className="form-group-2">
                                             <PastDiseaseQuestionary
                                                 register={register}
@@ -461,47 +462,47 @@ const PurchasePolicyPlan = () => {
 export default PurchasePolicyPlan;
 
 
-const PastDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
-    const pastDisease = watch(`${namePrefix}.pastDisease`);
+// const PastDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
+//     const pastDisease = watch(`${namePrefix}.pastDisease`);
 
-    console.log("errors :: ", errors);
+//     console.log("errors :: ", errors);
 
-    return (
-        <Box>
-            <FormControl >
-                <FormLabel>
-                    Does {namePrefix} have any past disease?
-                </FormLabel>
-                <Controller
-                    name={`${namePrefix}.pastDisease`}
-                    control={control}
-                    render={({ field }) => (
-                        <RadioGroup row {...field}>
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                            <FormControlLabel value="no" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    )}
-                />
-                {errors?.[namePrefix]?.pastDisease && (
-                    <Typography color="error" fontSize="0.8rem">
-                        {errors?.[namePrefix]?.pastDisease?.message}
-                    </Typography>
-                )}
-            </FormControl>
+//     return (
+//         <Box>
+//             <FormControl >
+//                 <FormLabel>
+//                     Does {namePrefix} have any past disease?
+//                 </FormLabel>
+//                 <Controller
+//                     name={`${namePrefix}.pastDisease`}
+//                     control={control}
+//                     render={({ field }) => (
+//                         <RadioGroup row {...field}>
+//                             <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+//                             <FormControlLabel value="no" control={<Radio />} label="No" />
+//                         </RadioGroup>
+//                     )}
+//                 />
+//                 {errors?.[namePrefix]?.pastDisease && (
+//                     <Typography color="error" fontSize="0.8rem">
+//                         {errors?.[namePrefix]?.pastDisease?.message}
+//                     </Typography>
+//                 )}
+//             </FormControl>
 
-            {pastDisease === 'yes' && (
-                <TextField
-                    fullWidth
-                    label={`Please provide details of past disease`}
-                    margin="normal"
-                    {...register(`${namePrefix}.pastDiseaseInput`)}
-                    error={!!errors?.[namePrefix]?.pastDiseaseInput}
-                    helperText={errors?.[namePrefix]?.pastDiseaseInput?.message}
-                />
-            )}
-        </Box>
-    );
-};
+//             {pastDisease === 'yes' && (
+//                 <TextField
+//                     fullWidth
+//                     label={`Please provide details of past disease`}
+//                     margin="normal"
+//                     {...register(`${namePrefix}.pastDiseaseInput`)}
+//                     error={!!errors?.[namePrefix]?.pastDiseaseInput}
+//                     helperText={errors?.[namePrefix]?.pastDiseaseInput?.message}
+//                 />
+//             )}
+//         </Box>
+//     );
+// };
 
 
 const PresentDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
@@ -532,7 +533,7 @@ const PresentDiseaseQuestionary = ({ register, errors, watch, control, namePrefi
                     name={`${namePrefix}.presentDisease`}
                     control={control}
                     render={({ field }) => (
-                        <RadioGroup row {...field}>
+                        <RadioGroup row {...field} value={field.value ?? ''}>
                             <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                             <FormControlLabel value="no" control={<Radio />} label="No" />
                         </RadioGroup>

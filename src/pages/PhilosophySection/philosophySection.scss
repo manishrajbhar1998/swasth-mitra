@@ -1,0 +1,26 @@
+.content-text {
+    background-color: #fff !important;
+    padding: 15px 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.philisophy-text {
+    right: 90px;
+
+    @media screen and (max-width: 650px) {
+        right: 0;
+    }
+}
+
+.swiper-pagination-bullet {
+    width: 14px;
+    height: 14px;
+    background-color: #193440;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #225450;
+}

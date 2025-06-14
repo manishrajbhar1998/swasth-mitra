@@ -1,72 +1,67 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import './header.scss';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import logo from './../../assets/images/swastha-mitra-logo2.png'
-import { Button } from '@mui/material';
-import { Link } from 'react-scroll';
-
+import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import logo from '../../assets/images/swastha-mitra-logo2.png';
 
 const Header = () => {
+    const toggleMobileNav = () => {
+        document.body.classList.toggle('mobile-nav-active');
+    };
 
-    const [showMobileMenu, setShowMobileMenu] = useState(false)
-    const navigate = useNavigate()
+    const toggleDropdown = (e) => {
+        // Prevent default link click
+        e.preventDefault();
 
+        // Toggle dropdown-active on the clicked parent <li>
+        const parentLi = e.currentTarget.parentElement;
+        parentLi.classList.toggle('dropdown-active');
+    };
 
+    useEffect(() => {
+        const toggleBtn = document.querySelector('.mobile-nav-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleMobileNav);
+        }
+        return () => {
+            if (toggleBtn) {
+                toggleBtn.removeEventListener('click', toggleMobileNav);
+            }
+        };
+    }, []);
 
     return (
-        <div className='header-wrapper'>
-            <div className="logo">
-                <img src={logo} alt="Swastha Mitra Logo" />
-            </div>
-            <div className="menu">
-                <ul>
-                    <li><Link to="about" smooth={true} duration={500}>About Us</Link></li>
-                    <li><Link to="services" smooth={true} duration={500} >Services</Link></li>
-                    <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                    <li><NavLink to="/inquery" >Inquery</NavLink></li>
-                </ul>
-            </div>
-            <div className="login-btn">
-                {
+        <header className="header d-flex align-items-center fixed-top" id="header">
+            <div className="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+                <NavLink to="/" className="logo d-flex align-items-center">
+                    <img src={logo} alt="Logo" />
+                </NavLink>
 
-                    <Button sx={{
-                        display: {
-                            xs: 'none',
-                            sm: 'none',
-                            md: 'inline-flex',
-                        },
-                    }} onClick={() => navigate('/login')}>
-                        Login/Register
-                    </Button>
-                }
+                <nav id="navmenu" className="navmenu">
+                    <ul>
+                        <li><a href="#hero" className="active">Home</a></li>
 
-                <div className='show-menu'>
-                    {
-                        showMobileMenu ?
-                            <CloseIcon onClick={() => setShowMobileMenu(prev => !prev)} />
-                            :
-                            <MenuIcon onClick={() => setShowMobileMenu(prev => !prev)} />
-                    }
+                        {/* Dropdown */}
+                        <li className="dropdown">
+                            <a href="#" onClick={toggleDropdown}>
+                                <span>About Us</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul>
+                                <li><NavLink to="/company">Our Company</NavLink></li>
+                                <li><NavLink to="/approach">Our Approach</NavLink></li>
+                                <li><NavLink to="/impact">Our Health Impact</NavLink></li>
+                            </ul>
+                        </li>
 
-                </div>
-                {
-                    showMobileMenu &&
-                    <div className="mobile-menu">
-                        <ul>
-                            <li><Link to="about" onClick={()=>setShowMobileMenu((prev)=>!prev)} smooth={true} duration={500}>About Us</Link></li>
-                            <li><Link to="services" onClick={()=>setShowMobileMenu((prev)=>!prev)} smooth={true} duration={500} >Services</Link></li>
-                            <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                            <li><NavLink to="/inquery" >Inquery</NavLink></li>
-                            <Button onClick={() => navigate('/login')} >
-                                Login/Register
-                            </Button>
-                        </ul>
-                    </div>
-                }
+                        <li><a href="#services">Plans & Pricing</a></li>
+                        <li><a href="#portfolio">Blogs</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><NavLink to="/login">Login</NavLink></li>
+                    </ul>
+
+                    {/* Mobile nav toggle icon */}
+                    <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
             </div>
-        </div>
+        </header>
     );
 };
 

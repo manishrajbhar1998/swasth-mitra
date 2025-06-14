@@ -2,100 +2,67 @@ import React from 'react';
 import './about.scss';
 import banner from './../../assets/images/hospital.png';
 import { Element } from 'react-scroll';
+import aboutImage from '../../assets/img/about.png';
 
 
 const About = () => {
     return (
         <Element name="about">
-            <div className='about-wrapper'>
-                <div className='header'>
-                    <p className='liner'></p>
-                    <h3 className='title'>ABOUT US</h3> 
+            <section id="about" className="about section bg-color">
+                <div className="container">
+                    <h1 className="mb-4 display-2 fw-bold heading-text">
+                        Bridging the Gap Between You and Quality Healthcare
+                    </h1>
+                    <div className="row gy-4 align-items-center about-content">
+                        <div
+                            className="col-lg-5 position-relative"
+                            data-aos="fade-up"
+                            data-aos-delay="200"
+                        >
+                            <img src={aboutImage} className="img-fluid" alt="About Us" />
+                            {/* 
+            <a
+              href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+              className="glightbox pulsating-play-btn"
+            ></a> 
+            */}
+                        </div>
+
+                        <div
+                            className="col-lg-4 content ps-lg-4"
+                            data-aos="fade-up"
+                            data-aos-delay="100"
+                        >
+                            <p className="fw-light fs-5">
+                                We empower every citizen with 24x7 support during medical
+                                emergencies — seamlessly connecting hospitals and individuals
+                                through digital solutions, whether in cities or remote villages.
+                                Your health is our mission.
+                            </p>
+                            <a
+                                href="/company"
+                                className="btn-get-started"
+                                style={{ backgroundColor: '#ffc643', color: '#193440' }}
+                            >
+                                Learn More
+                            </a>
+
+                            {/* Future content blocks (optional):
+            <ul>
+              <li>
+                <i className="bi bi-diagram-3"></i>
+                <div>
+                  <h5>Ullamco laboris nisi ut aliquip consequat</h5>
+                  <p>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</p>
                 </div>
-
-                <div className='body'>
-
-                    <div className='img-content'>
-                        <div className='img-content__con'>
-                            <h4 className='sub-title'>Who We Are</h4>
-                            <p className='text'>Swasth Mitra is committed to supporting the nation's healthcare system by acting as a reliable backbone during medical challenges. In today’s fast-paced world, many individuals face health issues due to a lack of awareness, delayed treatments, overcrowded hospitals, and limited resources like funds and timely medical support.</p>
-                        </div>
-                        <div className="img">
-                            <img src={banner} alt="about company" />
-                        </div>
-                    </div>
-
-                    <div className="content">
-                        <div className='sec-two'>
-                            <div>
-                                <h4 className='sub-title'>Our Mission</h4>
-                                <p className='text'>Our mission is to ensure every citizen in India has access to timely and reliable healthcare support. Whether you're in a metro city or a remote village, our platform bridges the gap between people and hospitals using modern digital technologies. We are available 24x7 to assist during medical emergencies — whether it's a minor health issue or a life-threatening situation.</p>
-                            </div>
-                            <div>
-                                <h4 className='sub-title'>We Believe In</h4>
-                                <ul className='text'>
-                                    <li>Building a digitally connected healthcare ecosystem</li>
-                                    <li>Prioritizing life-saving response during emergencies</li>
-                                    <li>Offering continuous support and guidance for healthier living</li>
-                                    {/* <li>Bridging the gap between urban and rural healthcare access</li> */}
-                                    {/* <li>Empowering citizens with health knowledge and awareness</li> */}
-                                    <li>Ensuring timely access to medical services through technology</li>
-                                    <li>Collaborating with trusted medical professionals and hospitals</li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="sec-one">
-                            <h3 className='sub-title'>What We Do</h3>
-                            <div>
-                                <h4>Connect Patients to Hospitals Digitally</h4>
-                                <p className='text'>Using our platform, users can access healthcare services, book appointments, and seek emergency support without standing in long queues.</p>
-                            </div>
-                            <div>
-                                <h4>Real-Time Emergency Support</h4>
-                                <p className='text'>Our dedicated team responds promptly during emergencies — locally or even across state boundaries — ensuring health conditions are addressed immediately.</p>
-                            </div>
-                            <div>
-                                <h4>Health Awareness & Guidance</h4>
-                                <p className='text'>We educate individuals on preventive care, early symptoms, and health checkups to reduce complications due to delayed treatment.
-
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div className="sec-three">
-                            <h3 className='sub-title'>Our Impact</h3>
-                            <div className='sub-sec-one'>
-                                <p className='title'>
-                                    ✅ 300+ Medical Collaborations
-                                </p>
-                                <p className='text'>Partnered with trusted hospitals, clinics, and health professionals nationwide.</p>
-                            </div>
-                            <hr />
-                            <div className='sub-sec-one'>
-                                <p className='title'>
-                                    ✅ 5000K+ Users Supported
-                                </p>
-                                <p className='text'>Reaching millions of citizens with timely healthcare services and support.
-                                </p>
-                            </div>
-                            <hr />
-
-                            <div className='sub-sec-one'>
-                                <p className='title'>
-                                    ✅ Across Cities & Countryside
-                                </p>
-                                <p className='text'>Empowering both urban and rural populations with equal access to medical assistance.
-
-
-                                </p>
-                            </div>
+              </li>
+              ...
+            </ul>
+            */}
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </Element>
     )
 }

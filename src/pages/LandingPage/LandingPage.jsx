@@ -6,15 +6,19 @@ import About from '../About/About'
 import Services from '../Services/Services'
 import Testimonial from '../../layout/Testimonial/Testimonial'
 import FAQ from '../../layout/Faq/Faq'
+import TabSection from '../../layout/TabSection/TabSection'
+import PhilosophySection from '../PhilosophySection/PhilosophySection'
 
 const LandingPage = () => {
   return (
     <div>
       <Header />
       <Banner />
-      <Testimonial />
       <About />
+      <TabSection />
       <Services />
+      <PhilosophySection />
+      <Testimonial />
       <FAQ />
       <Footer />
     </div>
