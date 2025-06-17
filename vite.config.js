@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/swasth-mitra",
   server: {
-    port: 3000
+    port: 3000,
+    allowedHosts: ['www.swasthmitra.in']
   }
 })
