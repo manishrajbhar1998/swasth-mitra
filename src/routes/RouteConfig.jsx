@@ -14,7 +14,7 @@ import PurchasePolicyPlan from '../pages/PurchasePolicyPlan/PurchasePolicyPlan'
 
 const RouteConfig = () => {
     return (
-        <BrowserRouter basename="/swasth-mitra">
+        <BrowserRouter >
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
