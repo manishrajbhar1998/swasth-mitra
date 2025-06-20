@@ -16,7 +16,7 @@ export const postInquery = (resp) => {
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://198.38.85.112/swasthyamitra/api/enquiry/submit',
+        url: 'https://www.swasthmitra.in/swasthyamitra/api/enquiry/submit',
         headers: {
             'Content-Type': 'application/json'
         },
