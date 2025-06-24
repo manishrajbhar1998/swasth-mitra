@@ -42,7 +42,7 @@ const Header = () => {
                         {/* Dropdown */}
                         <li className="dropdown">
                             <a href="#" onClick={toggleDropdown}>
-                                <span>About Us</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
+                                <span>Company Overview</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
                             </a>
                             <ul>
                                 <li><NavLink to="/company">Our Company</NavLink></li>

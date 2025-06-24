@@ -293,7 +293,7 @@ h6 {
 }
 
 .header .logo img {
-    max-height: 70px;
+    max-height: 60px;
     margin-right: 8px;
 }
 
@@ -870,7 +870,7 @@ section,
 .section {
     color: var(--default-color);
     background-color: var(--background-color);
-    padding: 60px 0;
+    // padding: 60px 0;
     scroll-margin-top: 85px;
     overflow: clip;
 }
@@ -922,7 +922,8 @@ section,
 --------------------------------------------------------------*/
 .hero {
     padding: 0;
-    // margin-top: 90px;
+    margin-top: 0px;
+    margin-top: 90px;
 }
 
 .hero .carousel {
@@ -955,44 +956,55 @@ section,
 .hero .carousel-item img {
 }
 
-.hero .carousel-item:before {
-    content: "";
-    /* background: color-mix(in srgb, var(--background-color), transparent 30%); */
-    background: #193440;
+/* .hero .carousel-item:before {
+    content: ""; */
+/* background: color-mix(in srgb, var(--background-color), transparent 30%); */
+/* background: #193440;
     position: absolute;
     inset: 0;
     z-index: 2;
     width: 50%;
-}
+  } */
 
-.hero .carousel-item::before {
-    content: "";
-    /* background-color: color-mix(in srgb, var(--background-color), transparent 30%); */
-    background: #193440;
+/* .hero .carousel-item::before {
+    content: ""; */
+/* background-color: color-mix(in srgb, var(--background-color), transparent 30%); */
+/* background: #193440;
     position: absolute;
     inset: 0;
-}
+  } */
 
 .hero .carousel-container {
     position: absolute;
-    inset: 90px 64px 64px 150px;
+    inset: 90px 64px 64px 0px;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
     z-index: 3;
-    width: 50%;
+    width: 40%;
+    // border: 1px solid red;
+
+    @media (max-width: 1024px) {
+        width: 95%;
+        background: #193440;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+    }
 }
 
 .hero h2 {
-    margin-bottom: 30px;
-    font-size: 80px;
-    font-weight: 400;
+    margin-bottom: 5px;
+    font-size: 50px;
+    font-weight: 100;
     animation: fadeInDown 1s both;
 }
 .hero p {
     font-size: 20px;
-    color: var(--nav-hover-color);
+    /* color: var(--nav-hover-color); */
+    color: #fff;
     margin-bottom: 30px;
     word-spacing: 3px;
     letter-spacing: 1px;
@@ -1011,11 +1023,45 @@ section,
 @media (min-width: 1024px) {
     .hero h2,
     .hero p {
-        max-width: 60%;
+        max-width: 75%;
     }
 }
 
 .btn-get-started {
+    color: #193440;
+    background: #ffffff;
+    font-family: var(--heading-font);
+    font-size: 17px;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px 0px 5px;
+    border-radius: 30px;
+    transition: 0.4s;
+    margin: 10px;
+    /* font-weight: 700; */
+    animation: fadeInDown 1s both;
+    border: 2px solid rgba(139, 139, 139, 0.349);
+    /* left: -90px;
+      position: relative; */
+}
+
+.btn-get-started:hover {
+    background-color: #ffc643; /* Bootstrap blue */
+    color: #000;
+}
+
+.btn-get-started i {
+    font-size: 35px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.btn-get-started:hover i {
+    transform: translateX(5px);
+}
+
+/* .btn-get-started {
     color: #193440;
     background: #f8f4ed;
     font-family: var(--heading-font);
@@ -1030,11 +1076,21 @@ section,
     animation: fadeInUp 1s both 0.4s;
     text-transform: uppercase;
     font-weight: 700;
-}
-
-.btn-get-started:hover {
+  }
+  
+  .btn-get-started:hover {
     background: color-mix(in srgb, #f8f4ed, transparent 20%);
     color: var(--accent-color);
+  } */
+
+.logo-img-in-slider {
+    display: inline-block;
+    width: 220px;
+    height: 225px;
+    background-image: url("assets/img/real-logo.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .hero .carousel-control-prev,
@@ -1105,6 +1161,11 @@ section,
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
+.about {
+    padding: 20px 0;
+    .section {
+    }
+}
 .about .content h3 {
     font-size: 2rem;
     font-weight: 700;

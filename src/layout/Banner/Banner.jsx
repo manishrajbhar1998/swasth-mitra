@@ -5,9 +5,9 @@ import { Button } from '@mui/material';
 // import banner1 from './../../assets/images/banner-10.jpg';
 import banner1 from './../../assets/images/care.jpg';
 import { Link } from 'react-scroll';
-import slide1 from '../../assets/img/hero-carousel/2.jpg';
-import slide2 from '../../assets/img/hero-carousel/1.jpg';
-import slide3 from '../../assets/img/hero-carousel/3.jpg';
+import slide1 from '../../assets/img/hero-carousel/carousel-1.png';
+import slide2 from '../../assets/img/hero-carousel/carousel-2.png';
+import slide3 from '../../assets/img/hero-carousel/carousel-3.png';
 
 const Banner = () => {
   return (
@@ -21,26 +21,44 @@ const Banner = () => {
       >
         <div className="carousel-item active">
           <img src={slide1} className="d-block w-100" alt="Slide 1" />
-          <div class="carousel-container">
-            <h2>SWASTH MITRA<br /></h2>
+          <div class="carousel-container text-center">
+            <div class="text-center mb-3">
+              <span class="logo-img-in-slider"></span>
+            </div>
+            <h2 class="text-center">Swasth Mitra</h2>
             <p>Your health partner, just a call away</p>
-            <a href="company.php" class="btn-get-started">Learn More</a>
+
+            <a href="company.php" class="btn-get-started">
+              <i class="bi bi-arrow-right-circle me-2"></i> Learn More
+            </a>
+
           </div>
         </div>
         <div className="carousel-item">
           <img src={slide2} className="d-block w-100" alt="Slide 2" />
           <div class="carousel-container">
-            <h2>YOUR TRUSTED HEALTH ALY</h2>
+
+            <div class="text-center mb-3">
+              <span class="logo-img-in-slider"></span>
+            </div>
+            <h2 class="text-center">Your Trusted Health Aly</h2>
             <p>Wherever You Are, Whenever You Need</p>
-            <a href="company.php" class="btn-get-started">Learn More</a>
+            <a href="company.php" class="btn-get-started"><i class="bi bi-arrow-right-circle me-2"></i> Learn More</a>
           </div>
         </div>
         <div className="carousel-item">
           <img src={slide3} className="d-block w-100" alt="Slide 3" />
           <div class="carousel-container">
-            <h2>FROM ADVICE TO RECOVERY</h2>
+
+
+            <div class="text-center mb-3">
+              <span class="logo-img-in-slider"></span>
+            </div>
+            <h2 class="text-center">From Advice To Recovery</h2>
             <p>Swasth Mitra is always With You</p>
-            <a href="company.php" class="btn-get-started">Learn More</a>
+            <a href="company.php" class="btn-get-started">
+              <i class="bi bi-arrow-right-circle me-2"></i> Learn More
+            </a>
           </div>
         </div>
       </div>
