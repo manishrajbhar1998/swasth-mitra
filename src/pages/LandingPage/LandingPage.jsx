@@ -8,6 +8,7 @@ import Testimonial from '../../layout/Testimonial/Testimonial'
 import FAQ from '../../layout/Faq/Faq'
 import TabSection from '../../layout/TabSection/TabSection'
 import PhilosophySection from '../PhilosophySection/PhilosophySection'
+import Statistics from '../../layout/Statistics/Statistics'
 
 const LandingPage = () => {
   return (
@@ -16,9 +17,10 @@ const LandingPage = () => {
       <Banner />
       <About />
       <TabSection />
+      <Testimonial />
+      <Statistics />
       <Services />
       <PhilosophySection />
-      <Testimonial />
       <FAQ />
       <Footer />
     </div>

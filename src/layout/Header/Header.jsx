@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/images/swastha-mitra-logo2.png';
+import './header.scss';
 
 const Header = () => {
     const toggleMobileNav = () => {
