@@ -38,7 +38,8 @@ const Header = () => {
 
                 <nav id="navmenu" className="navmenu">
                     <ul>
-                        <li><a href="#hero" className="active">Home</a></li>
+                        {/* <li><a href="#hero" className="active">Home</a></li> */}
+                        <li><NavLink to="/" className="active">Home</NavLink></li>
 
                         {/* Dropdown */}
                         <li className="dropdown">
@@ -46,14 +47,14 @@ const Header = () => {
                                 <span>Company Overview</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
                             </a>
                             <ul>
-                                <li><NavLink to="/company">Our Company</NavLink></li>
-                                <li><NavLink to="/approach">Our Approach</NavLink></li>
-                                <li><NavLink to="/impact">Our Health Impact</NavLink></li>
+                                <li><NavLink to="/ourcompany">Our Company</NavLink></li>
+                                <li><NavLink to="/ourapproach">Our Approach</NavLink></li>
+                                <li><NavLink to="/healthimpact">Our Health Impact</NavLink></li>
                             </ul>
                         </li>
 
                         <li><a href="#services">Plans & Pricing</a></li>
-                        <li><a href="#portfolio">Blogs</a></li>
+                        <li><a href="#team">Blogs</a></li>
                         <li><a href="#contact">Contact Us</a></li>
                         <li><NavLink to="/login">Login</NavLink></li>
                     </ul>

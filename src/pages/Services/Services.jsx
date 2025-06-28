@@ -145,7 +145,9 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
                         {/* Close Button at Bottom */}
                         <button
                             className="accordion-toggle mt-3"
-                            style={{ display: "block", width: "100%" }}
+                            style={{
+                                display: "flex", width: "100%", alignItems: "center"
+                            }}
                             onClick={() => onToggle(null)}
                         >
                             <span className="icon">

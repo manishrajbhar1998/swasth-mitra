@@ -1,0 +1,33 @@
+.portfolio.section {
+    padding-top: 60px;
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        span {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        p {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+
+    .about-content {
+        h3 {
+            font-weight: 600;
+            color: #193440;
+        }
+
+        p {
+            color: #333;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+    }
+}

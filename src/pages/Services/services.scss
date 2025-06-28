@@ -86,10 +86,19 @@
 
 .individual_plan {
     background-color: #fff !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
 }
 .family_plan {
     background-color: #ffee8c !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
 }
 .gold_plan {
     background-color: #d3af37 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
 }

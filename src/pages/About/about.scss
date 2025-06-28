@@ -1,5 +1,9 @@
 @use "./../../styles/variables.scss" as *;
 
+#about {
+    padding: 50px 0 !important;
+}
+
 .about-wrapper {
     display: flex;
     flex-direction: column;
@@ -79,11 +83,10 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 50px;
 
-                ul{
-
+                ul {
                     @media screen and (max-width: 650px) {
-                    padding-left: 20px;
-                }
+                        padding-left: 20px;
+                    }
                 }
 
                 @media screen and (max-width: 1000px) {
@@ -96,7 +99,7 @@
                 flex-direction: column;
                 gap: 5px;
 
-                .sub-title{
+                .sub-title {
                     margin-bottom: 0px;
                 }
 
@@ -130,10 +133,9 @@
                         }
                     }
 
-                    .sub-title{
+                    .sub-title {
                         margin-bottom: 0px;
                     }
-
 
                     .text {
                         color: $gray;

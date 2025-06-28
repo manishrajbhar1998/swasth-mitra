@@ -15,7 +15,8 @@
         flex-direction: column;
         overflow: hidden;
         border: 1.5px solid #00a67e;
-        font-family: 'Segoe UI', sans-serif;
+        font-family: "Segoe UI", sans-serif;
+        align-items: center !important;
 
         .card-header {
             background-color: #00a67e;
@@ -99,7 +100,6 @@
             color: #777;
 
             .contact-info {
-
                 .phone,
                 .email,
                 .address {

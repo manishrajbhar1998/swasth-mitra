@@ -1,0 +1,27 @@
+.about-content {
+    .img-fluid {
+        border-radius: 10px;
+    }
+}
+
+.bg-blue-gradient {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+}
+
+.bg-green-gradient {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+
+.bg-yellow-gradient {
+    background: linear-gradient(135deg, #fff8e1, #ffecb3);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}

@@ -11,6 +11,10 @@ import { DRAWER_LIST } from '../constant/constant'
 import CustomerDashboard from '../layout/CustomerDashboard/CustomerDashboard'
 import PurchasePlan from '../pages/PurchasePlan/PurchasePlan'
 import PurchasePolicyPlan from '../pages/PurchasePolicyPlan/PurchasePolicyPlan'
+import OurCompany from '../pages/OurCompany/OurCompany'
+import OurApproach from '../pages/OurApproach/OurApproach'
+import HealthImpact from '../pages/HealthImpact/HealthImpact'
+import BlogDetails from '../pages/BlogDetails/BlogDetails'
 
 const RouteConfig = () => {
     return (
@@ -22,6 +26,11 @@ const RouteConfig = () => {
                 <Route path="/purchase" element={<PurchasePolicyPlan />} />
                 <Route path="/forgetpass" element={<ForgetPassword />} />
                 <Route path="/inquery" element={<Inquery />} />
+                <Route path="/ourcompany" element={<OurCompany />} />
+                <Route path="/ourapproach" element={<OurApproach />} />
+                <Route path="/healthimpact" element={<HealthImpact />} />
+                <Route path="/blogDetails" element={<BlogDetails />} />
+
                 <Route path="/dashboard" element={<CustomerDashboard />} />
                 <Route path="*" element={<Login />} />
                 <Route path="/admin/">

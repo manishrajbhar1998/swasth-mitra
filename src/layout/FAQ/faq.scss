@@ -1,34 +1,55 @@
-@use './../../styles/variables.scss' as *;
+#faq-wrapper {
+    border: 1px solid #000;
+    padding: 50px 0;
+}
 
-.faq-wrapper {
-    padding: 20px 50px;
+.faq-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+}
 
-    .header {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+.faq-subheading {
+    font-size: 1rem;
+    color: #ccc;
+}
 
-        .liner {
-            height: 3px;
-            width: 150px;
-            background: linear-gradient(to right,
-                    $primaryText 30%,
-                    rgba(239, 243, 180, 0.2) 70%);
-            border-radius: 10px;
-        }
+.accordion-item {
+    background-color: #ffca2c !important;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
 
-        .title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: $primaryText;
-        }
-    }
+.accordion-button {
+    background-color: #ffca2c !important;
+    color: #193440;
+    font-weight: lighter;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 25px !important;
+}
 
-    .faq-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+.accordion-button:not(.collapsed) {
+    background-color: #ffca2c;
+    color: #193440;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3Csvg width='46' height='41' viewBox='0 0 46 41' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.31151 5.16703L20.7915 24.537C21.2668 24.9953 21.9013 25.2514 22.5615 25.2514C23.2217 25.2514 23.8562 24.9953 24.3315 24.537L44.4115 5.04703C46.7315 2.80703 43.1915 -0.732969 40.8815 1.51703L20.7915 20.997H24.3315L4.8415 1.62703C2.5615 -0.642969 -0.978494 2.88703 1.31151 5.16703Z' fill='%230C5247'/%3E%3Cpath d='M1.35838 20.28L20.8384 39.6601C21.3137 40.1183 21.9482 40.3744 22.6084 40.3744C23.2686 40.3744 23.9031 40.1183 24.3784 39.6601C31.045 33.1601 37.7384 26.6634 44.4584 20.17C46.7684 17.92 43.2284 14.39 40.9184 16.63L20.8384 36.1201H24.3784L4.88838 16.7501C2.60838 14.4801 -0.931619 18.01 1.35838 20.28Z' fill='%230C5247'/%3E%3C/svg%3E");
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3Csvg width='46' height='41' viewBox='0 0 46 41' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.31151 5.16703L20.7915 24.537C21.2668 24.9953 21.9013 25.2514 22.5615 25.2514C23.2217 25.2514 23.8562 24.9953 24.3315 24.537L44.4115 5.04703C46.7315 2.80703 43.1915 -0.732969 40.8815 1.51703L20.7915 20.997H24.3315L4.8415 1.62703C2.5615 -0.642969 -0.978494 2.88703 1.31151 5.16703Z' fill='%230C5247'/%3E%3Cpath d='M1.358 DZ20.28L20.8384 39.6601C21.3137 40.1183 21.9482 40.3744 22.6084 40.3744C23.2686 40.3744 23.9031 40.1183 24.3784 39.6601C31.045 33.1601 37.7384 26.6634 44.4584 20.17C46.7684 17.92 43.2284 14.39 40.9184 16.63L20.8384 36.1201H24.3784L4.88838 16.7501C2.60838 14.4801 -0.931619 18.01 1.35838 20.28Z' fill='%230C5247'/%3E%3C/svg%3E");
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+    transform: rotate(180deg);
 }

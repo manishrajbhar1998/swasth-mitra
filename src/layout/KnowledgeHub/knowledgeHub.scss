@@ -1,0 +1,92 @@
+.team-section {
+    background-color: #f1f0d5;
+
+    .section-title {
+        line-height: 1;
+
+        .description-title {
+            color: #0a5247;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .description-subtitle {
+            color: #0a5247;
+            font-size: 1.2rem;
+        }
+    }
+
+    .knowledge-card {
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        position: relative;
+        height: 550px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        color: #fff;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.7),
+                rgba(0, 0, 0, 0)
+            );
+        }
+
+        .badge-top {
+            color: #fff;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            z-index: 2;
+            position: relative;
+        }
+
+        .content-bottom {
+            padding-top: 80px;
+            position: relative;
+            z-index: 2;
+
+            h5 {
+                font-size: 16px;
+                margin-bottom: 15px;
+                font-weight: 500;
+                color: #fff;
+            }
+
+            .read-more-btn {
+                display: inline-block;
+                padding: 8px 20px;
+                border: 1px solid #fff;
+                color: #fff;
+                border-radius: 30px;
+                text-decoration: none;
+                font-size: 14px;
+                transition: 0.3s ease;
+
+                &:hover {
+                    background: #fff;
+                    color: #000;
+                }
+            }
+        }
+    }
+}
