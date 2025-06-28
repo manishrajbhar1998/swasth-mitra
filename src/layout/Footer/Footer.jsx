@@ -12,10 +12,10 @@ const images = {
     fbLogo,
     ytLogo,
 };
-import pdf1 from '../../assets/policies/Terms_and_Conditions_SM.pdf';
-import pdf2 from '../../assets/policies/Cancellation_and_Refund_SM.pdf';
+import pdf2 from '../../assets/policies/Terms_and_Conditions_SM.pdf';
+import pdf1 from '../../assets/policies/Cancellation_and_Refund_SM.pdf';
 import pdf3 from '../../assets/policies/Shipping_and_Delivery_SM.pdf';
-import pdf4 from '../../assets/policies/Shipping_and_Delivery_SM.pdf';
+import pdf4 from '../../assets/policies/Privacy_Policy_SM.pdf';
 
 
 
@@ -29,7 +29,7 @@ const Footer = () => {
             <div className="container-fluid p-0">
                 <div className="row align-items-center g-0 footer-wrapper">
                     <div
-                        className="col-12 col-md-6 mb-4 mb-md-0 footer-bg"
+                        className="col-12 col-md-6 mb-md-0 footer-bg"
                     ></div>
 
                     <div className="col-12 col-md-6">
@@ -73,7 +73,7 @@ const Footer = () => {
                                             rel="noopener noreferrer"
 
                                         >
-                                            Cancellation & Returns
+                                            Cancellations and Refunds
                                         </a>
                                     </p>
 
@@ -84,7 +84,7 @@ const Footer = () => {
                                             rel="noopener noreferrer"
 
                                         >
-                                            Terms Of Use
+                                            Terms and Conditions
                                         </a>
                                     </p>
 
@@ -95,7 +95,7 @@ const Footer = () => {
                                             rel="noopener noreferrer"
 
                                         >
-                                            Security
+                                            Security Policy
                                         </a>
                                     </p>
 
@@ -106,7 +106,7 @@ const Footer = () => {
                                             rel="noopener noreferrer"
 
                                         >
-                                            Privacy
+                                            Privacy Policy
                                         </a>
                                     </p>
                                 </div>

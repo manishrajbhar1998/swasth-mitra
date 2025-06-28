@@ -25,6 +25,8 @@ import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import Loader from '../../components/Loader/Loader';
 import { district, indianStates } from '../../constant/constant';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import Header from '../../layout/Header/Header';
+import Footer from '../../layout/Footer/Footer';
 
 const CustomRadio = styled(Radio)({
     padding: '4px',
@@ -121,14 +123,8 @@ const Register = () => {
 
     return (
         <>
-
+            <Header />
             <Box className='register-wrapper'>
-
-
-                <Box className="register-image" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-                    <img src={registerImg} alt="" />
-                </Box>
-
                 <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
                     <Box className="register-form-header">
                         <img src={logo} alt="" />
@@ -490,6 +486,7 @@ const Register = () => {
                     </LocalizationProvider>
                 </Box>
             </Box>
+            <Footer />
         </>
     );
 };

@@ -9,14 +9,20 @@ const Header = () => {
     };
 
     const toggleDropdown = (e) => {
-        // Prevent default link click
         e.preventDefault();
 
-        // Toggle dropdown-active on the clicked parent <li>
         const parentLi = e.currentTarget.parentElement;
         parentLi.classList.toggle('dropdown-active');
     };
 
+    const closeMobileNav = () => {
+        document.body.classList.remove('mobile-nav-active');
+    };
+
+    const handleNavClick = (e) => {
+        if (e.currentTarget.closest('.dropdown')) return;
+        closeMobileNav();
+    };
     useEffect(() => {
         const toggleBtn = document.querySelector('.mobile-nav-toggle');
         if (toggleBtn) {
@@ -38,26 +44,25 @@ const Header = () => {
 
                 <nav id="navmenu" className="navmenu">
                     <ul>
-                        {/* <li><a href="#hero" className="active">Home</a></li> */}
-                        <li><NavLink to="/" className="active">Home</NavLink></li>
+                        <li><NavLink to="/" className="active" onClick={handleNavClick}>Home</NavLink></li>
 
-                        {/* Dropdown */}
                         <li className="dropdown">
                             <a href="#" onClick={toggleDropdown}>
                                 <span>Company Overview</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
                             </a>
                             <ul>
-                                <li><NavLink to="/ourcompany">Our Company</NavLink></li>
-                                <li><NavLink to="/ourapproach">Our Approach</NavLink></li>
-                                <li><NavLink to="/healthimpact">Our Health Impact</NavLink></li>
+                                <li><NavLink to="/ourcompany" onClick={closeMobileNav}>Our Company</NavLink></li>
+                                <li><NavLink to="/ourapproach" onClick={closeMobileNav}>Our Approach</NavLink></li>
+                                <li><NavLink to="/healthimpact" onClick={closeMobileNav}>Our Health Impact</NavLink></li>
                             </ul>
                         </li>
 
-                        <li><a href="#services">Plans & Pricing</a></li>
-                        <li><a href="#team">Blogs</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><NavLink to="/login">Login</NavLink></li>
+                        <li><a href="#services" onClick={handleNavClick}>Plans & Pricing</a></li>
+                        <li><a href="#team" onClick={handleNavClick}>Blogs</a></li>
+                        <li><NavLink to="/inquery" onClick={handleNavClick}>Inquery</NavLink></li>
+                        <li><NavLink to="/login" onClick={handleNavClick}>Login</NavLink></li>
                     </ul>
+
 
                     {/* Mobile nav toggle icon */}
                     <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>

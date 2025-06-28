@@ -22,6 +22,7 @@
 .links {
     a {
         color: #fff !important;
+        text-decoration: none;
     }
 }
 
@@ -35,6 +36,11 @@
 .more-info {
     display: flex;
     gap: 50px;
+
+    @media screen and (max-width: 650px) {
+        flex-direction: column;
+        gap: 0px;
+    }
 }
 p {
     margin-bottom: 10px !important;
