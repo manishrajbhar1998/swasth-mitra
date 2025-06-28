@@ -5,8 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/swasth-mitra",
+  // base: "/swasth-mitra",
   server: {
-    port: 3000
+    port: 3000,
+    allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in']
+
   }
 })
