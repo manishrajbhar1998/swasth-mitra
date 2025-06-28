@@ -95,7 +95,7 @@ const Footer = () => {
                                             rel="noopener noreferrer"
 
                                         >
-                                            Security Policy
+                                            Shipping Policy
                                         </a>
                                     </p>
 
