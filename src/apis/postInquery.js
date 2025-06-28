@@ -16,7 +16,7 @@ export const postInquery = (resp) => {
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'localhost:9001/api/enquiry/submit',
+        url: 'https://www.swasthmitra.in/swasthyamitra/api/enquiry/submit',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -33,5 +33,3 @@ export const postInquery = (resp) => {
             return error;
         });
 }
-
-

@@ -35,4 +35,3 @@ authApi.interceptors.request.use(
 // Export both instances
 export { api, authApi };
 
-
