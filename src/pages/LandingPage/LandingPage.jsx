@@ -5,11 +5,11 @@ import Footer from '../../layout/Footer/Footer'
 import About from '../About/About'
 import Services from '../Services/Services'
 import Testimonial from '../../layout/Testimonial/Testimonial'
-import FAQ from '../../layout/Faq/Faq'
 import TabSection from '../../layout/TabSection/TabSection'
 import PhilosophySection from '../PhilosophySection/PhilosophySection'
 import Statistics from '../../layout/Statistics/Statistics'
 import KnowledgeHub from '../../layout/KnowledgeHub/KnowledgeHub'
+import FAQ from '../../layout/Faq/Faq'
 
 const LandingPage = () => {
   return (
