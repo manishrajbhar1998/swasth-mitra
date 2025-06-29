@@ -68,12 +68,7 @@ const RegisterCard = ({ setShowRegisterUser, type }) => {
         resolver: yupResolver(LoginSchema),
     });
 
-    console.log(errors.gender)
-
     const onSubmit = async (data) => {
-        console.log(data);
-
-        console.log("data", data);
         const reqBody = {
             "firstName": data?.firstName,
             "lastName": data.lastName,

@@ -40,13 +40,9 @@ const RegisteredUser = () => {
         []
     );
 
-    console.log("Admin Register Details component")
-
-
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            console.log("Fetching registered users with role:", adminDetails?.role);
             try {
                 const response = await authApi.get(GET_REGISTERED_USERS, {
                     params: {

@@ -57,7 +57,7 @@ const AdminLoginCard = () => {
                     userLast: response.data.data.lastName,
                     role: response.data.data.role,
                 });
-                console.log("response", response.data);
+                // console.log("response", response.data);
                 setTimeout(() => {
                     navigate("/admin/dashboard/inquery");
                 }, 1000);

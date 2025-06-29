@@ -71,12 +71,7 @@ const Register = () => {
         resolver: yupResolver(LoginSchema),
     });
 
-    console.log(errors.gender)
-
     const onSubmit = async (data) => {
-
-        debugger
-        console.log("data", data);
         const reqBody = {
             "firstName": data?.firstName,
             "lastName": data.lastName,
