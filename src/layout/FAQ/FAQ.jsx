@@ -3,7 +3,7 @@ import './faq.scss';
 
 
 
-const FAQ = () => {
+const Faq = () => {
     const faqData = [
         {
             question: "What is your return policy?",
@@ -138,4 +138,4 @@ const FAQ = () => {
     );
 };
 
-export default FAQ;
+export default Faq;

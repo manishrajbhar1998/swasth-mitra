@@ -9,7 +9,7 @@ import TabSection from '../../layout/TabSection/TabSection'
 import PhilosophySection from '../PhilosophySection/PhilosophySection'
 import Statistics from '../../layout/Statistics/Statistics'
 import KnowledgeHub from '../../layout/KnowledgeHub/KnowledgeHub'
-import FAQ from '../../layout/Faq/Faq'
+import Faq from '../../layout/Faq/Faq'
 
 const LandingPage = () => {
   return (
@@ -22,7 +22,7 @@ const LandingPage = () => {
       <Statistics />
       <Services />
       <PhilosophySection />
-      <FAQ />
+      <Faq />
       <KnowledgeHub />
       <Footer />
     </div>
