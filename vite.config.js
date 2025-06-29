@@ -7,8 +7,6 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
 
   return {
-    // Uncomment this if deploying to GitHub Pages or subpath
-    // base: "/swasth-mitra",
     plugins: [
       react(),
       tailwindcss(),
