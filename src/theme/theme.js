@@ -110,7 +110,7 @@ const theme = createTheme({
         root: {
           marginTop: '8px',  // or use theme.spacing(1)
           marginLeft: '4px',
-          bottom: '-27px !important'
+          // bottom: '-27px !important'
         },
       },
     },

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./services.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const plans = [
     {
@@ -92,6 +92,17 @@ const plans = [
 const PlanCard = ({ plan, isOpen, onToggle }) => {
     const contentRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleChoosePlan = (title, price) => {
+        const currentPath = location.pathname;
+
+        if (currentPath.startsWith("/dashboard")) {
+            navigate("/purchase", { state: { plan: title, amount: price } });
+        } else {
+            navigate("/login");
+        }
+    };
 
     useEffect(() => {
         if (isOpen && contentRef.current) {
@@ -137,7 +148,7 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
                         <button
                             className="btn-get-started"
                             style={{ backgroundColor: "#fff", color: "#193440" }}
-                            onClick={() => navigate("/registration.php")}
+                            onClick={() => handleChoosePlan(plan?.title, plan?.price)}
                         >
                             <i className="bi bi-arrow-right-circle me-2"></i>Choose Plan
                         </button>

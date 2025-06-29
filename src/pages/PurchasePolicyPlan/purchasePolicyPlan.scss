@@ -3,6 +3,11 @@
 .purchase-policyplan-wrapper {
     max-width: 800px;
     margin: 10px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 3px 1px 8px 2px #dfd8d8;
+    border-radius: 10px;
+    min-height: 80vh;
 
     @media screen and (max-width: 650px) {
         padding: 10px;
@@ -15,12 +20,17 @@
         font-size: 24px;
         color: #fff;
         font-weight: 500;
+        margin-bottom: 10px;
     }
 
     form {
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        p {
+            margin-bottom: 0px !important;
+        }
 
         .inner-box {
             @media screen and (max-width: 650px) {

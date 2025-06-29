@@ -2,15 +2,22 @@ import { Box, Typography } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 
 const MyDropzone = ({ onDrop, files }) => {
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const maxSize = 2 * 1024 * 1024; // 2MB
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        fileRejections,
+    } = useDropzone({
         onDrop,
         multiple: false,
+        maxSize,
         accept: {
-            'image/*': []
-        }
+            'image/*': [],
+        },
     });
 
-    console.log("files :: ", files)
     return (
         <Box
             {...getRootProps()}
@@ -24,16 +31,19 @@ const MyDropzone = ({ onDrop, files }) => {
         >
             <input {...getInputProps()} />
             {isDragActive ? (
-                <Typography>Drop the files here ...</Typography>
+                <Typography>Drop the file here ...</Typography>
             ) : (
                 <Typography>
-                    {files?.length > 0
-                        ? (
+                    {files?.length > 0 ? (
+                        <span>{files[0].name}</span>
+                    ) : 'Drag & drop profile picture here, or click to select'}
+                </Typography>
+            )}
 
-                            <pan>{files[0].name}</pan>
-                        )
-                        : 'Drag & drop profile picture here, or click to select'
-                    }
+            {/* Show size error if any */}
+            {fileRejections.length > 0 && (
+                <Typography color="error" fontSize="0.8rem" mt={1}>
+                    {fileRejections[0]?.errors[0]?.message}
                 </Typography>
             )}
         </Box>

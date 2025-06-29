@@ -25,6 +25,10 @@ import MyDropzone from '../../components/MyDropZone/MyDropZone';
 import { getPersonSchema } from '../../constant/constant';
 import { useLocation } from 'react-router-dom';
 import PastDiseaseQuestionary from '../../components/PastDiseaseQuestionary/PastDiseaseQuestionary';
+import IndividualPlan from '../../components/IndividualPlan/IndividualPlan';
+import PresentDiseaseQuestionary from '../../components/PresentDiseaseQuestionary/PresentDiseaseQuestionary';
+import CustomerDashboardHeader from '../../layout/CustomerDashboardHeader/CustomerDashboardHeader';
+import Footer from '../../layout/Footer/Footer';
 
 // const generateChildFields = (count = 0) => {
 //     const fields = {};
@@ -42,7 +46,9 @@ const PurchasePolicyPlan = () => {
     const [isMarried, setIsMarried] = useState(true);
 
     const location = useLocation();
-    const { plan, amount } = location.state;
+    const { plan, amount } = location?.state || {};
+
+
 
 
     let validationSchema;
@@ -60,11 +66,11 @@ const PurchasePolicyPlan = () => {
                 presentDisease: Yup.string().required('Please select an option'),
                 existingDiseases: Yup.array()
                     .of(Yup.string())
-                    .when('presentDisease', {
-                        is: 'yes',
-                        then: (schema) => schema.min(1, 'Please select at least one existing disease'),
-                        otherwise: (schema) => schema.notRequired(),
-                    }),
+                    .when('presentDisease', ([present], schema) =>
+                        present === 'yes'
+                            ? schema.min(1, 'Please select at least one existing disease')
+                            : schema.notRequired()
+                    ),
                 presentDiseaseOther: Yup.string().when('existingDiseases', {
                     is: (val) => val && val.includes('Others'),
                     then: (schema) => schema.required('Please specify other disease'),
@@ -160,55 +166,26 @@ const PurchasePolicyPlan = () => {
     const onSubmit = (data) => {
         debugger
         console.log('Submitted data:', data);
+        debugger
         // You can add your API call here
         // navigate("/dashboard");
     };
 
     return (
         <>
+            <CustomerDashboardHeader />
             <Box className='purchase-policyplan-wrapper'>
                 <Box className="header">
-                    <p>
-                        {plan}/ {amount}
-                    </p>
+                    {plan}  {amount}
                 </Box>
                 <Box className="content">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            {
-                                plan === "Individual Plan" ?
-                                    <Box className>
-                                        <Box className="form-group-2">
-                                            <PastDiseaseQuestionary
-                                                register={register}
-                                                errors={errors}
-                                                watch={watch}
-                                                control={control}
-                                                namePrefix="indiviual"
-                                            />
-                                            <PresentDiseaseQuestionary
-                                                register={register}
-                                                errors={errors}
-                                                watch={watch}
-                                                control={control}
-                                                namePrefix="indiviual"
-                                            />
-                                            <Controller
-                                                name="mother.avatar"
-                                                control={control}
-                                                render={({ field: { onChange, value } }) => (
-                                                    <MyDropzone
-                                                        onDrop={(acceptedFiles) => {
-                                                            onChange(acceptedFiles);
-                                                        }}
-                                                        files={value}
-                                                    />
-                                                )}
-                                            />
+                        {
+                            plan === "Individual Plan" ?
+                                <IndividualPlan />
+                                :
+                                <form onSubmit={handleSubmit(onSubmit)}>
 
-                                        </Box>
-                                    </Box>
-                                    :
                                     <>
                                         {/* Spouse Details */}
                                         {
@@ -444,16 +421,16 @@ const PurchasePolicyPlan = () => {
                                             </Box>
                                         ))}
                                     </>
-                            }
-
-                            <Box>
-                                <Button variant="contained" sx={{ marginTop: "10px" }} color="primary" type="submit">Submit</Button>
-                            </Box>
-                        </form>
+                                    <Box>
+                                        <Button variant="contained" sx={{ marginTop: "10px" }} color="primary" type="submit">Submit</Button>
+                                    </Box>
+                                </form>
+                        }
                     </LocalizationProvider>
                 </Box>
 
             </Box>
+            <Footer />
         </>
 
     );
@@ -461,146 +438,6 @@ const PurchasePolicyPlan = () => {
 
 export default PurchasePolicyPlan;
 
-
-// const PastDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
-//     const pastDisease = watch(`${namePrefix}.pastDisease`);
-
-//     console.log("errors :: ", errors);
-
-//     return (
-//         <Box>
-//             <FormControl >
-//                 <FormLabel>
-//                     Does {namePrefix} have any past disease?
-//                 </FormLabel>
-//                 <Controller
-//                     name={`${namePrefix}.pastDisease`}
-//                     control={control}
-//                     render={({ field }) => (
-//                         <RadioGroup row {...field}>
-//                             <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-//                             <FormControlLabel value="no" control={<Radio />} label="No" />
-//                         </RadioGroup>
-//                     )}
-//                 />
-//                 {errors?.[namePrefix]?.pastDisease && (
-//                     <Typography color="error" fontSize="0.8rem">
-//                         {errors?.[namePrefix]?.pastDisease?.message}
-//                     </Typography>
-//                 )}
-//             </FormControl>
-
-//             {pastDisease === 'yes' && (
-//                 <TextField
-//                     fullWidth
-//                     label={`Please provide details of past disease`}
-//                     margin="normal"
-//                     {...register(`${namePrefix}.pastDiseaseInput`)}
-//                     error={!!errors?.[namePrefix]?.pastDiseaseInput}
-//                     helperText={errors?.[namePrefix]?.pastDiseaseInput?.message}
-//                 />
-//             )}
-//         </Box>
-//     );
-// };
-
-
-const PresentDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
-
-    const presentDisease = watch(`${namePrefix}.presentDisease`);
-    const existingDiseases = watch(`${namePrefix}.existingDiseases`) || [];
-    const diseases = [
-        "Diabetes",
-        "Hypertension",
-        "Heart Disease",
-        "Chronic Respiratory Disease",
-        "Cancer",
-        "Tuberculosis",
-        "Dengue",
-        "Malaria",
-        "Kidney Disease",
-        "Hepatitis",
-        "Others",
-    ];
-    console.log("errors :: ", errors);
-    return (
-        <Box>
-            <FormControl>
-                <FormLabel>
-                    Does {namePrefix} have any present disease?
-                </FormLabel>
-                <Controller
-                    name={`${namePrefix}.presentDisease`}
-                    control={control}
-                    render={({ field }) => (
-                        <RadioGroup row {...field} value={field.value ?? ''}>
-                            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                            <FormControlLabel value="no" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    )}
-                />
-                {errors?.[namePrefix]?.presentDisease && (
-                    <Typography color="error" fontSize="0.8rem">
-                        {errors?.[namePrefix]?.presentDisease?.message}
-                    </Typography>
-                )}
-            </FormControl>
-
-            {presentDisease === 'yes' && (
-                <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ fontWeight: "600", mb: 1 }}>Existing Diseases</Typography>
-                    <FormGroup className='disease-group'>
-                        {diseases.map((disease) => (
-                            <Box key={disease}>
-                                <Controller
-                                    name={`${namePrefix}.existingDiseases`}
-                                    control={control}
-                                    render={({ field }) => {
-                                        const { value, onChange } = field;
-                                        return (
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                        checked={value?.includes(disease)}
-                                                        onChange={(e) => {
-                                                            const currentValue = value ?? []; // fallback to empty array
-                                                            if (e.target.checked) {
-                                                                onChange([...currentValue, disease]);
-                                                            } else {
-                                                                onChange(currentValue.filter((item) => item !== disease));
-                                                            }
-                                                        }}
-                                                    />
-                                                }
-                                                label={disease}
-                                            />
-                                        );
-                                    }}
-                                />
-
-                                {existingDiseases.includes('Others') && disease === 'Others' && (
-                                    <TextField
-                                        fullWidth
-                                        label="Please specify other disease"
-                                        margin="normal"
-                                        {...register(`${namePrefix}.presentDiseaseOther`)}
-                                        error={!!errors?.[namePrefix]?.presentDiseaseOther}
-                                        helperText={errors?.[namePrefix]?.presentDiseaseOther?.message}
-                                    />
-                                )}
-                            </Box>
-                        ))}
-                        {errors?.[namePrefix]?.existingDiseases && (
-                            <Typography color="error" fontSize="0.8rem" sx={{ mt: 1 }}>
-                                {errors?.[namePrefix]?.existingDiseases?.message}
-                            </Typography>
-                        )}
-                    </FormGroup>
-                </Box>
-            )}
-        </Box>
-    );
-};
 const DoesHaveChildQuestionary = ({ register, errors, watch, control, namePrefix }) => {
 
     const anyChild = watch(`${namePrefix}`);

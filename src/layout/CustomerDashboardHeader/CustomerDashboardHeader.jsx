@@ -20,10 +20,10 @@ const CustomerDashboardHeader = () => {
                 <img src={logo} alt="Swastha Mitra Logo" />
             </div>
             <div className="menu">
-                <ul>
+                {/* <ul>
                     <li><Link to="about" smooth={true} duration={500}>Profile</Link></li>
                     <li><Link to="services" smooth={true} duration={500} >My Plan</Link></li>
-                </ul>
+                </ul> */}
             </div>
             <div className="login-btn">
 
