@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import './forgotPasswordCard.scss';
+import './forgotpasswordCard.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextField, Button, Container, Box, Typography } from '@mui/material';
 import forgotPassword from './../../assets/images/login-register.jpg';
