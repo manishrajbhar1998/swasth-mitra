@@ -8,6 +8,7 @@ import { GET_ENQUIRY_API, GET_REGISTERED_USERS } from '../../constant/config';
 import { authApi } from '../../apis/api';
 import './registeredUser.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
+import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
 
 
 const RegisteredUser = () => {
@@ -16,6 +17,7 @@ const RegisteredUser = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showRegisterUser, setShowRegisterUser] = useState(false);
+    const { adminDetails } = useLoadingAdminDeatils();
 
     const columns = useMemo(
         () => [
@@ -38,14 +40,17 @@ const RegisteredUser = () => {
         []
     );
 
+    console.log("Admin Register Details component")
+
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
+            console.log("Fetching registered users with role:", adminDetails?.role);
             try {
                 const response = await authApi.get(GET_REGISTERED_USERS, {
                     params: {
-                        role: "USER"
+                        role: adminDetails?.role
                     }
                 });
                 setData(response.data.data || []);
