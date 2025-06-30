@@ -21,12 +21,7 @@ const About = () => {
               data-aos-delay="200"
             >
               <img src={aboutImage} alt="" />
-              {/* 
-        <a
-          href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
-          className="glightbox pulsating-play-btn"
-        ></a> 
-        */}
+
             </div>
 
             <div
@@ -35,7 +30,7 @@ const About = () => {
               data-aos-delay="100"
             >
               <h1 className="fw-light heading-text">Your health our priority</h1>
-              <p className="fw-light fs-5" style={{ textAlign: "justify" }}>
+              <p className="fw-light fs-5 p-2" style={{ textAlign: "justify" }}>
                 <b style={{ color: "#0a5247" }}>
                   We empower every citizen with 24x7 support during medical emergencies —
                 </b>{" "}
@@ -46,46 +41,9 @@ const About = () => {
                 With a vision to make healthcare accessible, timely, and efficient for
                 all, your health isn’t just our priority — it’s our unwavering mission.
               </p>
-              <p className="btn-get-started">
-                <NavLink to="/ourcompany" className='btn'>
-                  <i className="bi bi-arrow-right-circle me-2"></i> Learn More
-                </NavLink>
-              </p>
-
-              {/* 
-        <ul>
-          <li>
-            <i className="bi bi-diagram-3"></i>
-            <div>
-              <h5>Ullamco laboris nisi ut aliquip consequat</h5>
-              <p>
-                Magni facilis facilis repellendus cum excepturi quaerat
-                praesentium libre trade
-              </p>
-            </div>
-          </li>
-          <li>
-            <i className="bi bi-fullscreen-exit"></i>
-            <div>
-              <h5>Magnam soluta odio exercitationem reprehenderi</h5>
-              <p>
-                Quo totam dolorum at pariatur aut distinctio dolorum
-                laudantium illo direna pasata redi
-              </p>
-            </div>
-          </li>
-          <li>
-            <i className="bi bi-broadcast"></i>
-            <div>
-              <h5>Voluptatem et qui exercitationem</h5>
-              <p>
-                Et velit et eos maiores est tempora et quos dolorem autem
-                tempora incidunt maxime veniam
-              </p>
-            </div>
-          </li>
-        </ul> 
-        */}
+              <NavLink to="/ourcompany" className="btn-get-started">
+                <i className="bi bi-arrow-right-circle me-2"></i> <span>Learn More</span>
+              </NavLink>
             </div>
           </div>
         </div>

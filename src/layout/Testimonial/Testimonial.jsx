@@ -33,7 +33,7 @@ const Testimonials = () => {
                 <Row className="gy-4">
                     {testimonialVideos.map((video) => (
                         <Col lg={4} key={video.id} data-aos="fade-up" data-aos-delay={video.delay}>
-                            <div className="testimonial-item d-flex justify-content-center">
+                            <div className="testimonial-item d-flex justify-content-center m-2">
                                 <iframe
                                     width="100%"
                                     height="400"

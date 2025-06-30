@@ -23,11 +23,17 @@
 
 .accordion-button {
     background-color: #ffca2c !important;
-    color: #193440;
+    color: #193440 !important;
     font-weight: lighter;
     padding: 15px;
     border-radius: 5px;
     font-size: 25px !important;
+    font-weight: 500;
+
+    @media screen and (max-width: 460px) {
+        font-size: 20px !important;
+        padding: 10px !important;
+    }
 }
 
 .accordion-button:not(.collapsed) {

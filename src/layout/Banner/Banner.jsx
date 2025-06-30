@@ -29,11 +29,9 @@ const Banner = () => {
             <h2 className="text-center">Swasth Mitra</h2>
             <p>Your health partner, just a call away</p>
 
-            <p className="btn-get-started">
-              <NavLink to="/ourcompany" className='btn'>
-                <i className="bi bi-arrow-right-circle me-2"></i> Learn More
-              </NavLink>
-            </p>
+            <NavLink to="/ourcompany" className="btn-get-started">
+              <i className="bi bi-arrow-right-circle me-2"></i> <span>Learn More</span>
+            </NavLink>
 
           </div>
         </div>
@@ -46,11 +44,11 @@ const Banner = () => {
             </div>
             <h2 className="text-center">Your Trusted Health Aly</h2>
             <p>Wherever You Are, Whenever You Need</p>
-            <p className="btn-get-started">
-              <NavLink to="/ourcompany" className='btn'>
-                <i className="bi bi-arrow-right-circle me-2"></i> Learn More
-              </NavLink>
-            </p>
+
+            <NavLink to="/ourcompany" className="btn-get-started">
+              <i className="bi bi-arrow-right-circle me-2"></i> <span>Learn More</span>
+            </NavLink>
+
           </div>
         </div>
         <div className="carousel-item">
@@ -63,11 +61,9 @@ const Banner = () => {
             </div>
             <h2 className="text-center">From Advice To Recovery</h2>
             <p>Swasth Mitra is always With You</p>
-            <p className="btn-get-started">
-              <NavLink to="/ourcompany" className='btn'>
-                <i className="bi bi-arrow-right-circle me-2"></i> Learn More
-              </NavLink>
-            </p>
+            <NavLink to="/ourcompany" className="btn-get-started">
+              <i className="bi bi-arrow-right-circle me-2"></i> <span>Learn More</span>
+            </NavLink>
           </div>
         </div>
       </div>

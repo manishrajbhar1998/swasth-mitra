@@ -150,14 +150,14 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
                             style={{ backgroundColor: "#fff", color: "#193440" }}
                             onClick={() => handleChoosePlan(plan?.title, plan?.price)}
                         >
-                            <i className="bi bi-arrow-right-circle me-2"></i>Choose Plan
+                            <i className="bi bi-arrow-right-circle me-2"></i> <span>Choose Plan</span>
                         </button>
 
                         {/* Close Button at Bottom */}
                         <button
                             className="accordion-toggle mt-3"
                             style={{
-                                display: "flex", width: "100%", alignItems: "center"
+                                display: "flex", width: "fit-content", alignItems: "center", margin: "0px auto"
                             }}
                             onClick={() => onToggle(null)}
                         >
@@ -198,7 +198,7 @@ const Services = () => {
             <div className="container section-title" data-aos="fade-up">
                 <div>
                     <span>Our Plans</span>
-                    <p className="fs-5 fw-medium">We offer thoughtfully articulated plans for everyone</p>
+                    <p className="fs-5 fw-medium px-3">We offer thoughtfully articulated plans for everyone</p>
                 </div>
             </div>
 

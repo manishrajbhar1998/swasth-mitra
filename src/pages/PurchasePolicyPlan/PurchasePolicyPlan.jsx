@@ -48,64 +48,38 @@ const PurchasePolicyPlan = () => {
     const location = useLocation();
     const { plan, amount } = location?.state || {};
 
+    let validationSchema = Yup.object().shape({
+        spouse: getPersonSchema(),
+        father: getPersonSchema(),
+        mother: getPersonSchema(),
+        anyChild: Yup.string().required('Please select an option'),
+        numofChild: Yup.mixed().when('anyChild', {
+            is: 'yes',
+            then: () =>
+                Yup.number()
+                    .transform((value, originalValue) =>
+                        originalValue === '' ? undefined : value
+                    )
+                    .typeError('Please enter a number')
+                    .required('This field is required')
+                    .min(1, 'Must be at least 1'),
+            otherwise: () => Yup.mixed().notRequired(),
+        }),
+        children: Yup.array().of(
+            Yup.object().shape({
+                name: Yup.string().required('Child name is required'),
+                dob: Yup.date().nullable().required('Child DOB is required'),
+                avatar: Yup.array()
+                    .min(1, 'Avatar is required')
+                    .required('Avatar is required'),
+            })
+        ).when('anyChild', {
+            is: 'yes',
+            then: (schema) => schema.min(1, 'At least one child must be entered'),
+            otherwise: (schema) => schema.notRequired(),
+        }),
+    });
 
-
-
-    let validationSchema;
-
-    if (plan === "Individual Plan") {
-
-        validationSchema = Yup.object().shape({
-            indiviual: Yup.object().shape({
-                pastDisease: Yup.string().required('Please select an option'),
-                pastDiseaseInput: Yup.string().when('pastDisease', {
-                    is: 'yes',
-                    then: (schema) => schema.required('Please provide details of the past disease'),
-                    otherwise: (schema) => schema.notRequired(),
-                }),
-                presentDisease: Yup.string().required('Please select an option'),
-                existingDiseases: Yup.array()
-                    .of(Yup.string())
-                    .when('presentDisease', ([present], schema) =>
-                        present === 'yes'
-                            ? schema.min(1, 'Please select at least one existing disease')
-                            : schema.notRequired()
-                    ),
-                presentDiseaseOther: Yup.string().when('existingDiseases', {
-                    is: (val) => val && val.includes('Others'),
-                    then: (schema) => schema.required('Please specify other disease'),
-                    otherwise: (schema) => schema.notRequired(),
-                }),
-            }),
-        });
-
-
-
-    } else {
-
-        validationSchema = Yup.object().shape({
-            spouse: getPersonSchema(),
-            father: getPersonSchema(),
-            mother: getPersonSchema(),
-            anyChild: Yup.string().required('Please select an option'),
-            numofChild: Yup.mixed().when('anyChild', {
-                is: 'yes',
-                then: () =>
-                    Yup.number()
-                        .transform((value, originalValue) =>
-                            originalValue === '' ? undefined : value
-                        )
-                        .typeError('Please enter a number')
-                        .required('This field is required')
-                        .min(1, 'Must be at least 1'),
-                otherwise: () => Yup.mixed().notRequired(),
-            }),
-
-        });
-
-    }
-
-    console.log("validationSchema :: ", validationSchema)
 
     const {
         register,

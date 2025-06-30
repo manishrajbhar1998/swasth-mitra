@@ -15,7 +15,7 @@ const PhilosophySection = () => {
             <div className="container section-title" data-aos="fade-up">
                 <div>
                     <span style={{ color: "#193440" }}>Our Philosophy</span>
-                    <p className="fs-5 fw-medium" style={{ color: "#225450" }}>
+                    <p className="fs-5 fw-medium" style={{ color: "#225450", padding: " 0 10px" }}>
                         Bridging Gaps, Saving Lives
                     </p>
                 </div>
