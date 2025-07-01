@@ -67,7 +67,7 @@ const AdminLoginCard = () => {
             }
         } catch (error) {
             console.error("error ", error);
-            toast.success(error.response.data.message);
+            toast.error(error.response.data.message);
         } finally {
             setLoading(false);
         }

@@ -10,8 +10,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MyDropzone from '../MyDropZone/MyDropZone';
 import PresentDiseaseQuestionary from '../PresentDiseaseQuestionary/PresentDiseaseQuestionary';
 import './individualPlan.scss';
+import { useLocation } from 'react-router-dom';
 
 const IndividualPlan = () => {
+    const location = useLocation();
+    const { plan, amount } = location?.state || {};
+
+    console.log(plan, amount);
+
     const validationSchema = Yup.object().shape({
         indiviual: Yup.object().shape({
             pastDisease: Yup.string().required('Please select an option'),
@@ -59,7 +65,6 @@ const IndividualPlan = () => {
 
     const onSubmit = (data) => {
         console.log('Submitted data:', data);
-        debugger
     };
 
     return (

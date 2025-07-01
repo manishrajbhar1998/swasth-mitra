@@ -29,6 +29,11 @@ import IndividualPlan from '../../components/IndividualPlan/IndividualPlan';
 import PresentDiseaseQuestionary from '../../components/PresentDiseaseQuestionary/PresentDiseaseQuestionary';
 import CustomerDashboardHeader from '../../layout/CustomerDashboardHeader/CustomerDashboardHeader';
 import Footer from '../../layout/Footer/Footer';
+import { authApi } from '../../apis/api';
+import { POST_PURCHASE_PLAN_API } from '../../constant/config';
+import { toast } from 'react-toastify';
+import { useLoading } from '../../context/LoadingContext/LoadingContext';
+import { useNavigate } from 'react-router-dom';
 
 // const generateChildFields = (count = 0) => {
 //     const fields = {};
@@ -42,8 +47,10 @@ import Footer from '../../layout/Footer/Footer';
 // };
 
 const PurchasePolicyPlan = () => {
+    const navigate = useNavigate()
     const [numOfChildRef, setNumOfChildRef] = useState(0);
     const [isMarried, setIsMarried] = useState(true);
+    const { setLoading } = useLoading();
 
     const location = useLocation();
     const { plan, amount } = location?.state || {};
@@ -133,16 +140,152 @@ const PurchasePolicyPlan = () => {
         resolver: yupResolver(validationSchema)
     })
 
-    console.log("errors :: ", errors);
-
     const { numofChild } = watch()
 
-    const onSubmit = (data) => {
-        debugger
-        console.log('Submitted data:', data);
-        debugger
-        // You can add your API call here
-        // navigate("/dashboard");
+    // Razorpay script loader
+    const loadRazorpayScript = () => {
+        return new Promise((resolve) => {
+            if (document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]')) {
+                resolve(true);
+                return;
+            }
+            const script = document.createElement("script");
+            script.src = "https://checkout.razorpay.com/v1/checkout.js";
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.body.appendChild(script);
+        });
+    };
+
+    // Razorpay payment handler
+    const handlePayment = async (formDataValues) => {
+        const res = await loadRazorpayScript();
+        if (!res) {
+            alert("Razorpay SDK failed to load. Are you online?");
+            return;
+        }
+        const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
+        const options = {
+            key: "rzp_test_4JoxmLCwg0n8XO", // TODO: Replace with your Razorpay key
+            amount: Number(11) * 100, // Amount in paise
+            currency: "INR",
+            name: "Swasth Mitra",
+            description: "Plan Purchase",
+            handler: function (response) {
+                // On successful payment, call onSubmit with payment info
+                onSubmit(formDataValues, {
+                    paymentStatus: "SUCCESS",
+                    paymentId: response.razorpay_payment_id,
+                });
+            },
+            prefill: {
+                name: formDataValues.spouse?.name || "",
+                contact: formDataValues.spouse?.mobile || "",
+            },
+            theme: {
+                color: "#3399cc",
+            },
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    };
+
+    const onSubmit = async (data, paymentInfo = {}) => {
+        try {
+            setLoading(true);
+            const formData = new FormData();
+
+            // Top-level fields
+            formData.append('plan', plan);
+            // Clean amount: remove all non-digit and non-dot characters
+            const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
+            formData.append('amount', 11);
+            formData.append('anyChild', data.anyChild);
+            formData.append('numofChild', data.numofChild);
+
+            // Spouse
+            if (data.spouse) {
+                formData.append('familyMembersDTO.spouse.name', data.spouse.name);
+                formData.append('familyMembersDTO.spouse.dob', data.spouse.dob);
+                formData.append('familyMembersDTO.spouse.mobile', data.spouse.mobile);
+                formData.append('familyMembersDTO.spouse.pastDisease', data.spouse.pastDisease);
+                formData.append('familyMembersDTO.spouse.pastDiseaseInput', data.spouse.pastDiseaseInput);
+                formData.append('familyMembersDTO.spouse.presentDisease', data.spouse.presentDisease);
+                formData.append('familyMembersDTO.spouse.existingDiseases', data.spouse.existingDiseases?.join(','));
+                formData.append('familyMembersDTO.spouse.presentDiseaseOther', data.spouse.presentDiseaseOther);
+                // File
+                if (data.spouse.avatar && data.spouse.avatar.length > 0) {
+                    formData.append('familyMembersDTO.spouse.profilePic', data.spouse.avatar[0]);
+                }
+            }
+
+            // Father
+            if (data.father) {
+                formData.append('familyMembersDTO.father.name', data.father.name);
+                formData.append('familyMembersDTO.father.dob', data.father.dob);
+                formData.append('familyMembersDTO.father.mobile', data.father.mobile);
+                formData.append('familyMembersDTO.father.pastDisease', data.father.pastDisease);
+                formData.append('familyMembersDTO.father.pastDiseaseInput', data.father.pastDiseaseInput);
+                formData.append('familyMembersDTO.father.presentDisease', data.father.presentDisease);
+                formData.append('familyMembersDTO.father.existingDiseases', data.father.existingDiseases?.join(','));
+                formData.append('familyMembersDTO.father.presentDiseaseOther', data.father.presentDiseaseOther);
+                if (data.father.avatar && data.father.avatar.length > 0) {
+                    formData.append('familyMembersDTO.father.profilePic', data.father.avatar[0]);
+                }
+            }
+
+            // Mother
+            if (data.mother) {
+                formData.append('familyMembersDTO.mother.name', data.mother.name);
+                formData.append('familyMembersDTO.mother.dob', data.mother.dob);
+                formData.append('familyMembersDTO.mother.mobile', data.mother.mobile);
+                formData.append('familyMembersDTO.mother.pastDisease', data.mother.pastDisease);
+                formData.append('familyMembersDTO.mother.pastDiseaseInput', data.mother.pastDiseaseInput);
+                formData.append('familyMembersDTO.mother.presentDisease', data.mother.presentDisease);
+                formData.append('familyMembersDTO.mother.existingDiseases', data.mother.existingDiseases?.join(','));
+                formData.append('familyMembersDTO.mother.presentDiseaseOther', data.mother.presentDiseaseOther);
+                if (data.mother.avatar && data.mother.avatar.length > 0) {
+                    formData.append('familyMembersDTO.mother.profilePic', data.mother.avatar[0]);
+                }
+            }
+
+            // Children
+            if (Array.isArray(data.children)) {
+                data.children.forEach((child, idx) => {
+                    formData.append(`familyMembersDTO.children[${idx}].name`, child.name);
+                    formData.append(`familyMembersDTO.children[${idx}].dob`, child.dob);
+                    formData.append(`familyMembersDTO.children[${idx}].pastDisease`, child.pastDisease);
+                    formData.append(`familyMembersDTO.children[${idx}].pastDiseaseInput`, child.pastDiseaseInput);
+                    formData.append(`familyMembersDTO.children[${idx}].presentDisease`, child.presentDisease);
+                    formData.append(`familyMembersDTO.children[${idx}].existingDiseases`, child.existingDiseases?.join(','));
+                    formData.append(`familyMembersDTO.children[${idx}].presentDiseaseOther`, child.presentDiseaseOther);
+                    if (child.avatar && child.avatar.length > 0) {
+                        formData.append(`familyMembersDTO.children[${idx}].profilePic`, child.avatar[0]);
+                    }
+                });
+            }
+
+            // Add payment info if available
+            if (paymentInfo.paymentStatus) {
+                formData.append('paymentStatus', paymentInfo.paymentStatus);
+            }
+            if (paymentInfo.paymentId) {
+                formData.append('paymentId', paymentInfo.paymentId);
+            }
+            const response = await authApi.post(POST_PURCHASE_PLAN_API, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            toast.success('Plan Purchase successful!');
+            setTimeout(() => {
+                setLoading(false);
+                navigate("/dashboard");
+            }, 1200);
+            console.log('Purchase successful:', response.data);
+        } catch (error) {
+            setLoading(false);
+            toast.error(error.response?.data?.errors[0] || 'Plan Purchase failed!');
+            console.error('Purchase failed:', error.response?.data?.errors[0]);
+        }
     };
 
     return (
@@ -396,7 +539,14 @@ const PurchasePolicyPlan = () => {
                                         ))}
                                     </>
                                     <Box>
-                                        <Button variant="contained" sx={{ marginTop: "10px" }} color="primary" type="submit">Submit</Button>
+                                        <Button
+                                            variant="contained"
+                                            sx={{ marginTop: "10px" }}
+                                            color="primary"
+                                            onClick={handleSubmit((formDataValues) => handlePayment({ ...formDataValues, amount }))}
+                                        >
+                                            Pay Now
+                                        </Button>
                                     </Box>
                                 </form>
                         }
@@ -415,7 +565,6 @@ export default PurchasePolicyPlan;
 const DoesHaveChildQuestionary = ({ register, errors, watch, control, namePrefix }) => {
 
     const anyChild = watch(`${namePrefix}`);
-    console.log("errors :: ", errors);
 
     return (<Box>
         <FormControl>
