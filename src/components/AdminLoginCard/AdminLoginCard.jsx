@@ -9,6 +9,8 @@ import './adminLoginCard.scss';
 import { api } from '../../apis/api';
 import { LOGIN_API } from '../../constant/config';
 import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
+import { toast } from 'react-toastify';
+import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
 
@@ -32,7 +34,8 @@ const LoginSchema = Yup.object().shape({
 const AdminLoginCard = () => {
 
     const navigate = useNavigate()
-    const { adminDetails, setAdminDetails } = useLoadingAdminDeatils();
+    const { setAdminDetails } = useLoadingAdminDeatils();
+    const { setLoading } = useLoading();
 
     const {
         register,
@@ -49,6 +52,7 @@ const AdminLoginCard = () => {
             password: data.password
         };
         try {
+            setLoading(true);
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
                 localStorage.setItem("accessToken", response.data.data.accessToken);
@@ -57,13 +61,14 @@ const AdminLoginCard = () => {
                     userLast: response.data.data.lastName,
                     role: response.data.data.role,
                 });
-                // console.log("response", response.data);
                 setTimeout(() => {
                     navigate("/admin/dashboard/inquery");
                 }, 1000);
             }
         } catch (error) {
-            console.error("invalid userid and password ", error);
+            console.error("error ", error);
+            toast.success(error.response.data.message);
+            setLoading(false);
         }
     };
 
