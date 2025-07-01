@@ -14,24 +14,9 @@ export default defineConfig(({ mode }) => {
     ].filter(Boolean),
     server: {
       port: 3000,
-      allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in'],
+      // allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in'],
       open: true, // Optional: auto opens browser
     },
   };
 });
 
-
-// import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react-swc'
-// import tailwindcss from '@tailwindcss/vite'
-
-// // https://vite.dev/config/
-// export default defineConfig({
-//   plugins: [react(), tailwindcss()],
-//   // base: "/swasth-mitra",
-//   server: {
-//     port: 3000,
-//     allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in']
-
-//   }
-// })
