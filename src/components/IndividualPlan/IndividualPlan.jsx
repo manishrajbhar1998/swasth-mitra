@@ -125,13 +125,13 @@ const IndividualPlan = () => {
             const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
             formData.append('amount', cleanAmount);
             // Flatten indiviual keys
-            formData.append('indiviual.pastDisease', data.indiviual.pastDisease);
-            formData.append('indiviual.pastDiseaseInput', data.indiviual.pastDiseaseInput);
-            formData.append('indiviual.presentDisease', data.indiviual.presentDisease);
-            formData.append('indiviual.existingDiseases', data.indiviual.existingDiseases?.join(','));
-            formData.append('indiviual.presentDiseaseOther', data.indiviual.presentDiseaseOther);
+            formData.append('pastDisease', data.indiviual.pastDisease);
+            formData.append('pastDiseaseInput', data.indiviual.pastDiseaseInput);
+            formData.append('presentDisease', data.indiviual.presentDisease);
+            formData.append('existingDiseases', data.indiviual.existingDiseases?.join(','));
+            formData.append('presentDiseaseOther', data.indiviual.presentDiseaseOther);
             if (data.indiviual.avatar && data.indiviual.avatar.length > 0) {
-                formData.append('indiviual.avatar', data.indiviual.avatar[0]);
+                formData.append('profilePic', data.indiviual.avatar[0]);
             }
             // Add payment info if available
             if (paymentInfo.paymentStatus) {
