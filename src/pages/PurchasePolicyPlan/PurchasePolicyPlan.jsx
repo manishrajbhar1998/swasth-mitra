@@ -166,7 +166,7 @@ const PurchasePolicyPlan = () => {
         }
         const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
         const options = {
-            key: "rzp_test_4JoxmLCwg0n8XO", // TODO: Replace with your Razorpay key
+            key: "rzp_test_m7kwYdRW44PWYw", // TODO: Replace with your Razorpay key
             amount: Number(11) * 100, // Amount in paise
             currency: "INR",
             name: "Swasth Mitra",
