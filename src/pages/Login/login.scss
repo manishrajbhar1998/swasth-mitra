@@ -6,10 +6,10 @@
     align-items: center;
     background-color: #f9f9f9;
     // height: 100vh;
-    margin-top: 100px;
 
     @media screen and (max-width: 891px) {
         background-color: transparent;
+        margin-top: 70px;
         align-items: flex-start;
     }
 
