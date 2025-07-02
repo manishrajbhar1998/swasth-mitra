@@ -21,6 +21,9 @@
 
     .menu {
         display: block;
+        // border: 1px solid;
+        position: absolute;
+        right: 0px;
 
         @media screen and (max-width: 1024px) {
             display: none;

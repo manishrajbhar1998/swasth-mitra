@@ -92,13 +92,14 @@ const Register = () => {
             "password": data.password
 
         }
+
+        debugger
         try {
             setLoading(true)
             const response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));
             if (response?.data) {
                 toast.success("Registration Successfull")
                 setLoading(false)
-
                 setTimeout(() => {
                     navigate("/login");
                 }, 10)

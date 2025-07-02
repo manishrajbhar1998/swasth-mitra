@@ -20,7 +20,13 @@ export const reducer = (state, action) => {
                 }
             };
             break;
-
+        case "login":
+            debugger
+            updated = {
+                ...state,
+                login: action.payload
+            }
+            break;
         default:
             updated = state;
     }

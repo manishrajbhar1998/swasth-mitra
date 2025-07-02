@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import './login.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,6 +13,7 @@ import { LOGIN_API } from '../../constant/config';
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
+import { CustomerConext } from '../../context/CustomerContext/CustomerContext';
 
 
 const LoginSchema = Yup.object().shape({
@@ -26,6 +27,7 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
     const { loading, setLoading } = useLoading();
+    const { dispatcher } = useContext(CustomerConext)
 
     const {
         register,
@@ -40,11 +42,18 @@ const Login = () => {
             userName: data.email,
             password: data.password
         };
+
+        debugger
+
         try {
             setLoading(true)
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
                 localStorage.setItem("accessToken", response.data.data.accessToken);
+                dispatcher({
+                    type: "login",
+                    payload: response.data.data
+                });
                 setLoading(false)
                 navigate("/dashboard");
             }
