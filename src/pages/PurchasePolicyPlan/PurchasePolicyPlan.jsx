@@ -361,8 +361,6 @@ const PurchasePolicyPlan = () => {
                                                             namePrefix="spouse"
                                                         />
 
-
-
                                                     </Box>
 
                                                 </Box>
