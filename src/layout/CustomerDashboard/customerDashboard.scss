@@ -88,3 +88,20 @@
 .css-18pcu8e-MuiPaper-root-MuiDrawer-paper {
     // border-right: none !important;
 }
+
+.popup-msg {
+    background: #40c854;
+    text-align: center;
+    padding: 10px;
+    color: #193440;
+
+    .msg-1 {
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .msg-2 {
+        text-align: center;
+        font-weight: 500;
+    }
+}

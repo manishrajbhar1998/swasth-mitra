@@ -5,6 +5,7 @@
     flex-direction: row;
     justify-content: center;
     margin: 20px;
+    // border: 1px solid;
 
     .card {
         width: 280px;
@@ -18,30 +19,18 @@
         font-family: "Segoe UI", sans-serif;
         align-items: center !important;
 
-        .card-header {
-            background-color: #00a67e;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 0.6rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-
-            .logo {
-                height: 24px;
-                width: auto;
-            }
-        }
-
         .card-body {
-            padding: 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 !important;
 
             .user-info {
                 display: flex;
                 align-items: center;
-                margin-bottom: 0.8rem;
+                margin-bottom: 20px;
+                flex-direction: column;
+                gap: 10px;
 
                 .health-icon {
                     width: 55px;
@@ -63,6 +52,7 @@
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 6px;
+                // border: 1px solid;
 
                 .label {
                     font-weight: bold;
@@ -75,42 +65,54 @@
                 }
             }
 
-            .family-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
+            // .family-list {
+            //     list-style: none;
+            //     padding: 0;
+            //     margin: 0;
 
-                li {
-                    font-size: 0.85rem;
-                    margin-bottom: 8px;
-                    color: #444;
+            //     li {
+            //         font-size: 0.85rem;
+            //         margin-bottom: 8px;
+            //         color: #444;
 
-                    strong {
-                        color: #222;
-                    }
+            //         strong {
+            //             color: #222;
+            //         }
+            //     }
+            // }
+            .card-footer {
+                background-color: #00a67e;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 0.6rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+                width: 100%;
+                margin-top: 20px;
+
+                .logo {
+                    height: 24px;
+                    width: auto;
                 }
             }
         }
+    }
+
+    .card-back {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
         .card-footer {
-            background: #f1f1f1;
-            padding: 0.6rem;
-            text-align: center;
-            font-size: 0.75rem; // ⬅ smaller footer font
-            color: #777;
-
-            .contact-info {
-                .phone,
-                .email,
-                .address {
-                    margin-bottom: 5px;
-                    line-height: 1.2;
-                }
-
-                .address {
-                    word-break: break-word;
-                }
-            }
         }
     }
 }
