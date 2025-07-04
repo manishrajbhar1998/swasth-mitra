@@ -68,6 +68,7 @@ const Inquery = () => {
             state: '',
             pincode: '',
             message: '',
+
         },
     });
 

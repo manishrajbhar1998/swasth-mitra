@@ -166,7 +166,8 @@ const PurchasePolicyPlan = () => {
         }
         const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
         const options = {
-            key: "rzp_test_m7kwYdRW44PWYw", // TODO: Replace with your Razorpay key
+            // key: "rzp_test_m7kwYdRW44PWYw", // Razorpay test key
+            key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
             amount: Number(11) * 100, // Amount in paise
             currency: "INR",
             name: "Swasth Mitra",
@@ -199,7 +200,7 @@ const PurchasePolicyPlan = () => {
             formData.append('plan', plan);
             // Clean amount: remove all non-digit and non-dot characters
             const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
-            formData.append('amount', 11);
+            formData.append('amount', 1);
             formData.append('anyChild', data.anyChild);
             formData.append('numofChild', data.numofChild);
 
