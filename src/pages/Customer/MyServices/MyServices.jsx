@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import './myServices.scss';
 import CheckIcon from '@mui/icons-material/Check';
 import EventIcon from '@mui/icons-material/Event';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import HealthCard from '../Healthcard/HealthCard';
+import { data } from 'react-router-dom';
+import dayjs from 'dayjs';
+import { transformDashboardData } from '../../../util/helper';
+import { CustomerConext } from '../../../context/CustomerContext/CustomerContext';
+import DownloadIcon from '@mui/icons-material/Download';
+import html2canvas from 'html2canvas';
+import { IconButton } from '@mui/material';
+import domtoimage from 'dom-to-image-more'
 
 const services = [
     // {
@@ -65,14 +73,53 @@ const members = [
 ];
 
 
-const MyServices = () => {
+const MyServices = ({ dashboardData }) => {
+
+    const { state } = useContext(CustomerConext);
+    const { login } = state;
+
+    let members;
+    if (dashboardData) {
+        members = transformDashboardData(dashboardData);
+    }
+
+    const handleDownload = async (ref, name) => {
+        if (!ref.current) return;
+
+        try {
+            const canvas = await html2canvas(ref.current, {
+                useCORS: true,
+                allowTaint: true,
+                ignoreElements: (el) =>
+                    el.tagName === 'LINK' &&
+                    el.href &&
+                    (el.href.includes('fonts.googleapis.com') || el.href.includes('cdnjs.cloudflare.com')),
+            });
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            const link = document.createElement('a');
+            link.download = `${name}.png`;
+            link.href = dataUrl;
+            link.click();
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    };
+
+
+
+    console.log(dashboardData)
+
+
+
     return (
         <>
             <div className='myservices-wrapper'>
                 <div className="my-status">
-                    <p className='status'>Plan Status: <span>Active</span></p>
-                    <p className='plan'>Glod Plan</p>
-                    <p>Validity 28 Days</p>
+                    <p className='status'>Plan Status: <span>{dashboardData?.status}</span></p>
+                    <p className='plan'>{dashboardData?.plan}</p>
+                    <p>Valid till {dayjs(dashboardData?.planExpiryDate).format("DD/MMM/YYYY")}</p>
                 </div>
 
                 <div className='cards'>
@@ -96,32 +143,58 @@ const MyServices = () => {
             </div>
 
             <div className='myservices-wrapper'>
-                {members.map((member, index) => (
-                    <React.Fragment key={index}>
-                        {/* Main Member Card */}
-                        <HealthCard
-                            profilePhoto={member.profilePhoto}
-                            name={member.name}
-                            memberId={member.memberId}
-                            plan={member.plan}
-                            validity={member.expiry}
-                            familyMembers={member.familyMembers}
-                        />
+                {members?.map((member, index) => {
+                    const mainCardRef = useRef();
 
-                        {/* Family Member Cards */}
-                        {Object.entries(member.familyMembers).map(([relation, details], idx) => (
-                            <HealthCard
-                                key={`${index}-${idx}`}
-                                profilePhoto={details.profilePhoto}
-                                name={details.name}
-                                memberId={member.memberId}
-                                plan={member.plan}
-                                validity={member.expiry}
-                                familyMembers={member.familyMembers}
-                            />
-                        ))}
-                    </React.Fragment>
-                ))}
+                    return (
+                        <React.Fragment key={index}>
+                            {/* Main Member Card */}
+                            <div style={{ position: 'relative' }}>
+                                <div ref={mainCardRef}>
+                                    <HealthCard
+                                        profilePhoto={member?.profilePhoto}
+                                        name={`${login?.firstName} ${login?.lastName}`}
+                                        memberId={member.memberId}
+                                        plan={member.plan}
+                                        validity={member.expiry}
+                                        familyMembers={member.familyMembers}
+                                    />
+                                </div>
+                                <IconButton
+                                    onClick={() => handleDownload(mainCardRef, login?.firstName)}
+                                    style={{ position: 'absolute', top: 20, right: 20 }}
+                                >
+                                    <DownloadIcon />
+                                </IconButton>
+                            </div>
+
+                            {/* Family Member Cards */}
+                            {Object.entries(member.familyMembers).map(([relation, details], idx) => {
+                                const familyCardRef = useRef();
+                                return (
+                                    <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
+                                        <div ref={familyCardRef}>
+                                            <HealthCard
+                                                profilePhoto={details.profilePhoto}
+                                                name={details.name}
+                                                memberId={member.memberId}
+                                                plan={member.plan}
+                                                validity={member.expiry}
+                                                familyMembers={member.familyMembers}
+                                            />
+                                        </div>
+                                        <IconButton
+                                            onClick={() => handleDownload(familyCardRef, details.name)}
+                                            style={{ position: 'absolute', top: 20, right: 20 }}
+                                        >
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </div>
+                                );
+                            })}
+                        </React.Fragment>
+                    );
+                })}
             </div>
 
 

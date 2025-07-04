@@ -32,10 +32,6 @@ const CustomerDashboardHeader = () => {
     }
 
 
-
-
-
-
     return (
         <div className='header-wrapper'>
             <div className="logo">
@@ -90,11 +86,13 @@ const CustomerDashboardHeader = () => {
                     showMobileMenu &&
                     <div className="mobile-menu">
                         <ul>
-                            <li><Link to="about" onClick={() => setShowMobileMenu((prev) => !prev)} smooth={true} duration={500}>About Us</Link></li>
-                            <li><Link to="services" onClick={() => setShowMobileMenu((prev) => !prev)} smooth={true} duration={500} >Services</Link></li>
-                            <li><NavLink to="/contact-us" >Contact Us</NavLink></li>
-                            <li><NavLink to="/inquery" >Inquery</NavLink></li>
-
+                            <li><Link to="services" smooth={true} duration={500} >Welcome {login?.firstName}</Link></li>
+                            <li style={{ padding: "5px 10px", cursor: "pointer" }} onClick={() => navigate("/profile")}>
+                                Profile
+                            </li>
+                            <li style={{ padding: "5px 10px", cursor: "pointer" }} onClick={handleLogout}>
+                                Logout
+                            </li>
                         </ul>
                     </div>
                 }

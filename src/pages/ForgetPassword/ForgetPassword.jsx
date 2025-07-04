@@ -5,7 +5,7 @@ import ForgotPasswordCard from '../../components/ForgotPasswordCard/ForgotPasswo
 const ForgetPassword = () => {
   return (
     <LoginLayout>
-      <ForgotPasswordCard/>
+      <ForgotPasswordCard />
     </LoginLayout>
   )
 }

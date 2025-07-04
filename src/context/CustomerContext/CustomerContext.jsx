@@ -9,7 +9,12 @@ export const CustomerConext = createContext(null);
 
 const CustomerContextProvider = ({ children }) => {
 
-    const [state, dispatcher] = useReducer(reducer, initialValue);
+    const getInitialState = () => {
+        const sessionData = JSON.parse(sessionStorage.getItem("appData") || "{}");
+        return sessionData.customerData || initialValue;
+    };
+
+    const [state, dispatcher] = useReducer(reducer, getInitialState());
 
     return (
         <CustomerConext.Provider value={{ state, dispatcher }}>
