@@ -55,7 +55,10 @@ const Login = () => {
                     payload: response.data.data
                 });
                 setLoading(false)
-                navigate("/dashboard");
+                setTimeout(() => {
+
+                    navigate("/dashboard");
+                }, 10)
             }
         } catch (error) {
             setLoading(false)
@@ -114,7 +117,7 @@ const Login = () => {
                                     color="primary"
                                     sx={{ cursor: 'pointer' }}
                                     onClick={() => {
-                                        navigate("/forgotpass")
+                                        navigate("/forgetpass")
                                     }}
                                 >
                                     Forgot Password?

@@ -15,6 +15,7 @@ import OurCompany from '../pages/OurCompany/OurCompany'
 import OurApproach from '../pages/OurApproach/OurApproach'
 import HealthImpact from '../pages/HealthImpact/HealthImpact'
 import BlogDetails from '../pages/BlogDetails/BlogDetails'
+import CustomerProtectedRoute from './CustomerProtectedRoute'
 
 const RouteConfig = () => {
     return (
@@ -23,15 +24,22 @@ const RouteConfig = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/purchase" element={<PurchasePolicyPlan />} />
+                <Route path="/purchase" element={
+                    <CustomerProtectedRoute>
+                        <PurchasePolicyPlan />
+                    </CustomerProtectedRoute>
+                } />
                 <Route path="/forgetpass" element={<ForgetPassword />} />
                 <Route path="/inquery" element={<Inquery />} />
                 <Route path="/ourcompany" element={<OurCompany />} />
                 <Route path="/ourapproach" element={<OurApproach />} />
                 <Route path="/healthimpact" element={<HealthImpact />} />
                 <Route path="/blogDetails" element={<BlogDetails />} />
-
-                <Route path="/dashboard" element={<CustomerDashboard />} />
+                <Route path="/dashboard" element={
+                    <CustomerProtectedRoute>
+                        <CustomerDashboard />
+                    </CustomerProtectedRoute>
+                } />
                 <Route path="*" element={<Login />} />
                 <Route path="/admin/">
                     <Route path="" element={<AdminLogin />} />

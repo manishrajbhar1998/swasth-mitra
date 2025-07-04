@@ -7,11 +7,11 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
         <div className="health-card-wrapper">
             {/* Front: Main Member Info */}
             <div className="card card-front">
-                <div className="health-card-header">
+                {/* <div className="health-card-header">
                     <img src={logo} alt="Swasth Mitra Logo" className="main-logo" />
                     <h1 className="main-title">Swasth Mitra</h1>
                     <p className="tagline">Your Health, Our Priority</p>
-                </div>
+                </div> */}
 
                 <div className="card-body">
                     <div className="user-info">
@@ -34,20 +34,21 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                         <span className="label">Validity:</span>
                         <span className="value">{validity}</span>
                     </div>
+                    <div className="card-footer">
+                        <img src={logo} alt="Swasth Mitra Logo" className="logo" />
+                        <span>Family Members</span>
+                    </div>
                 </div>
-                <div className="card-footer">
-                    Powered by <strong>Swasth Mithra</strong>
 
-                </div>
             </div>
 
             {Object.keys(familyMembers).length > 0 && (
                 <div className="card card-back">
-                    <div className="card-header">
+                    {/* <div className="card-header">
                         <img src={logo} alt="Swasth Mitra Logo" className="logo" />
                         <span>Family Members</span>
-                    </div>
-                    <div className="card-body">
+                    </div> */}
+                    {/* <div className="card-body">
                         <ul className="family-list">
                             {Object.entries(familyMembers).map(([relation, details]) => (
                                 <li key={relation}>
@@ -56,16 +57,20 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                    <div className="card-footer">
-                        <div className="contact-info">
-                            <div className="phone">📞 +91 8886815815</div>
-                            <div className="email">✉️ swastha.mitra@gmail.com</div>
-                            <div className="address">
-                                🏠 Swasth Mitra Next to paperbox company,<br />
-                                Mahakali Caves Roads, Andheri East, Mumbai – 400093
-                            </div>
+                    </div> */}
+
+                    <div className="contact-info">
+                        <div className="phone">📞 +91 8886815815</div>
+                        <div className="email">✉️ swastha.mitra@gmail.com</div>
+                        <div className="address">
+                            🏠 Swasth Mitra Next to paperbox company,<br />
+                            Mahakali Caves Roads, Andheri East, Mumbai – 400093
                         </div>
+                    </div>
+
+                    <div className="card-footer">
+                        Powered by <strong>Swasth Mithra</strong>
+
                     </div>
                 </div>
             )}

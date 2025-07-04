@@ -9,4 +9,5 @@ export const GET_ENQUIRY_API = "/api/enquiry/all";
 export const GET_REGISTERED_USERS = "/api/registration"
 export const POST_USER_REGISTER = "/api/registration/submit"
 export const POST_PURCHASE_PLAN_API = "/api/plan-purchase/submit";
+export const GET_CUSTOMER_DASHBOARD = "api/plan-purchase";
 
