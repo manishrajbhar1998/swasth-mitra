@@ -147,7 +147,6 @@ const BlogDetails = () => {
         return params.get('blog');
     }, [location.search]);
 
-    debugger
 
     if (!blogKey) {
         return (

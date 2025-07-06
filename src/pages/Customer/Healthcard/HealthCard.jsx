@@ -39,7 +39,6 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                         <span>Family Members</span>
                     </div>
                 </div>
-
             </div>
 
             {/* {Object.keys(familyMembers).length > 0 && ( */}

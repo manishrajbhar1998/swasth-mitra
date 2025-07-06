@@ -13,7 +13,8 @@ const AccountSetting = () => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open1 = Boolean(anchorEl);
-    const { adminDetails, setAdminDetails } = useLoadingAdminDeatils();
+    const { state, dispatch } = useLoadingAdminDeatils();
+
 
     const handleClick1 = (event) => {
         setAnchorEl(event.currentTarget);
@@ -25,6 +26,7 @@ const AccountSetting = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("accessToken");
+        sessionStorage.removeItem("adminDetails")
         navigate("/admin");
     };
 
@@ -32,7 +34,7 @@ const AccountSetting = () => {
     return (
         <div className="account_id" style={{ display: "flex", alignItems: "center" }}>
             <div>
-                <div>{`${adminDetails.userFirst} ${adminDetails.userLast}`}</div>
+                <div>{`${state.userFirst} ${state.userLast}`}</div>
             </div>
             <div>
                 <Tooltip title="Account settings">

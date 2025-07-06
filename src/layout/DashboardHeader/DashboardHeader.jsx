@@ -37,7 +37,8 @@ const AppBar = styled(MuiAppBar, {
 
 const DashboardHeader = ({ open, setOpen }) => {
 
-    const { adminDetails, setAdminDetails } = useLoadingAdminDeatils();
+    const { state, dispatch } = useLoadingAdminDeatils();
+
 
     return (
 
@@ -89,7 +90,7 @@ const DashboardHeader = ({ open, setOpen }) => {
                         }}
                     >
                         <Box className="live_chip">
-                            <span className="text">{adminDetails?.role === "SUPER_ADMIN" && "Super Admin"}</span>
+                            <span className="text">{state?.role === "SUPER_ADMIN" && "Super Admin"}</span>
                             <span className="chip"></span>
                         </Box>
 

@@ -11,7 +11,7 @@ import { CustomerConext } from '../../../context/CustomerContext/CustomerContext
 import DownloadIcon from '@mui/icons-material/Download';
 import html2canvas from 'html2canvas';
 import { IconButton } from '@mui/material';
-import domtoimage from 'dom-to-image-more'
+import { AiOutlineHourglass } from 'react-icons/ai';
 
 const services = [
     // {
@@ -142,41 +142,31 @@ const MyServices = ({ dashboardData }) => {
                 </div>
             </div>
 
-            <div className='myservices-wrapper'>
-                {members?.map((member, index) => {
-                    const mainCardRef = useRef();
 
-                    return (
-                        <React.Fragment key={index}>
-                            {/* Main Member Card */}
-                            <div style={{ position: 'relative' }}>
-                                <div ref={mainCardRef}>
-                                    <HealthCard
-                                        profilePhoto={member?.profilePhoto}
-                                        name={`${login?.firstName} ${login?.lastName}`}
-                                        memberId={member.memberId}
-                                        plan={member.plan}
-                                        validity={member.expiry}
-                                        familyMembers={member.familyMembers}
-                                    />
-                                </div>
-                                <IconButton
-                                    onClick={() => handleDownload(mainCardRef, login?.firstName)}
-                                    style={{ position: 'absolute', top: 20, right: 20 }}
-                                >
-                                    <DownloadIcon />
-                                </IconButton>
+            {
+                dashboardData?.status === "ACTIVE" ?
+                    <div className='plan-pending-message'>
+                        <div className="message-card">
+                            <AiOutlineHourglass className="pending-icon" color='#00b894' />
+                            <div className="text-section">
+                                <h2>Thank you for choosing <span className="highlight">Swasth Mitra</span>!</h2>
+                                <p>Your plan <span className="plan-name">{dashboardData?.plan}</span> will be activated within a few hours.</p>
                             </div>
+                        </div>
+                    </div>
+                    :
+                    <div className='myservices-wrapper'>
+                        {members?.map((member, index) => {
+                            const mainCardRef = useRef();
 
-                            {/* Family Member Cards */}
-                            {Object.entries(member.familyMembers).map(([relation, details], idx) => {
-                                const familyCardRef = useRef();
-                                return (
-                                    <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
-                                        <div ref={familyCardRef}>
+                            return (
+                                <React.Fragment key={index}>
+                                    {/* Main Member Card */}
+                                    <div style={{ position: 'relative' }}>
+                                        <div ref={mainCardRef}>
                                             <HealthCard
-                                                profilePhoto={details.profilePhoto}
-                                                name={details.name}
+                                                profilePhoto={member?.profilePhoto}
+                                                name={`${login?.firstName} ${login?.lastName}`}
                                                 memberId={member.memberId}
                                                 plan={member.plan}
                                                 validity={member.expiry}
@@ -184,18 +174,42 @@ const MyServices = ({ dashboardData }) => {
                                             />
                                         </div>
                                         <IconButton
-                                            onClick={() => handleDownload(familyCardRef, details.name)}
+                                            onClick={() => handleDownload(mainCardRef, login?.firstName)}
                                             style={{ position: 'absolute', top: 20, right: 20 }}
                                         >
                                             <DownloadIcon />
                                         </IconButton>
                                     </div>
-                                );
-                            })}
-                        </React.Fragment>
-                    );
-                })}
-            </div>
+
+                                    {/* Family Member Cards */}
+                                    {Object.entries(member.familyMembers).map(([relation, details], idx) => {
+                                        const familyCardRef = useRef();
+                                        return (
+                                            <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
+                                                <div ref={familyCardRef}>
+                                                    <HealthCard
+                                                        profilePhoto={details.profilePhoto}
+                                                        name={details.name}
+                                                        memberId={member.memberId}
+                                                        plan={member.plan}
+                                                        validity={member.expiry}
+                                                        familyMembers={member.familyMembers}
+                                                    />
+                                                </div>
+                                                <IconButton
+                                                    onClick={() => handleDownload(familyCardRef, details.name)}
+                                                    style={{ position: 'absolute', top: 20, right: 20 }}
+                                                >
+                                                    <DownloadIcon />
+                                                </IconButton>
+                                            </div>
+                                        );
+                                    })}
+                                </React.Fragment>
+                            );
+                        })}
+                    </div>
+            }
 
 
         </>
