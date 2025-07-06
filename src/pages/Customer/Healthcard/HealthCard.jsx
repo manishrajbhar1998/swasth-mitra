@@ -3,10 +3,11 @@ import './HealthCard.scss';
 import logo from '../../../assets/images/swastha-mitra-logo2.png';
 
 const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMembers }) => {
+    console.log("plan :: ", plan)
     return (
-        <div className="health-card-wrapper">
+        <div className="health-card-wrapper" >
             {/* Front: Main Member Info */}
-            <div className="card card-front">
+            <div className="card card-front" style={{ border: `2px solid ${plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37"}` }}>
                 {/* <div className="health-card-header">
                     <img src={logo} alt="Swasth Mitra Logo" className="main-logo" />
                     <h1 className="main-title">Swasth Mitra</h1>
@@ -34,15 +35,15 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                         <span className="label">Validity:</span>
                         <span className="value">{validity}</span>
                     </div>
-                    <div className="card-footer">
+                    <div className="card-footer" style={{ backgroundColor: plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37" }}>
                         <img src={logo} alt="Swasth Mitra Logo" className="logo" />
-                        <span>Family Members</span>
+                        <span style={{ color: plan == "Family Plan" ? "#000" : "#fff" }}>Swasth Mithra</span>
                     </div>
                 </div>
             </div>
 
             {/* {Object.keys(familyMembers).length > 0 && ( */}
-            <div className="card card-back">
+            <div className="card card-back" style={{ border: `2px solid ${plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37"}` }}>
                 {/* <div className="card-header">
                         <img src={logo} alt="Swasth Mitra Logo" className="logo" />
                         <span>Family Members</span>

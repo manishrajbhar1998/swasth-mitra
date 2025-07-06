@@ -12,6 +12,10 @@ import DownloadIcon from '@mui/icons-material/Download';
 import html2canvas from 'html2canvas';
 import { IconButton } from '@mui/material';
 import { AiOutlineHourglass } from 'react-icons/ai';
+import avatar from '../../../assets/images/avatar.png';
+import { MdCelebration } from 'react-icons/md';
+import { FaHandshake } from 'react-icons/fa';
+
 
 const services = [
     // {
@@ -109,6 +113,8 @@ const MyServices = ({ dashboardData }) => {
 
 
 
+
+
     console.log(dashboardData)
 
 
@@ -144,12 +150,14 @@ const MyServices = ({ dashboardData }) => {
 
 
             {
-                dashboardData?.status === "ACTIVE" ?
+                dashboardData?.status !== "ACTIVE" ?
                     <div className='plan-pending-message'>
                         <div className="message-card">
-                            <AiOutlineHourglass className="pending-icon" color='#00b894' />
+                            <div className="icon-row">
+                                <FaHandshake className="celebration-icon" color="#00b894" />
+                            </div>
                             <div className="text-section">
-                                <h2>Thank you for choosing <span className="highlight">Swasth Mitra</span>!</h2>
+                                <h2>Thank you for choosing <span className="highlight">Swasth Mitra </span>!</h2>
                                 <p>Your plan <span className="plan-name">{dashboardData?.plan}</span> will be activated within a few hours.</p>
                             </div>
                         </div>
@@ -165,7 +173,7 @@ const MyServices = ({ dashboardData }) => {
                                     <div style={{ position: 'relative' }}>
                                         <div ref={mainCardRef}>
                                             <HealthCard
-                                                profilePhoto={member?.profilePhoto}
+                                                profilePhoto={member?.profilePhoto || avatar}
                                                 name={`${login?.firstName} ${login?.lastName}`}
                                                 memberId={member.memberId}
                                                 plan={member.plan}
@@ -188,7 +196,7 @@ const MyServices = ({ dashboardData }) => {
                                             <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
                                                 <div ref={familyCardRef}>
                                                     <HealthCard
-                                                        profilePhoto={details.profilePhoto}
+                                                        profilePhoto={details.profilePhoto || avatar}
                                                         name={details.name}
                                                         memberId={member.memberId}
                                                         plan={member.plan}

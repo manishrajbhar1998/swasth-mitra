@@ -139,3 +139,28 @@
         }
     }
 }
+
+.icon-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    transform: rotate(-30deg);
+
+    .celebration-icon {
+        font-size: 2rem;
+        animation: pop 1s ease infinite alternate;
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}

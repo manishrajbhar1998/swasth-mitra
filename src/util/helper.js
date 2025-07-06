@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 
+
 export const transformDashboardData = (dashboardData) => {
     const {
         memberId,
@@ -22,7 +23,7 @@ export const transformDashboardData = (dashboardData) => {
         memberId,
         plan,
         expiry: dayjs(planExpiryDate).format("DD-MM-YYYY"),
-        profilePhoto: profilePic || "https://via.placeholder.com/150",
+        profilePhoto: profilePic,
         familyMembers: {}
     };
 
@@ -31,7 +32,7 @@ export const transformDashboardData = (dashboardData) => {
         member.familyMembers.spouse = {
             name,
             dob: formatDOB(dob),
-            profilePhoto: profilePhotoUrl || "https://via.placeholder.com/150"
+            profilePhoto: profilePhotoUrl
         };
     }
 
@@ -40,7 +41,7 @@ export const transformDashboardData = (dashboardData) => {
         member.familyMembers.father = {
             name,
             dob: formatDOB(dob),
-            profilePhoto: profilePhotoUrl || "https://via.placeholder.com/150"
+            profilePhoto: profilePhotoUrl
         };
     }
 
@@ -49,7 +50,7 @@ export const transformDashboardData = (dashboardData) => {
         member.familyMembers.mother = {
             name,
             dob: formatDOB(dob),
-            profilePhoto: profilePhotoUrl || "https://via.placeholder.com/150"
+            profilePhoto: profilePhotoUrl
         };
     }
 
@@ -59,7 +60,7 @@ export const transformDashboardData = (dashboardData) => {
             member.familyMembers[`child${index + 1}`] = {
                 name,
                 dob: formatDOB(dob),
-                profilePhoto: profilePhotoUrl || "https://via.placeholder.com/150"
+                profilePhoto: profilePhotoUrl
             };
         });
     }
