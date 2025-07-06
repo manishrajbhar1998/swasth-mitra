@@ -93,7 +93,6 @@ const Register = () => {
 
         }
 
-        debugger
         try {
             setLoading(true)
             const response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));

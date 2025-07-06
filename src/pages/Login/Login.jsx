@@ -43,7 +43,6 @@ const Login = () => {
             password: data.password
         };
 
-        debugger
 
         try {
             setLoading(true)

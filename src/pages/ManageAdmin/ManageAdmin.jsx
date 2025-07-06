@@ -7,6 +7,7 @@ import { GET_ENQUIRY_API, GET_REGISTERED_USERS } from '../../constant/config';
 import { authApi } from '../../apis/api';
 import './manageAdmin.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
+import AdminRegisterCard from '../../components/AdminRegisterCard/AdminRegisterCard';
 
 const ManageAdmin = () => {
 
@@ -112,7 +113,7 @@ const ManageAdmin = () => {
             {
                 showRegisterUser &&
 
-                <RegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
+                <AdminRegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
 
             }
         </div>

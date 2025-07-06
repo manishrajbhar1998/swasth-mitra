@@ -25,7 +25,6 @@ const CustomerDashboard = () => {
 
 
   const fetchDashboardData = async () => {
-    debugger
     try {
       setLoading(true)
       const response = await authApi.get(GET_CUSTOMER_DASHBOARD);
@@ -34,8 +33,6 @@ const CustomerDashboard = () => {
 
         const isPaymentSuccessful = response?.data.data.paymentStatus === "SUCCESS";
         const isPlanExpired = dayjs().isAfter(dayjs(response?.data.data.planExpiryDate));
-
-        debugger
 
         if (isPaymentSuccessful && !isPlanExpired) {
           setIsActive(true);
@@ -54,9 +51,6 @@ const CustomerDashboard = () => {
     <>
 
       <CustomerDashboardHeader />
-
-
-
 
       {
         isActive ?
