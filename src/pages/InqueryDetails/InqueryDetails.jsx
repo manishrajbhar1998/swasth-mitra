@@ -24,7 +24,8 @@ export default function InqueryDetails() {
       { header: 'State', accessorKey: 'state' },
       { header: 'Country', accessorKey: 'country' },
       { header: 'Pin Code', accessorKey: 'pinCode' },
-      { header: 'Status', accessorKey: 'status' }
+      { header: 'Status', accessorKey: 'status' },
+      { header: "FollowUp By", accessorKey: 'followUpBy' },
     ],
     []
   );

@@ -24,7 +24,6 @@ const ManageAdmin = () => {
             { header: 'Date of Birth', accessorKey: 'dateOfBirth' },
             { header: 'Role', accessorKey: 'role' },
             { header: 'Gender', accessorKey: 'gender' },
-            { header: 'Marital Status', accessorKey: 'maritalStatus' },
             { header: 'Email', accessorKey: 'email' },
             { header: 'Phone Number', accessorKey: 'phoneNumber' },
             { header: 'Address', accessorKey: 'address' },
