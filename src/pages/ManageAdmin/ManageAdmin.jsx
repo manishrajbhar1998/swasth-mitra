@@ -28,9 +28,6 @@ const ManageAdmin = () => {
             { header: 'Phone Number', accessorKey: 'phoneNumber' },
             { header: 'Address', accessorKey: 'address' },
             { header: 'Pin Code', accessorKey: 'pinCode' },
-            { header: 'Plan Selection', accessorKey: 'planSelection' },
-            { header: 'Patient History', accessorKey: 'patientHistory' },
-            { header: 'Existing Diseases', accessorKey: 'existingDiseases' },
             { header: 'City', accessorKey: 'city' },
             { header: 'State', accessorKey: 'state' }
         ],

@@ -1,10 +1,10 @@
-import { useMemo, useRef, useEffect, useState } from 'react';
+import { useMemo, useRef, useEffect, useState, useCallback } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import * as XLSX from 'xlsx';
 import { Box, Button, Container, Grid } from '@mui/material';
 import { FileDownload, PersonAddAltOutlined } from '@mui/icons-material';
 // import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import { GET_ENQUIRY_API, GET_REGISTERED_USERS } from '../../constant/config';
+import { GET_ENQUIRY_API, GET_REGISTERED_USERS, GET_REGISTRED_USER_DETAILS } from '../../constant/config';
 import { authApi } from '../../apis/api';
 import './registeredUser.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
@@ -35,10 +35,10 @@ const RegisteredUser = () => {
             { header: 'District', accessorKey: 'district' },
             { header: 'City', accessorKey: 'city' },
             { header: 'Pin Code', accessorKey: 'pinCode' },
-            { header: 'Plan Type', accessorKey: 'planType' },
+            { header: 'Plan Type', accessorKey: 'plan' },
             { header: 'Payment Status', accessorKey: 'paymentStatus' },
-            { header: 'Account Status', accessorKey: 'accountStatus' },
-            { header: 'Plan Expiry', accessorKey: 'planExpiry' },
+            { header: 'Account Status', accessorKey: 'status' },
+            { header: 'Plan Expiry', accessorKey: 'planExpiryDate' },
         ],
         []
     );
@@ -75,6 +75,24 @@ const RegisteredUser = () => {
         setShowRegisterUser(true);
     }
 
+    const handleRowClick = useCallback(async (row) => {
+        const memberId = row.original.memberId;  // Get memberId from clicked row
+        if (!memberId) {
+            console.error('No memberId found for this user');
+            return;
+        }
+
+        try {
+            const response = await authApi.get(GET_REGISTRED_USER_DETAILS, {
+                params: { memberId }   // Pass memberId as query param
+            });
+
+            console.log('Child API Response:', response.data);
+        } catch (error) {
+            console.error('Error fetching user details:', error?.response?.data || error.message);
+        }
+    }, []);
+
     return (
 
         <Container sx={{ minWidth: '100%' }} className='registeredUser-wrapper'>
@@ -91,6 +109,10 @@ const RegisteredUser = () => {
                     muiTableProps={{
                         ref: tableRef
                     }}
+                    muiTableBodyRowProps={({ row }) => ({
+                        onClick: () => handleRowClick(row),
+                        sx: { cursor: 'pointer' },
+                    })}
                     renderTopToolbarCustomActions={() => (
                         <Box sx={{ display: "flex", gap: "10px" }}>
                             <Button
