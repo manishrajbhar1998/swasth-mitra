@@ -1,12 +1,18 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
+import { initialValue, reducer } from './reducer';
 
 const AdminContext = createContext();
 
 export const AdminDetailsProvider = ({ children }) => {
-    const [adminDetails, setAdminDetails] = useState(false);
+    const getInitialState = () => {
+        const sessionData = JSON.parse(sessionStorage.getItem("adminDetails") || "{}");
+        return Object.keys(sessionData).length > 0 ? sessionData : initialValue;
+    };
+
+    const [state, dispatch] = useReducer(reducer, getInitialState());
 
     return (
-        <AdminContext.Provider value={{ adminDetails, setAdminDetails }}>
+        <AdminContext.Provider value={{ state, dispatch }}>
             {children}
         </AdminContext.Provider>
     );

@@ -34,7 +34,7 @@ const LoginSchema = Yup.object().shape({
 const AdminLoginCard = () => {
 
     const navigate = useNavigate()
-    const { setAdminDetails } = useLoadingAdminDeatils();
+    const { state, dispatch } = useLoadingAdminDeatils();
     const { setLoading } = useLoading();
 
     const {
@@ -52,26 +52,28 @@ const AdminLoginCard = () => {
             password: data.password
         };
 
-        debugger
-
         try {
             setLoading(true);
             const response = await api.post(LOGIN_API, reqBody);
             if (response?.data) {
-                localStorage.setItem("accessToken", response.data.data.accessToken);
-                setAdminDetails({
+                const adminData = {
                     userFirst: response.data.data.firstName,
                     userLast: response.data.data.lastName,
                     role: response.data.data.role,
-                });
+                    userName: data.email,
+                };
+                localStorage.setItem("accessToken", response.data.data.accessToken);
+                dispatch({ type: "SET_ADMIN_DETAILS", payload: adminData });
+                sessionStorage.setItem("adminDetails", JSON.stringify(adminData));
                 setTimeout(() => {
+                    setLoading(false);
                     navigate("/admin/dashboard/inquery");
+
                 }, 1000);
             }
         } catch (error) {
             console.error("error ", error);
             toast.error(error.response.data.message);
-        } finally {
             setLoading(false);
         }
     };

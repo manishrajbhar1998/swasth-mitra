@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import './registerCard.scss';
+import './adminRegisterCard.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField, Button, Container, Box, Typography, styled, Autocomplete } from '@mui/material';
+import { TextField, Button, Container, Box, Typography, styled, Autocomplete, FormGroup, Checkbox } from '@mui/material';
 import registerImg from './../../assets/images/login-register.jpg';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import * as Yup from 'yup';
@@ -38,6 +38,26 @@ const CustomRadio = styled(Radio)({
 
 });
 
+const adminTypes = [
+    "Super Admin",
+    "State Admin",
+    "District Admin",
+    "Distributor Admin"
+];
+
+const adminTypesObj = {
+    "Super Admin": "SUPER_ADMIN",
+    "State Admin": "STATE_ADMIN",
+    "District Admin": "DISTRICT_ADMIN",
+    "Distributor Admin": "DISTRIBUTOR_ADMIN"
+}
+
+
+const permissionOptions = [
+    { label: "Manage Admin", value: "Manage Admin" },
+    { label: "Inquery Details", value: "Inquery Details" },
+    { label: "Registered Users", value: "Registered Users" }
+];
 
 const LoginSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
@@ -49,16 +69,18 @@ const LoginSchema = Yup.object().shape({
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm Password is required'),
     gender: Yup.string().required('Gender is required'),
-    maritalStatus: Yup.string().required('Marital status is required'),
     address: Yup.string().required('Address is required'),
     pincode: Yup.string().matches(/^\d{6}$/, 'Pincode must be 6 digits').required('Pincode is required'),
     dob: Yup.date().nullable().required('Date of birth is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
-    district: Yup.string().required('District is required')
+    district: Yup.string().required('District is required'),
+    adminType: Yup.string().required('Admin Type is required'),
+    permissions: Yup.array().min(1, 'Select at least one permission')
 });
 
-const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
+
+const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     const { loading, setLoading } = useLoading();
     const [districtOption, setDistrictOption] = useState([]);
 
@@ -84,13 +106,15 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
             "city": data.city,
             "state": data.state,
             "district": data.district,
-            "role": type === "admin" ? "ADMIN" : "USER",
+            "role": adminTypesObj[data.adminType],
+            inquiryDetails: data.permissions.includes("Inquery Details"),
+            registeredUsers: data.permissions.includes("Registered Users"),
+            manageAdmin: data.permissions.includes("Manage Admin"),
             "pinCode": data.pincode,
             "planSelection": "",
             "patientHistory": "",
             "existingDiseases": "",
             "password": data.password
-
         }
 
         try {
@@ -106,7 +130,6 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
         } catch (error) {
             console.log("error", error?.response?.data?.errors[0]);
             setLoading(false)
-
             toast.error(error?.response?.data?.errors[0])
 
         }
@@ -118,11 +141,11 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     console.log("District Obj:", district);
 
     return (
-        <div className='register-user-wrapper'>
+        <div className='admin-register-user-wrapper'>
             <Box className="register-card-wrapper">
                 <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
                     <Box className="register-form-header">
-                        <p className="register-form-header-text"> {type === "admin" ? "Register new Admin" : "Register new User"} </p>
+                        <p className="register-form-header-text">Register new Admin</p>
                     </Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -408,7 +431,29 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
                                     )}
                                 />
                             </Box>
-                            <Box className="dob-wrapper">
+                            <Box className="dob-wrapper" sx={{ alignItems: "center" }}>
+                                <Box>
+                                    <Controller
+                                        name="adminType"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Autocomplete
+                                                options={adminTypes}
+                                                value={field.value || null}
+                                                onChange={(_, value) => field.onChange(value)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Admin Type"
+                                                        error={!!errors.adminType}
+                                                        helperText={errors.adminType?.message}
+                                                    />
+                                                )}
+                                                fullWidth
+                                            />
+                                        )}
+                                    />
+                                </Box>
                                 <Box>
                                     <Controller
                                         name="gender"
@@ -416,9 +461,9 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
 
                                         defaultValue="male"
                                         render={({ field }) => (
-                                            <FormControl component="fieldset" error={!!errors.gender}>
-                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Gender</FormLabel>
-                                                <RadioGroup row {...field}>
+                                            <FormControl component="fieldset" error={!!errors.gender} sx={{ display: "flex", alignItems: "center" }}>
+                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000", marginBottom: "0px" }}>Gender</FormLabel>
+                                                <RadioGroup row {...field} sx={{ flexWrap: "nowrap" }}>
                                                     <FormControlLabel value="male" control={<CustomRadio />} label="Male" />
                                                     <FormControlLabel value="female" control={<CustomRadio />} label="Female" />
                                                     <FormControlLabel value="other" control={<CustomRadio />} label="Other" />
@@ -428,26 +473,50 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
                                         )}
                                     />
                                 </Box>
-
-                                <Box>
-
-                                    <Controller
-                                        name="maritalStatus"
-                                        control={control}
-                                        defaultValue="single"
-                                        render={({ field }) => (
-                                            <FormControl component="fieldset" error={!!errors.maritalStatus}>
-                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Marital Status</FormLabel>
-                                                <RadioGroup row {...field}>
-                                                    <FormControlLabel value="single" control={<CustomRadio />} label="Single" />
-                                                    <FormControlLabel value="married" control={<CustomRadio />} label="Married" />
-                                                </RadioGroup>
-                                                <Typography color="error">{errors.maritalStatus?.message}</Typography>
-                                            </FormControl>
-                                        )}
-                                    />
-                                </Box>
                             </Box>
+                            <Box sx={{ mt: 1, p: 2, border: '1px solid #ccc', borderRadius: 2 }}>
+                                <FormLabel component="legend" sx={{ mb: 1, fontSize: "16px", fontWeight: 600 }}>
+                                    Allow Admin Access
+                                </FormLabel>
+
+                                <Controller
+                                    name="permissions"
+                                    control={control}
+                                    defaultValue={[]}
+                                    render={({ field }) => (
+                                        <FormGroup sx={{ display: 'flex', flexDirection: 'column', }}>
+                                            {permissionOptions.map((perm) => (
+                                                <FormControlLabel
+                                                    key={perm.value}
+                                                    control={
+                                                        <Checkbox
+                                                            size="medium"
+                                                            value={perm.value}
+                                                            checked={field.value.includes(perm.value)}
+                                                            onChange={(e) => {
+                                                                const { checked, value } = e.target;
+                                                                if (checked) {
+                                                                    field.onChange([...field.value, value]);
+                                                                } else {
+                                                                    field.onChange(field.value.filter((val) => val !== value));
+                                                                }
+                                                            }}
+                                                        />
+                                                    }
+                                                    label={<Typography sx={{ fontSize: '15px', marginTop: "10px" }}>{perm.label}</Typography>}
+                                                />
+                                            ))}
+                                            {errors.permissions && (
+                                                <Typography color="error" sx={{ fontSize: "12px", mt: 1 }}>
+                                                    {errors.permissions.message}
+                                                </Typography>
+                                            )}
+                                        </FormGroup>
+                                    )}
+                                />
+                            </Box>
+
+
                             <Box className="btn-wrapper" sx={{ display: 'flex', gap: 1 }}>
                                 <Button fullWidth variant="contained" color="primary" onClick={() => setShowRegisterUser(false)} >
                                     Chancel
@@ -466,4 +535,4 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     )
 }
 
-export default RegisterCard
+export default AdminRegisterCard

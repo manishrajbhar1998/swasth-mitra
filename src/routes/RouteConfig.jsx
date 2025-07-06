@@ -15,7 +15,7 @@ import OurCompany from '../pages/OurCompany/OurCompany'
 import OurApproach from '../pages/OurApproach/OurApproach'
 import HealthImpact from '../pages/HealthImpact/HealthImpact'
 import BlogDetails from '../pages/BlogDetails/BlogDetails'
-import CustomerProtectedRoute from './CustomerProtectedRoute'
+import { AdminProtectedRoute, CustomerProtectedRoute } from './ProtectRoutes'
 
 const RouteConfig = () => {
     return (
@@ -43,11 +43,20 @@ const RouteConfig = () => {
                 <Route path="*" element={<Login />} />
                 <Route path="/admin/">
                     <Route path="" element={<AdminLogin />} />
-                    <Route path="dashboard/" element={<AdminDashboard />} >
+
+                    <Route path="dashboard/" element={
+                        <AdminProtectedRoute>
+                            <AdminDashboard />
+                        </AdminProtectedRoute>
+                    } >
                         {DRAWER_LIST.map(({ path, Component }) => (
                             <Route
                                 path={path?.replace('/admin/dashboard/', '')}
-                                element={Component ? <Component /> : null}
+                                element={Component ?
+                                    <AdminProtectedRoute>
+                                        <Component />
+                                    </AdminProtectedRoute>
+                                    : null}
                                 key={path}
                             />
                         ))}

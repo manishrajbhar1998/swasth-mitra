@@ -21,7 +21,6 @@ export const reducer = (state, action) => {
             };
             break;
         case "login":
-            debugger
             updated = {
                 ...state,
                 login: action.payload
