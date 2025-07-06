@@ -141,7 +141,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     console.log("District Obj:", district);
 
     return (
-        <div className='register-user-wrapper'>
+        <div className='admin-register-user-wrapper'>
             <Box className="register-card-wrapper">
                 <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
                     <Box className="register-form-header">
