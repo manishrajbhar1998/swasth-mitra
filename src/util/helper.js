@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export function transformDashboardData(dashboardData) {
+export const transformDashboardData = (dashboardData) => {
     const {
         memberId,
         plan,
@@ -66,3 +66,34 @@ export function transformDashboardData(dashboardData) {
 
     return [member];
 }
+
+export const convertImageToBase64 = (url) => {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+
+        // Add a cache-busting query to avoid browser blocking
+        img.src = url + (url.includes('?') ? '&' : '?') + 'cachebust=' + new Date().getTime();
+
+        img.onload = () => {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const dataURL = canvas.toDataURL('image/png');
+                resolve(dataURL);
+            } catch (e) {
+                console.error('Canvas error:', e);
+                resolve('/fallback-profile.png'); // use fallback image
+            }
+        };
+
+        img.onerror = (err) => {
+            console.warn('Could not load image:', url);
+            resolve('/fallback-profile.png'); // fallback image path (add to public folder)
+        };
+    });
+};
+

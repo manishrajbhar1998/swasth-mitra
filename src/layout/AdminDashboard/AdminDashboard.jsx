@@ -33,7 +33,6 @@ const AdminDashboard = () => {
         <Box component="main" sx={{ flexGrow: 1, padding: '12px', }} >
           <DrawerHeader />
           <Outlet />
-
         </Box>
       </Box>
       {/* <div className='footer-wrapper'>

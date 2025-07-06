@@ -10,6 +10,7 @@ import PhilosophySection from '../PhilosophySection/PhilosophySection'
 import Statistics from '../../layout/Statistics/Statistics'
 import KnowledgeHub from '../../layout/KnowledgeHub/KnowledgeHub'
 import Faq from '../../layout/Faq/Faq'
+import WhatsappIcon from '../../components/WhatsappIcon/WhatsappIcon'
 
 const LandingPage = () => {
   return (
@@ -25,6 +26,7 @@ const LandingPage = () => {
       <Faq />
       <KnowledgeHub />
       <Footer />
+      <WhatsappIcon />
     </div>
   )
 }
