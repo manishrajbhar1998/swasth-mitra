@@ -51,6 +51,9 @@ const AdminLoginCard = () => {
             userName: data.email,
             password: data.password
         };
+
+        debugger
+
         try {
             setLoading(true);
             const response = await api.post(LOGIN_API, reqBody);

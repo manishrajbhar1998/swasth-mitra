@@ -111,9 +111,9 @@ const ManageAdmin = () => {
             </Container>
             {
                 showRegisterUser &&
-                <Box className="registerCard-wrapper">
-                    <RegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
-                </Box>
+
+                <RegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
+
             }
         </div>
 

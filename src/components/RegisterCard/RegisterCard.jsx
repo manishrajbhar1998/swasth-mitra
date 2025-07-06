@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import './registerCard.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,9 +23,11 @@ import { POST_USER_REGISTER } from '../../constant/config';
 
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import Loader from '../../components/Loader/Loader';
-import { indianStates } from '../../constant/constant';
+
 import { Bounce, toast, ToastContainer } from 'react-toastify';
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import Header from '../../layout/Header/Header';
+import Footer from '../../layout/Footer/Footer';
+import { district, indianStates } from '../../constant/constant';
 
 const CustomRadio = styled(Radio)({
     padding: '4px',
@@ -56,8 +58,9 @@ const LoginSchema = Yup.object().shape({
     district: Yup.string().required('District is required')
 });
 
-const RegisterCard = ({ setShowRegisterUser, type }) => {
+const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     const { loading, setLoading } = useLoading();
+    const [districtOption, setDistrictOption] = useState([]);
 
     const {
         register,
@@ -69,6 +72,7 @@ const RegisterCard = ({ setShowRegisterUser, type }) => {
     });
 
     const onSubmit = async (data) => {
+        debugger
         const reqBody = {
             "firstName": data?.firstName,
             "lastName": data.lastName,
@@ -80,22 +84,25 @@ const RegisterCard = ({ setShowRegisterUser, type }) => {
             "address": data.address,
             "city": data.city,
             "state": data.state,
-            "role": "USER",
+            "district": data.district,
+            "role": type === "admin" ? "ADMIN" : "USER",
             "pinCode": data.pincode,
             "planSelection": "",
             "patientHistory": "",
             "existingDiseases": "",
             "password": data.password
+
         }
+
+        debugger
         try {
             setLoading(true)
             const response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));
             if (response?.data) {
                 toast.success("Registration Successfull")
                 setLoading(false)
-
                 setTimeout(() => {
-                    navigate("/login");
+                    setShowRegisterUser(false)
                 }, 10)
             }
         } catch (error) {
@@ -109,346 +116,353 @@ const RegisterCard = ({ setShowRegisterUser, type }) => {
 
     const navigate = useNavigate()
 
+    console.log("States:", indianStates);
+    console.log("District Obj:", district);
+
     return (
-        <div>
-            <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
-
-                <Box className="header">
-                    <Typography className='welcome-text'>
-                        {
-                            type == "admin" ? "Create Admin" : " User Registration Form"
-                        }
-
-                    </Typography>
-
-                    <ClearOutlinedIcon onClick={() => setShowRegisterUser(false)} />
-                </Box>
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <Box sx={{
-                            display: 'flex', gap: '20px', flexDirection: {
-                                xs: 'column',
-                                sm: 'row',
-                            },
-                        }}>
-                            <Controller
-                                name="firstName"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="First Name"
-                                        error={!!errors.firstName}
-                                        helperText={errors.firstName?.message}
-                                        fullWidth
-                                        onChange={(e) => {
-                                            const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                            field.onChange(onlyLetters);
-                                        }}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="lastName"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Last Name"
-                                        error={!!errors.lastName}
-                                        helperText={errors.lastName?.message}
-                                        fullWidth
-                                        onChange={(e) => {
-                                            const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                            field.onChange(onlyLetters);
-                                        }}
-                                    />
-                                )}
-                            />
-                        </Box>
-
-                        <Box sx={{
-                            display: 'flex', gap: '20px', flexDirection: {
-                                xs: 'column',
-                                sm: 'row',
-                            },
-                        }}>
-                            <Controller
-                                name="mobile"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Mobile No"
-                                        error={!!errors.mobile}
-                                        helperText={errors.mobile?.message}
-                                        fullWidth
-                                        onChange={(e) => {
-                                            const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
-                                            field.onChange(onlyNumbers);
-                                        }}
-                                        inputProps={{ maxLength: 10 }}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="email"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Email Address"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                        fullWidth
-                                    />
-                                )}
-                            />
-                        </Box>
-                        <Box className="dob-wrapper">
-                            <Box>
+        <div className='register-user-wrapper'>
+            <Box className="register-card-wrapper">
+                <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
+                    <Box className="register-form-header">
+                        <p className="register-form-header-text"> {type === "admin" ? "Register new Admin" : "Register new User"} </p>
+                    </Box>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                            <Box sx={{
+                                display: 'flex', gap: '20px', flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
+                            }}>
                                 <Controller
-                                    name="dob"
+                                    name="firstName"
                                     control={control}
-                                    defaultValue={null}
-                                    render={({ field, fieldState }) => (
-                                        <DatePicker
-                                            className='datepicker'
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="First Name"
+                                            error={!!errors.firstName}
+                                            helperText={errors.firstName?.message}
                                             fullWidth
-                                            label="Date of Birth"
-                                            disableFuture
-                                            value={field.value}
-                                            onChange={(date) => field.onChange(date)}
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    fullWidth
-                                                    margin="normal"
-                                                    error={!!fieldState.error}
-                                                    helperText={fieldState.error?.message}
-
-                                                />
-                                            )}
-                                            slotProps={{
-                                                textField: {
-                                                    InputProps: {
-                                                        sx: {
-                                                            '& .MuiPickersInputBase-sectionsContainer': {
-                                                                // padding: '11px',
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
+                                            onChange={(e) => {
+                                                const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
+                                                field.onChange(onlyLetters);
+                                            }}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    name="lastName"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="Last Name"
+                                            error={!!errors.lastName}
+                                            helperText={errors.lastName?.message}
+                                            fullWidth
+                                            onChange={(e) => {
+                                                const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
+                                                field.onChange(onlyLetters);
                                             }}
                                         />
                                     )}
                                 />
                             </Box>
 
-                            <Box>
-
+                            <Box sx={{
+                                display: 'flex', gap: '20px', flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
+                            }}>
                                 <Controller
-                                    name="city"
+                                    name="mobile"
                                     control={control}
                                     render={({ field }) => (
                                         <TextField
                                             {...field}
-                                            label="City"
-                                            error={!!errors.city}
-                                            helperText={errors.city?.message}
+                                            label="Mobile No"
+                                            error={!!errors.mobile}
+                                            helperText={errors.mobile?.message}
+                                            fullWidth
+                                            onChange={(e) => {
+                                                const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                                                field.onChange(onlyNumbers);
+                                            }}
+                                            inputProps={{ maxLength: 10 }}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    name="email"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="Email Address"
+                                            error={!!errors.email}
+                                            helperText={errors.email?.message}
                                             fullWidth
                                         />
                                     )}
                                 />
                             </Box>
-                        </Box>
+                            <Box className="dob-wrapper">
+                                <Box>
+                                    <Controller
+                                        name="dob"
+                                        control={control}
+                                        defaultValue={null}
+                                        render={({ field, fieldState }) => (
+                                            <DatePicker
+                                                className='datepicker'
+                                                fullWidth
+                                                label="Date of Birth"
+                                                disableFuture
+                                                value={field.value}
+                                                onChange={(date) => field.onChange(date)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        fullWidth
+                                                        margin="normal"
+                                                        error={!!fieldState.error}
+                                                        helperText={fieldState.error?.message}
 
-                        <Box sx={{
-                            display: 'flex', gap: '20px', flexDirection: {
-                                xs: 'column',
-                                sm: 'row',
-                            },
-                        }}>
+                                                    />
+                                                )}
+
+                                                slotProps={{
+                                                    textField: {
+                                                        InputProps: {
+                                                            sx: {
+                                                                '& .MuiPickersInputBase-sectionsContainer': {
+                                                                    padding: '11.5px 0',
+
+                                                                },
 
 
-                            <Controller
-                                name="state"
-                                control={control}
-                                render={({ field }) => (
-                                    <Autocomplete
-                                        options={indianStates}
-                                        value={field.value || null}
-                                        onChange={(_, data) => field.onChange(data)}
-                                        renderInput={(params) => (
-                                            <TextField
-                                                {...params}
-                                                label="Select State"
-                                                error={!!errors.state}
-                                                helperText={errors.state?.message}
+                                                            }
+                                                        },
+                                                        sx: {
+                                                            '& .MuiInputLabel-root': {
+                                                                fontSize: '12px !important',
+                                                            },
+                                                            '& .MuiPickersSectionList-sectionContent': {
+                                                                fontSize: '12px !important',
+
+                                                            }
+                                                        },
+                                                    }
+                                                }}
                                             />
                                         )}
-                                        fullWidth
                                     />
-                                )}
-                            />
+                                </Box>
+                                <Box>
 
-                            <Controller
-                                name="district"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="District"
-                                        error={!!errors.district}
-                                        helperText={errors.district?.message}
-                                        fullWidth
-                                        onChange={(e) => {
-                                            const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                            field.onChange(onlyLetters);
-                                        }}
-                                        inputProps={{ maxLength: 6 }}
+                                    <Controller
+                                        name="city"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                label="City"
+                                                error={!!errors.city}
+                                                helperText={errors.city?.message}
+                                                fullWidth
+                                            />
+                                        )}
                                     />
-                                )}
-                            />
+                                </Box>
+                            </Box>
 
-
-                        </Box>
-
-                        <Box sx={{
-                            display: 'flex', gap: '20px', flexDirection: {
-                                xs: 'column',
-                                sm: 'row',
-                            },
-                        }}>
-                            <Controller
-                                name="pincode"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Pincode"
-                                        error={!!errors.pincode}
-                                        helperText={errors.pincode?.message}
-                                        fullWidth
-                                        onChange={(e) => {
-                                            const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
-                                            field.onChange(onlyNumbers);
-                                        }}
-                                        inputProps={{ maxLength: 6 }}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name="address"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Address"
-                                        error={!!errors.address}
-                                        helperText={errors.address?.message}
-                                        fullWidth
-                                    />
-                                )}
-                            />
-
-                        </Box>
-
-
-
-
-                        <Box sx={{
-                            display: 'flex', gap: '20px', flexDirection: {
-                                xs: 'column',
-                                sm: 'row',
-                            },
-                            padding: "0",
-                            marginTop: "-12px",
-                        }}>
-                            <Controller
-                                name="password"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        fullWidth
-                                        label="Set Password"
-                                        type="password"
-                                        margin="normal"
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
-                                    />
-                                )}
-                            />
-
-                            <Controller
-                                name="confirmPassword"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        fullWidth
-                                        label="Confirm Password"
-                                        type="password"
-                                        margin="normal"
-                                        error={!!errors.confirmPassword}
-                                        helperText={errors.confirmPassword?.message}
-                                    />
-                                )}
-                            />
-                        </Box>
-
-                        <Box className="dob-wrapper">
-                            <Box>
+                            <Box sx={{
+                                display: 'flex', gap: '20px', flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
+                            }}>
                                 <Controller
-                                    name="gender"
+                                    name="state"
                                     control={control}
-
-                                    defaultValue="male"
                                     render={({ field }) => (
-                                        <FormControl component="fieldset" error={!!errors.gender}>
-                                            <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Gender</FormLabel>
-                                            <RadioGroup row {...field}>
-                                                <FormControlLabel value="male" control={<CustomRadio />} label="Male" />
-                                                <FormControlLabel value="female" control={<CustomRadio />} label="Female" />
-                                                <FormControlLabel value="other" control={<CustomRadio />} label="Other" />
-                                            </RadioGroup>
-                                            <Typography color="error">{errors.gender?.message}</Typography>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={indianStates}
+                                            value={field.value || null}
+                                            onChange={(_, data) => {
+
+                                                setDistrictOption(district[data].districts)
+                                                field.onChange(data)
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label="Select State"
+                                                    error={!!errors.state}
+                                                    helperText={errors.state?.message}
+                                                />
+                                            )}
+                                            fullWidth
+                                        />
+                                    )}
+                                />
+
+                                <Controller
+                                    name="district"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Autocomplete
+                                            options={districtOption}
+                                            value={field.value || null}
+                                            onChange={(_, data) => field.onChange(data)}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label="Select Dsitrict"
+                                                    error={!!errors.state}
+                                                    helperText={errors.state?.message}
+                                                />
+                                            )}
+                                            fullWidth
+                                        />
+                                    )}
+                                />
+
+                            </Box>
+                            <Box sx={{
+                                display: 'flex', gap: '20px', flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
+                            }}>
+                                <Controller
+                                    name="pincode"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="Pincode"
+                                            error={!!errors.pincode}
+                                            helperText={errors.pincode?.message}
+                                            fullWidth
+                                            onChange={(e) => {
+                                                const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                                                field.onChange(onlyNumbers);
+                                            }}
+                                            inputProps={{ maxLength: 6 }}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    name="address"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="Address"
+                                            error={!!errors.address}
+                                            helperText={errors.address?.message}
+                                            fullWidth
+                                        />
+                                    )}
+                                />
+
+                            </Box>
+                            <Box sx={{
+                                display: 'flex', gap: '20px', flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
+                                padding: "0",
+                                marginTop: "-12px",
+                            }}>
+                                <Controller
+                                    name="password"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            label="Set Password"
+                                            type="password"
+                                            margin="normal"
+                                            error={!!errors.password}
+                                            helperText={errors.password?.message}
+                                        />
+                                    )}
+                                />
+
+                                <Controller
+                                    name="confirmPassword"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            label="Confirm Password"
+                                            type="password"
+                                            margin="normal"
+                                            error={!!errors.confirmPassword}
+                                            helperText={errors.confirmPassword?.message}
+                                        />
                                     )}
                                 />
                             </Box>
+                            <Box className="dob-wrapper">
+                                <Box>
+                                    <Controller
+                                        name="gender"
+                                        control={control}
 
-                            <Box>
+                                        defaultValue="male"
+                                        render={({ field }) => (
+                                            <FormControl component="fieldset" error={!!errors.gender}>
+                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Gender</FormLabel>
+                                                <RadioGroup row {...field}>
+                                                    <FormControlLabel value="male" control={<CustomRadio />} label="Male" />
+                                                    <FormControlLabel value="female" control={<CustomRadio />} label="Female" />
+                                                    <FormControlLabel value="other" control={<CustomRadio />} label="Other" />
+                                                </RadioGroup>
+                                                <Typography color="error">{errors.gender?.message}</Typography>
+                                            </FormControl>
+                                        )}
+                                    />
+                                </Box>
 
-                                <Controller
-                                    name="maritalStatus"
-                                    control={control}
-                                    defaultValue="single"
-                                    render={({ field }) => (
-                                        <FormControl component="fieldset" error={!!errors.maritalStatus}>
-                                            <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Marital Status</FormLabel>
-                                            <RadioGroup row {...field}>
-                                                <FormControlLabel value="single" control={<CustomRadio />} label="Single" />
-                                                <FormControlLabel value="married" control={<CustomRadio />} label="Married" />
-                                            </RadioGroup>
-                                            <Typography color="error">{errors.maritalStatus?.message}</Typography>
-                                        </FormControl>
-                                    )}
-                                />
+                                <Box>
+
+                                    <Controller
+                                        name="maritalStatus"
+                                        control={control}
+                                        defaultValue="single"
+                                        render={({ field }) => (
+                                            <FormControl component="fieldset" error={!!errors.maritalStatus}>
+                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000" }}>Marital Status</FormLabel>
+                                                <RadioGroup row {...field}>
+                                                    <FormControlLabel value="single" control={<CustomRadio />} label="Single" />
+                                                    <FormControlLabel value="married" control={<CustomRadio />} label="Married" />
+                                                </RadioGroup>
+                                                <Typography color="error">{errors.maritalStatus?.message}</Typography>
+                                            </FormControl>
+                                        )}
+                                    />
+                                </Box>
                             </Box>
-                        </Box>
+                            <Box className="btn-wrapper" sx={{ display: 'flex', gap: 1 }}>
+                                <Button fullWidth variant="contained" color="primary" onClick={() => setShowRegisterUser(false)} >
+                                    Chancel
+                                </Button>
+                                <Button fullWidth variant="contained" color="primary" type="submit" >
+                                    Save
+                                </Button>
 
-                        <Box className="btn-wrapper" sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-                            <Button fullWidth variant="contained" color="primary" type="submit" >
-                                {type === "admin" ? "Create Admin" : "Register User"}
-                            </Button>
+                            </Box>
+                        </form>
+                    </LocalizationProvider>
+                </Box>
 
-                        </Box>
-                    </form>
-                </LocalizationProvider>
             </Box>
         </div>
     )

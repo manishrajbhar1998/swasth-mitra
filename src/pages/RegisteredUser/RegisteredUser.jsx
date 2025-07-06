@@ -9,6 +9,7 @@ import { authApi } from '../../apis/api';
 import './registeredUser.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
 import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
+import Register from '../Register/Register';
 
 
 const RegisteredUser = () => {
@@ -116,9 +117,8 @@ const RegisteredUser = () => {
             </Grid>
             {
                 showRegisterUser &&
-                <Box className="registerCard-wrapper">
-                    <RegisterCard setShowRegisterUser={setShowRegisterUser} />
-                </Box>
+                <RegisterCard setShowRegisterUser={setShowRegisterUser} />
+
             }
         </Container>
 

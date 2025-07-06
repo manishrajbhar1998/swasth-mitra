@@ -46,7 +46,7 @@ const CustomerDashboard = () => {
       setLoading(false)
 
       console.error("invalid userid and password ", error);
-      toast.error(error?.response?.data?.errors[0])
+      // toast.error(error?.response?.data?.errors[0])
     }
   }
 
