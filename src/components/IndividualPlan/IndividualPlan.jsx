@@ -47,7 +47,8 @@ const IndividualPlan = () => {
         }
         const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
         const options = {
-            key: "rzp_test_m7kwYdRW44PWYw", // Replace with live Razorpay key
+            key: "rzp_test_m7kwYdRW44PWYw", //Razorpay Test key 
+            // key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
             amount: Number(cleanAmount) * 100, // Amount in paise
             currency: "INR",
             name: "Swasth Mitra",

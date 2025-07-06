@@ -30,12 +30,14 @@ const RegisteredUser = () => {
             { header: 'Email', accessorKey: 'email' },
             { header: 'Phone Number', accessorKey: 'phoneNumber' },
             { header: 'Address', accessorKey: 'address' },
-            { header: 'Pin Code', accessorKey: 'pinCode' },
-            { header: 'Plan Selection', accessorKey: 'planSelection' },
-            { header: 'Patient History', accessorKey: 'patientHistory' },
-            { header: 'Existing Diseases', accessorKey: 'existingDiseases' },
+            { header: 'State', accessorKey: 'state' },
+            { header: 'District', accessorKey: 'district' },
             { header: 'City', accessorKey: 'city' },
-            { header: 'State', accessorKey: 'state' }
+            { header: 'Pin Code', accessorKey: 'pinCode' },
+            { header: 'Plan Type', accessorKey: 'planType' },
+            { header: 'Payment Status', accessorKey: 'paymentStatus' },
+            { header: 'Account Status', accessorKey: 'accountStatus' },
+            { header: 'Plan Expiry', accessorKey: 'planExpiry' },
         ],
         []
     );
@@ -46,7 +48,7 @@ const RegisteredUser = () => {
             try {
                 const response = await authApi.get(GET_REGISTERED_USERS, {
                     params: {
-                        role: adminDetails?.role
+                        role: "user"
                     }
                 });
                 setData(response.data.data || []);

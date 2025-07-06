@@ -44,7 +44,7 @@ const ManageAdmin = () => {
             try {
                 const response = await authApi.get(GET_REGISTERED_USERS, {
                     params: {
-                        role: "SUPER_ADMIN"
+                        role: "NOT_USER"
                     }
                 });
                 setData(response.data.data || []);
