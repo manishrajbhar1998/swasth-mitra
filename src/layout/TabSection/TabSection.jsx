@@ -80,7 +80,7 @@ const TabSection = () => {
                             <Col lg={6}>
                                 <h2 className="h4 fw-bold mb-3" style={{ color: '#0a5247' }}>{tab.heading}</h2>
                                 <p className="fs-5 fw-light text-justify">{tab.content}</p>
-                                <a href="#services" className="check-plan" style={{ border: '1px solid #ffc643' }} onClick={scrollToServices}>
+                                <a href="#services" className="btn-get-started tab-btn" onClick={scrollToServices}>
                                     <i className="bi bi-arrow-right-circle me-2"></i> <span>Check Plans</span>
                                 </a>
                             </Col>

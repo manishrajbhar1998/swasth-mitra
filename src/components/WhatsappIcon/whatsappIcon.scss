@@ -1,11 +1,13 @@
-.whatsapp-float {
+.floating-icon {
     position: fixed;
-    bottom: 20px;
     right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background-color: #25d366;
     color: white;
-    border-radius: 50%;
-    padding: 12px;
+    border-radius: 30px;
+    padding: 10px;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -14,11 +16,27 @@
         box-shadow 0.3s ease;
 
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
 
-    .whatsapp-icon {
-        font-size: 28px;
+    .icon {
+        font-size: 24px;
     }
+
+    .icon-label {
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+}
+
+.whatsapp-float {
+    bottom: 80px;
+    background-color: #25d366;
+}
+
+.call-float {
+    bottom: 20px;
+    background-color: #0984e3;
 }

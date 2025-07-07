@@ -1,18 +1,20 @@
 .team-section {
     background-color: #f1f0d5;
+    padding: 20px 0 !important;
 
     .section-title {
         line-height: 1;
 
         .description-title {
             color: #0a5247;
-            font-size: 2rem;
+            font-size: 50px;
             font-weight: bold;
         }
 
         .description-subtitle {
             color: #0a5247;
-            font-size: 1.2rem;
+            font-size: 30px;
+            font-weight: 500;
         }
     }
 

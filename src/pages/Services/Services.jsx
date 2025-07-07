@@ -15,10 +15,7 @@ const plans = [
             "Guidance to avail government schemes like Ayushman Bharat",
         ],
         longFeatures: [
-            "Instant help on mobile",
-            "Chat help during emergencies",
             "Support in maintaining patient medical documents",
-            "Guidance to avail government schemes like Ayushman Bharat",
             "Emergency attendant in hospital",
             "24x7 hospital assistance",
             "24x7 call and chat support",
@@ -41,10 +38,7 @@ const plans = [
             "Guidance to avail government schemes like Ayushman Bharat",
         ],
         longFeatures: [
-            "Instant help on mobile",
-            "Chat help during emergencies",
             "Support in maintaining patient medical documents",
-            "Guidance to avail government schemes like Ayushman Bharat",
             "Emergency attendant in hospital",
             "24x7 hospital assistance",
             "24x7 call and chat support",
@@ -67,10 +61,7 @@ const plans = [
             "Guidance to avail government schemes like Ayushman Bharat",
         ],
         longFeatures: [
-            "Instant help on mobile",
-            "Chat help during emergencies",
             "Support in maintaining patient medical documents",
-            "Guidance to avail government schemes like Ayushman Bharat",
             "Emergency attendant in hospital",
             "24x7 hospital assistance",
             "24x7 call and chat support",
@@ -147,7 +138,6 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
                         <p>{plan.note}</p>
                         <button
                             className="btn-get-started"
-                            style={{ backgroundColor: "#fff", color: "#193440" }}
                             onClick={() => handleChoosePlan(plan?.title, plan?.price)}
                         >
                             <i className="bi bi-arrow-right-circle me-2"></i> <span>Choose Plan</span>

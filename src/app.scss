@@ -1047,18 +1047,16 @@ section,
     width: fit-content;
     box-sizing: border-box;
     max-height: 50px;
-    text-decoration: none;
-
-    .btn {
-        // display: flex;
-        // justify-content: space-between;
-        // align-items: center;
-        // border: none;
-    }
+    text-decoration: none !important;
 
     span {
-        text-decoration: none;
+        text-decoration: none !important;
     }
+}
+
+.tab-btn {
+    float: left;
+    margin-bottom: 10px;
 }
 
 .btn-get-started:hover {
