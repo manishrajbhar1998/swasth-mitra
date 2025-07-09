@@ -20,6 +20,7 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                             src={profilePhoto}
                             alt="Health"
                             className="health-icon"
+                            crossOrigin="anonymous"
                         />
                         <div className="name">{name}</div>
                     </div>
