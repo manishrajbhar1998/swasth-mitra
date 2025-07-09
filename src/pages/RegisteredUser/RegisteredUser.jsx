@@ -1,15 +1,17 @@
 import { useMemo, useRef, useEffect, useState, useCallback } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import * as XLSX from 'xlsx';
-import { Box, Button, Container, Grid } from '@mui/material';
+import { Box, Button, Container, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Typography, IconButton, Select, MenuItem } from '@mui/material';
 import { FileDownload, PersonAddAltOutlined } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 // import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import { GET_ENQUIRY_API, GET_REGISTERED_USERS, GET_REGISTRED_USER_DETAILS } from '../../constant/config';
+import { GET_REGISTERED_USERS, GET_REGISTRED_USER_DETAILS } from '../../constant/config';
 import { authApi } from '../../apis/api';
 import './registeredUser.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
 import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
-import Register from '../Register/Register';
+import { toast } from 'react-toastify';
+import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
 const RegisteredUser = () => {
@@ -18,9 +20,13 @@ const RegisteredUser = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showRegisterUser, setShowRegisterUser] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [selectedRowData, setSelectedRowData] = useState(null);
+    const [modalStatus, setModalStatus] = useState('');
     const { adminDetails } = useLoadingAdminDeatils();
     const [childTableDetails, setChildTableDetails] = useState({});
     const [expandedRowId, setExpandedRowId] = useState(null);
+    const { setToastifyLoading } = useLoading ? useLoading() : { setToastifyLoading: () => { } };
 
     // Helper to safely get value or hyphen
     const safeValue = (val) => (val === undefined || val === null || val === "") ? "-" : val;
@@ -107,6 +113,37 @@ const RegisteredUser = () => {
             setChildTableDetails(prev => ({ ...prev, [row.id]: { error: error?.response?.data || error.message } }));
         }
     }, [childTableDetails]);
+
+    // Handler for default edit icon click
+    const handleEditRow = (row) => {
+        console.log('Edit row clicked:', row.original);
+        setSelectedRowData(row.original);
+        setModalStatus(row.original.status || '');
+        setEditModalOpen(true);
+    };
+
+    // Save handler for status update
+    const handleSaveStatus = async () => {
+        if (!selectedRowData?.id) {
+            toast.error('User ID not found.');
+            return;
+        }
+        if (selectedRowData.paymentStatus !== 'SUCCESS') {
+            toast.error("User hasn't purchased a plan yet");
+            return;
+        }
+        try {
+            setToastifyLoading && setToastifyLoading(true);
+            const response = await authApi.post(`/api/registration/${selectedRowData.id}`, { status: modalStatus });
+            toast.success('User Account Activated successfully!');
+            setData(prev => prev.map(row => row.id === selectedRowData.id ? { ...row, status: modalStatus } : row));
+            setEditModalOpen(false);
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'Failed to update status.');
+        } finally {
+            setToastifyLoading && setToastifyLoading(false);
+        }
+    };
 
     // Helper to render child table
     const renderChildTable = (rowId) => {
@@ -196,6 +233,30 @@ const RegisteredUser = () => {
     // Use getRowId for unique row identification
     const getRowId = useCallback((row) => row.memberId || row.email || row.id, []);
 
+    const FIELDS_TO_SHOW = [
+        "firstName", "lastName", "dateOfBirth", "role", "gender", "maritalStatus", "email", "phoneNumber", "address", "pinCode", "city", "state", "district", "memberId", "plan", "paymentStatus", "status"
+    ];
+
+    const FIELD_LABELS = {
+        firstName: "First Name",
+        lastName: "Last Name",
+        dateOfBirth: "Date of Birth",
+        role: "Role",
+        gender: "Gender",
+        maritalStatus: "Marital Status",
+        email: "Email",
+        phoneNumber: "Phone Number",
+        address: "Address",
+        pinCode: "Pin Code",
+        city: "City",
+        state: "State",
+        district: "District",
+        memberId: "Member ID",
+        plan: "Plan",
+        paymentStatus: "Payment Status",
+        status: "Status"
+    };
+
     return (
         <Container sx={{ minWidth: '100%' }} className='registeredUser-wrapper'>
             <Grid spacing={2} size={{ xs: 12, lg: 12 }}>
@@ -221,6 +282,20 @@ const RegisteredUser = () => {
                         },
                         sx: { cursor: 'pointer' },
                     })}
+                    renderRowActions={({ row }) => [
+                        <Button
+                            key="edit"
+                            variant="text"
+                            color="primary"
+                            size="small"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleEditRow(row);
+                            }}
+                        >
+                            <span className="material-icons">edit</span>
+                        </Button>
+                    ]}
                     renderDetailPanel={({ row }) =>
                         expandedRowId === row.id ? renderChildTable(row.id) : null
                     }
@@ -252,6 +327,53 @@ const RegisteredUser = () => {
                 showRegisterUser &&
                 <RegisterCard setShowRegisterUser={setShowRegisterUser} />
             }
+            {/* Custom Edit Modal */}
+            <Dialog open={editModalOpen} onClose={() => setEditModalOpen(false)} maxWidth="sm" fullWidth>
+                <DialogTitle sx={{ m: 0, p: 2 }}>
+                    User Details
+                    <IconButton
+                        aria-label="close"
+                        onClick={() => setEditModalOpen(false)}
+                        sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent dividers>
+                    {selectedRowData && (
+                        <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                            {FIELDS_TO_SHOW.map((field) => (
+                                <Box key={field} sx={{ flex: '1 1 45%' }}>
+                                    <Typography variant="subtitle2" color="text.secondary">{FIELD_LABELS[field] || field}</Typography>
+                                    {field === 'status' ? (
+                                        <Select
+                                            value={modalStatus}
+                                            onChange={e => setModalStatus(e.target.value)}
+                                            fullWidth
+                                            size="small"
+                                            displayEmpty
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <MenuItem value={"IN_ACTIVE"}>IN_ACTIVE</MenuItem>
+                                            <MenuItem value={"ACTIVE"}>ACTIVE</MenuItem>
+                                        </Select>
+                                    ) : (
+                                        <Typography variant="body1" sx={{ mb: 1 }}>
+                                            {typeof selectedRowData[field] === 'boolean'
+                                                ? (selectedRowData[field] ? 'Yes' : 'No')
+                                                : (selectedRowData[field] === undefined || selectedRowData[field] === null || selectedRowData[field] === '' ? '-' : selectedRowData[field])}
+                                        </Typography>
+                                    )}
+                                </Box>
+                            ))}
+                        </Box>
+                    )}
+                </DialogContent>
+                <DialogActions sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 2 }}>
+                    <Button onClick={() => setEditModalOpen(false)} color="primary" sx={{ mr: 2 }}>Close</Button>
+                    <Button onClick={handleSaveStatus} color="primary" variant="contained">Save</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     )
 }

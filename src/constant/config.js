@@ -1,5 +1,5 @@
-// export const API_PATH = window._env?.API_PATH || "http://localhost:9001";
-export const API_PATH = window._env?.API_PATH || "https://www.swasthmitra.in/swasthyamitra";
+export const API_PATH = window._env?.API_PATH || "http://localhost:9001";
+// export const API_PATH = window._env?.API_PATH || "https://www.swasthmitra.in/swasthyamitra";
 
 // API URLs
 export const LOGIN_API = "/api/auth/login";
@@ -11,4 +11,5 @@ export const POST_USER_REGISTER = "/api/registration/submit"
 export const POST_PURCHASE_PLAN_API = "/api/plan-purchase/submit";
 export const GET_CUSTOMER_DASHBOARD = "api/plan-purchase";
 export const GET_REGISTRED_USER_DETAILS = "/api/plan-purchase/all";
+
 
