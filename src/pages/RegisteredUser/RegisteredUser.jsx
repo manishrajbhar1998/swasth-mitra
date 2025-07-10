@@ -132,9 +132,29 @@ const RegisteredUser = () => {
             toast.error("User hasn't purchased a plan yet");
             return;
         }
+        // Build payload with only the required fields
+        const userPayload = {
+            firstName: selectedRowData.firstName,
+            lastName: selectedRowData.lastName,
+            dateOfBirth: selectedRowData.dateOfBirth,
+            gender: selectedRowData.gender,
+            maritalStatus: selectedRowData.maritalStatus,
+            email: selectedRowData.email,
+            phoneNumber: selectedRowData.phoneNumber,
+            address: selectedRowData.address,
+            role: selectedRowData.role,
+            pinCode: selectedRowData.pinCode,
+            city: selectedRowData.city,
+            state: selectedRowData.state,
+            district: selectedRowData.district,
+            inquiryDetails: Boolean(selectedRowData.inquiryDetails),
+            registeredUsers: Boolean(selectedRowData.registeredUsers),
+            manageAdmin: Boolean(selectedRowData.manageAdmin),
+            status: modalStatus
+        };
         try {
             setToastifyLoading && setToastifyLoading(true);
-            const response = await authApi.post(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, { status: modalStatus });
+            const response = await authApi.post(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
             toast.success('User Account Activated successfully!');
             setData(prev => prev.map(row => row.id === selectedRowData.id ? { ...row, status: modalStatus } : row));
             setEditModalOpen(false);
