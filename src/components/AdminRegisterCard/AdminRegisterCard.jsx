@@ -42,14 +42,16 @@ const adminTypes = [
     "Super Admin",
     "State Admin",
     "District Admin",
-    "Distributor Admin"
+    "Distributor Admin",
+    "Team Leads",
 ];
 
 const adminTypesObj = {
     "Super Admin": "SUPER_ADMIN",
     "State Admin": "STATE_ADMIN",
     "District Admin": "DISTRICT_ADMIN",
-    "Distributor Admin": "DISTRIBUTOR_ADMIN"
+    "Distributor Admin": "DISTRIBUTOR_ADMIN",
+    "Team Leads": "TEAM_LEAD"
 }
 
 
@@ -111,6 +113,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
             inquiryDetails: data.permissions.includes("Inquery Details"),
             registeredUsers: data.permissions.includes("Registered Users"),
             manageAdmin: data.permissions.includes("Manage Admin"),
+            exportTableData: data.permissions.includes("Export Table Data"),
             "pinCode": data.pincode,
             "planSelection": "",
             "patientHistory": "",
