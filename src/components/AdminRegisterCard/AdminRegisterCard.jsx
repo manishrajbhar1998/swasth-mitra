@@ -56,7 +56,8 @@ const adminTypesObj = {
 const permissionOptions = [
     { label: "Manage Admin", value: "Manage Admin" },
     { label: "Inquery Details", value: "Inquery Details" },
-    { label: "Registered Users", value: "Registered Users" }
+    { label: "Registered Users", value: "Registered Users" },
+    { label: "Export Table Data", value: "Export Table Data" }
 ];
 
 const LoginSchema = Yup.object().shape({
