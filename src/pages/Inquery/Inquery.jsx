@@ -10,7 +10,7 @@ import {
     Typography,
     Autocomplete,
 } from '@mui/material';
-import { indianStates } from '../../constant/constant';
+import { indianStates, district } from '../../constant/constant';
 import logo from './../../assets/images/swastha-mitra-logo2.png';
 import { api } from '../../apis/api';
 import { POST_ENQUIRY_API } from '../../constant/config';
@@ -52,10 +52,13 @@ const schema = yup.object().shape({
 const Inquery = () => {
     const navigate = useNavigate();
     const { loading, setLoading } = useLoading();
+    const [districtOptions, setDistrictOptions] = React.useState([]);
     const {
         handleSubmit,
         control,
         formState: { errors },
+        setValue,
+        watch,
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -63,14 +66,26 @@ const Inquery = () => {
             lastName: '',
             mobile: '',
             email: '',
-            address: '',
             city: '',
             state: '',
+            district: '',
             pincode: '',
+            address: '',
             message: '',
-
         },
     });
+
+    // Watch state value to update district options
+    const selectedState = watch('state');
+    React.useEffect(() => {
+        if (selectedState && district[selectedState]) {
+            setDistrictOptions(district[selectedState].districts);
+            setValue('district', ''); // Reset district when state changes
+        } else {
+            setDistrictOptions([]);
+            setValue('district', '');
+        }
+    }, [selectedState, setValue]);
 
     const onSubmit = async (data) => {
         let reqBody = {
@@ -79,10 +94,10 @@ const Inquery = () => {
             mobileNo: data.mobile,
             address: data.address,
             city: data.city,
-            district: "Palghar",
             state: data.state,
-            country: "India",
-            pinCode: data.pincode
+            district: data.district,
+            country: data.message,
+            pinCode: data.pincode,
         };
 
         try {
@@ -200,22 +215,6 @@ const Inquery = () => {
                             />
                         </Box>
 
-                        <Box >
-                            <Controller
-                                name="address"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label="Address"
-                                        error={!!errors.address}
-                                        helperText={errors.address?.message}
-                                        fullWidth
-                                    />
-                                )}
-                            />
-                        </Box>
-
                         <Box sx={{
                             display: 'flex', gap: '30px', flexDirection: {
                                 xs: 'column',
@@ -235,7 +234,6 @@ const Inquery = () => {
                                     />
                                 )}
                             />
-
                             <Controller
                                 name="state"
                                 control={control}
@@ -256,7 +254,26 @@ const Inquery = () => {
                                     />
                                 )}
                             />
-
+                            <Controller
+                                name="district"
+                                control={control}
+                                render={({ field }) => (
+                                    <Autocomplete
+                                        options={districtOptions}
+                                        value={field.value || null}
+                                        onChange={(_, data) => field.onChange(data)}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Select District"
+                                                error={!!errors.district}
+                                                helperText={errors.district?.message}
+                                            />
+                                        )}
+                                        fullWidth
+                                    />
+                                )}
+                            />
                             <Controller
                                 name="pincode"
                                 control={control}
@@ -272,6 +289,22 @@ const Inquery = () => {
                                             field.onChange(onlyNumbers);
                                         }}
                                         inputProps={{ maxLength: 6 }}
+                                    />
+                                )}
+                            />
+                        </Box>
+
+                        <Box >
+                            <Controller
+                                name="address"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Address"
+                                        error={!!errors.address}
+                                        helperText={errors.address?.message}
+                                        fullWidth
                                     />
                                 )}
                             />

@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
+
 const RegisteredUser = () => {
 
     const tableRef = useRef(null);
@@ -150,12 +151,19 @@ const RegisteredUser = () => {
             inquiryDetails: Boolean(selectedRowData.inquiryDetails),
             registeredUsers: Boolean(selectedRowData.registeredUsers),
             manageAdmin: Boolean(selectedRowData.manageAdmin),
-            status: modalStatus
+            status: modalStatus,
+            updatedBy: adminDetails?.email || 'system',
         };
+
         try {
             setToastifyLoading && setToastifyLoading(true);
-            const response = await authApi.post(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
-            toast.success('User Account Activated successfully!');
+            const response = await authApi.put(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
+            console.log('Update response:', response.data.data.status);
+            if (response.data.data.status === 'ACTIVE') {
+                toast.success('User Account Activated successfully!');
+            } else {
+                toast.success('User Account Deactivated successfully!');
+            }
             setData(prev => prev.map(row => row.id === selectedRowData.id ? { ...row, status: modalStatus } : row));
             setEditModalOpen(false);
         } catch (error) {

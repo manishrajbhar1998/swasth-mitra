@@ -61,6 +61,7 @@ const AdminLoginCard = () => {
                     userLast: response.data.data.lastName,
                     role: response.data.data.role,
                     userName: data.email,
+                    currentLoggedInUserId: response.data.data.userId,
                 };
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 dispatch({ type: "SET_ADMIN_DETAILS", payload: adminData });
