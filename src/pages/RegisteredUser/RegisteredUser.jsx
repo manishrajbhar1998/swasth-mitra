@@ -154,7 +154,7 @@ const RegisteredUser = () => {
         };
         try {
             setToastifyLoading && setToastifyLoading(true);
-            const response = await authApi.post(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
+            const response = await authApi.put(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
             toast.success('User Account Activated successfully!');
             setData(prev => prev.map(row => row.id === selectedRowData.id ? { ...row, status: modalStatus } : row));
             setEditModalOpen(false);
