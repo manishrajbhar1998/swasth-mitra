@@ -37,9 +37,6 @@ const ForgotPasswordCard = () => {
     const { loading, setLoading } = useLoading();
 
     const onSubmit = async (data) => {
-        console.log(data);
-        debugger
-
         const reqBody = {
             email: data.email,
         };
@@ -48,13 +45,13 @@ const ForgotPasswordCard = () => {
             setLoading(true)
             const response = await api.post(POST_FORGOT_PASSWORD, reqBody);
             if (response?.data) {
-                toast.success(response.data.data.message);
+                toast.success(response?.data?.message);
                 setLoading(false)
             }
         } catch (error) {
             setLoading(false);
             console.error("invalid userid ", error);
-            // toast.error(error?.response?.data?.errors[0])
+            toast.error(error?.response?.data?.errors[0])
         }
     };
 

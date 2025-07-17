@@ -42,8 +42,6 @@ const Login = () => {
             userName: data.email,
             password: data.password
         };
-
-
         try {
             setLoading(true)
             const response = await api.post(LOGIN_API, reqBody);

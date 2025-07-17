@@ -32,19 +32,31 @@ const tabData = [
 const TabSection = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [transition, setTransition] = useState('');
+    const [fadeIn, setFadeIn] = useState(true);
 
+
+    // const handleTabClick = (newIndex) => {
+    //     if (newIndex === activeTab) return;
+    //     const direction = newIndex > activeTab ? 'slide-in-right' : 'slide-in-left';
+    //     setTransition(direction);
+
+    //     // setTimeout(() => {
+    //     //     setActiveTab(newIndex);
+    //     // }, 10);
+
+    //     setTimeout(() => {
+    //         setActiveTab(newIndex);
+    //         setTransition('');
+    //     }, 200);
+    // };
     const handleTabClick = (newIndex) => {
         if (newIndex === activeTab) return;
-        const direction = newIndex > activeTab ? 'slide-in-right' : 'slide-in-left';
-        setTransition(direction);
 
+        setFadeIn(false); // reset animation
         setTimeout(() => {
             setActiveTab(newIndex);
-        }, 10);
-
-        setTimeout(() => {
-            setTransition('');
-        }, 600);
+            setFadeIn(true); // trigger animation again
+        }, 50); // short delay to retrigger transition
     };
 
     const scrollToServices = (e) => {
@@ -74,7 +86,9 @@ const TabSection = () => {
                 {tabData.map((tab, index) => (
                     <div
                         key={tab.key}
-                        className={`tab-pane ${index === activeTab ? 'active-content' : 'd-none'} ${index !== activeTab ? '' : transition}`}
+                        // className={`tab-pane ${index === activeTab ? 'active-content' : 'd-none'} ${index !== activeTab ? '' : transition}`}
+                        // className={`tab-pane ${index === activeTab ? 'active-content' : 'd-none'}`}
+                        className={`tab-pane ${index === activeTab ? 'active-content fade-in' : 'd-none'}`}
                     >
                         <Row className="align-items-center justify-content-center">
                             <Col lg={6}>

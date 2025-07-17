@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { useState } from "react";
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';

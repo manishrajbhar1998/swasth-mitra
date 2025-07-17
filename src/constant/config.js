@@ -13,5 +13,7 @@ export const POST_PURCHASE_PLAN_API = "/api/plan-purchase/submit";
 export const GET_CUSTOMER_DASHBOARD = "api/plan-purchase";
 export const GET_REGISTRED_USER_DETAILS = "/api/plan-purchase/all";
 export const POST_FORGOT_PASSWORD = "/api/auth/forgot-password";
+export const POST_RESET_PASSWORD = "/api/auth/reset-password";
+
 
 

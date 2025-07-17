@@ -16,6 +16,7 @@ import OurApproach from '../pages/OurApproach/OurApproach'
 import HealthImpact from '../pages/HealthImpact/HealthImpact'
 import BlogDetails from '../pages/BlogDetails/BlogDetails'
 import { AdminProtectedRoute, CustomerProtectedRoute } from './ProtectRoutes'
+import NewPasswordCard from '../components/NewPasswordCard/NewPasswordCard'
 
 const RouteConfig = () => {
     return (
@@ -30,6 +31,8 @@ const RouteConfig = () => {
                     </CustomerProtectedRoute>
                 } />
                 <Route path="/forgetpass" element={<ForgetPassword />} />
+                <Route path="/reset-password/:token" element={<NewPasswordCard />} />
+
                 <Route path="/inquery" element={<Inquery />} />
                 <Route path="/ourcompany" element={<OurCompany />} />
                 <Route path="/ourapproach" element={<OurApproach />} />

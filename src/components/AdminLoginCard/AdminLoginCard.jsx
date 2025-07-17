@@ -52,6 +52,7 @@ const AdminLoginCard = () => {
             password: data.password
         };
 
+
         try {
             setLoading(true);
             const response = await api.post(LOGIN_API, reqBody);
@@ -74,7 +75,7 @@ const AdminLoginCard = () => {
             }
         } catch (error) {
             console.error("error ", error);
-            toast.error(error.response.data.message);
+            toast.error(error?.response?.data?.errors[0])
             setLoading(false);
         }
     };
@@ -123,7 +124,7 @@ const AdminLoginCard = () => {
                             color="primary"
                             sx={{ cursor: 'pointer' }}
                             onClick={() => {
-                                navigate("/forgotpass")
+                                navigate("/forgetpass")
                             }}
                         >
                             Forgot Password?
@@ -135,9 +136,7 @@ const AdminLoginCard = () => {
                     <Button fullWidth variant="contained" color="primary" type="submit">
                         Login
                     </Button>
-                    {/* <Button fullWidth variant="contained" color="primary" onClick={() => navigate("/register")}>
-                        Sign up
-                    </Button> */}
+
                 </Box>
             </form>
         </Box>
