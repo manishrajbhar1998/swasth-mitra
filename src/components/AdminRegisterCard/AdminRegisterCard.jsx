@@ -59,7 +59,9 @@ const permissionOptions = [
     { label: "Manage Admin", value: "Manage Admin" },
     { label: "Inquery Details", value: "Inquery Details" },
     { label: "Registered Users", value: "Registered Users" },
+    { label: "Delay Enquiry", value: "Delay Enquiry" },
     { label: "Export Table Data", value: "Export Table Data" }
+
 ];
 
 const LoginSchema = Yup.object().shape({
@@ -113,6 +115,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
             inquiryDetails: data.permissions.includes("Inquery Details"),
             registeredUsers: data.permissions.includes("Registered Users"),
             manageAdmin: data.permissions.includes("Manage Admin"),
+            delayedEnquiries: data.permissions.includes("Delay Enquiry"),
             exportTableData: data.permissions.includes("Export Table Data"),
             "pinCode": data.pincode,
             "planSelection": "",
@@ -141,8 +144,6 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
 
     const navigate = useNavigate()
 
-    console.log("States:", indianStates);
-    console.log("District Obj:", district);
 
     return (
         <div className='admin-register-user-wrapper'>
