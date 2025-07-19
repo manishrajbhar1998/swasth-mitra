@@ -56,7 +56,7 @@ const TabSection = () => {
         setTimeout(() => {
             setActiveTab(newIndex);
             setFadeIn(true); // trigger animation again
-        }, 50); // short delay to retrigger transition
+        }, 500); // short delay to retrigger transition
     };
 
     const scrollToServices = (e) => {

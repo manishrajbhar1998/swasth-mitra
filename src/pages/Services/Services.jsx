@@ -90,8 +90,10 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
 
         if (currentPath.startsWith("/dashboard")) {
             navigate("/purchase", { state: { plan: title, amount: price } });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             navigate("/login");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
