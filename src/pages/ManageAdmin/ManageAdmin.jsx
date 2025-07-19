@@ -69,43 +69,46 @@ const ManageAdmin = () => {
     }
 
     return (
-        <div className='manageAdmin-wrapper'>
-            <Container>
-                <MaterialReactTable
-                    columns={columns}
-                    data={data}
-                    enableColumnOrdering
-                    enableRowSelection
-                    enableEditing
-                    enableSorting
-                    enableGlobalFilter
-                    positionActionsColumn="last"
-                    muiTableProps={{
-                        ref: tableRef
-                    }}
-                    renderTopToolbarCustomActions={() => (
-                        <Box sx={{ display: "flex", gap: "10px" }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                startIcon={<FileDownload />}
-                                onClick={handleExport}
-                                sx={{ height: "35px" }}
-                            >
-                                Export to Excel
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                startIcon={<PersonAddAltOutlined />}
-                                onClick={handleRegister}
-                                sx={{ height: "35px" }}
-                            >
-                                Create Admin
-                            </Button>
-                        </Box>
-                    )}
-                />
+        <>
+            <Container sx={{ minWidth: '100%' }}>
+                <Grid spacing={2} size={{ xs: 12, lg: 12 }}>
+                    <MaterialReactTable
+                        columns={columns}
+                        data={data}
+                        enableColumnOrdering
+                        enableRowSelection
+                        enableEditing
+                        enableSorting
+                        enableGlobalFilter
+                        positionActionsColumn="last"
+                        muiTableProps={{
+                            ref: tableRef
+                        }}
+                        renderTopToolbarCustomActions={() => (
+                            <Box sx={{ display: "flex", gap: "10px" }}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<FileDownload />}
+                                    onClick={handleExport}
+                                    sx={{ height: "35px" }}
+                                >
+                                    Export to Excel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<PersonAddAltOutlined />}
+                                    onClick={handleRegister}
+                                    sx={{ height: "35px" }}
+                                >
+                                    Create Admin
+                                </Button>
+                            </Box>
+                        )}
+                    />
+
+                </Grid>
             </Container>
             {
                 showRegisterUser &&
@@ -113,7 +116,7 @@ const ManageAdmin = () => {
                 <AdminRegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
 
             }
-        </div>
+        </>
 
     )
 }
