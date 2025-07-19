@@ -34,13 +34,13 @@ const services = [
         icon: <ManageAccountsIcon />,
         iconColor: "#fa9733",
         title: "My Manager",
-        number: "+91 8886815815"
+        number: "8965321458"
     },
     {
         icon: <CheckIcon />,
         iconColor: "#fa5d3b",
         title: "Services Consume",
-        number: 0
+        number: 10
     }
 ]
 
@@ -82,8 +82,6 @@ const MyServices = ({ dashboardData }) => {
     const { state } = useContext(CustomerConext);
     const { login } = state;
 
-    console.log("dashboardData :: ", dashboardData);
-
     let members;
     if (dashboardData) {
         members = transformDashboardData(dashboardData);
@@ -91,6 +89,7 @@ const MyServices = ({ dashboardData }) => {
 
     const handleDownload = async (ref, name) => {
         if (!ref.current) return;
+
         try {
             const canvas = await html2canvas(ref.current, {
                 useCORS: true,
@@ -185,7 +184,7 @@ const MyServices = ({ dashboardData }) => {
                                         </div>
                                         <IconButton
                                             onClick={() => handleDownload(mainCardRef, login?.firstName)}
-                                            style={{ position: 'absolute', top: 30, right: 30 }}
+                                            style={{ position: 'absolute', top: 20, right: 20 }}
                                         >
                                             <DownloadIcon />
                                         </IconButton>
@@ -208,7 +207,7 @@ const MyServices = ({ dashboardData }) => {
                                                 </div>
                                                 <IconButton
                                                     onClick={() => handleDownload(familyCardRef, details.name)}
-                                                    style={{ position: 'absolute', top: 30, right: 30 }}
+                                                    style={{ position: 'absolute', top: 20, right: 20 }}
                                                 >
                                                     <DownloadIcon />
                                                 </IconButton>

@@ -39,8 +39,6 @@ const NewPasswordCard = () => {
     const { token } = useParams();
 
     const navigate = useNavigate()
-
-    console.log(token)
     const onSubmit = async (data) => {
 
         const reqBody = {
@@ -54,12 +52,16 @@ const NewPasswordCard = () => {
             if (response?.data) {
                 toast.success(response?.data?.message);
                 setLoading(false)
-                navigate("/");
+                if (response?.data?.data === "USER") {
+                    navigate("/");
+                } else {
+                    navigate("/admin/");
+                }
             }
         } catch (error) {
             setLoading(false);
             console.error("invalid userid ", error);
-            // toast.error(error?.response?.data?.errors[0])
+            toast.error(error?.response?.data?.errors[0])
         }
     };
 

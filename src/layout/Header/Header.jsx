@@ -51,7 +51,7 @@ const Header = () => {
     return (
         <header className="header d-flex align-items-center fixed-top" id="header">
             <div className="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-                <NavLink to="/" className="logo d-flex align-items-center">
+                <NavLink to="/" className="logo d-flex align-items-center" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     <img src={logo} alt="Logo" />
                 </NavLink>
 
