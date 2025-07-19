@@ -89,7 +89,6 @@ const MyServices = ({ dashboardData }) => {
 
     const handleDownload = async (ref, name) => {
         if (!ref.current) return;
-
         try {
             const canvas = await html2canvas(ref.current, {
                 useCORS: true,
@@ -179,6 +178,7 @@ const MyServices = ({ dashboardData }) => {
                                                 plan={member.plan}
                                                 validity={member.expiry}
                                                 familyMembers={member.familyMembers}
+
                                             />
                                         </div>
                                         <IconButton

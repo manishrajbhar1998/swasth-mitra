@@ -1,9 +1,19 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/swastha-mitra-logo2.png';
 import './header.scss';
 
 const Header = () => {
+
+    const location = useLocation();
+
+    const isHashActive = (hash) => location.hash === hash;
+
+    const dropdownPaths = ['/ourcompany', '/ourapproach', '/healthimpact'];
+
+    // Check if current location starts with any dropdown path
+    const isDropdownActive = dropdownPaths.some((path) => location.pathname.startsWith(path));
+
     const toggleMobileNav = () => {
         document.body.classList.toggle('mobile-nav-active');
     };
@@ -16,12 +26,15 @@ const Header = () => {
     };
 
     const closeMobileNav = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         document.body.classList.remove('mobile-nav-active');
     };
 
+
     const handleNavClick = (e) => {
-        if (e.currentTarget.closest('.dropdown')) return;
-        closeMobileNav();
+        if (e.currentTarget.closest('.dropdown')) return; // avoid closing on dropdown parent click
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // scroll top on menu click
+        closeMobileNav(); // close mobile nav if open
     };
     useEffect(() => {
         const toggleBtn = document.querySelector('.mobile-nav-toggle');
@@ -44,9 +57,35 @@ const Header = () => {
 
                 <nav id="navmenu" className="navmenu">
                     <ul>
-                        <li><NavLink to="/" className="active" onClick={handleNavClick}>Home</NavLink></li>
+                        {/* <li><NavLink to="/" className={() => (location.hash === '' ? 'active' : '')} onClick={handleNavClick}>Home</NavLink></li> */}
+                        <li>
+                            <NavLink
+                                to="/"
+                                end
+                                className={({ isActive }) => {
+                                    // If it's "/" exactly, or if none of the known routes match
+                                    const knownRoutes = [
+                                        '/ourcompany',
+                                        '/ourapproach',
+                                        '/healthimpact',
+                                        '/inquery',
+                                        '/login',
+                                    ];
 
-                        <li className="dropdown">
+                                    const isKnown = knownRoutes.some((path) =>
+                                        location.pathname.startsWith(path)
+                                    );
+
+                                    return location.pathname === '/' || !isKnown ? 'active' : '';
+                                }}
+                                onClick={handleNavClick}
+                            >
+                                Home
+                            </NavLink>
+                        </li>
+
+
+                        <li className={`dropdown ${isDropdownActive ? 'dropdown-active' : ''}`}>
                             <a href="#" onClick={toggleDropdown}>
                                 <span>Company Overview</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
                             </a>
@@ -57,8 +96,8 @@ const Header = () => {
                             </ul>
                         </li>
 
-                        <li><a href="#services" onClick={handleNavClick}>Plans & Pricing</a></li>
-                        <li><a href="#team" onClick={handleNavClick}>Blogs</a></li>
+                        <li><NavLink to="/#services" className={() => (location.hash === '#services' ? 'active' : '')} onClick={handleNavClick}>Plans & Pricing</NavLink></li>
+                        <li><NavLink to="/#team" className={() => (location.hash === '#team' ? 'active' : '')} onClick={handleNavClick}>Blogs</NavLink></li>
                         <li><NavLink to="/inquery" onClick={handleNavClick}>Inquery</NavLink></li>
                         <li><NavLink to="/login" onClick={handleNavClick}>Login</NavLink></li>
                     </ul>

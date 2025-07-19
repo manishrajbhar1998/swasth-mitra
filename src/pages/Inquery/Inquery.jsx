@@ -24,29 +24,26 @@ import Footer from '../../layout/Footer/Footer';
 // Schema
 const schema = yup.object().shape({
     firstName: yup.string().required('First name is required'),
-    lastName: yup.string().required('Last name is required'),
+    lastName: yup.string(),
     mobile: yup
         .string()
         .required('Mobile number is required')
         .matches(/^[0-9]{10}$/, 'Must be a 10-digit number'),
     email: yup
         .string()
-        .required('Email is required')
-        .matches(
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            'Invalid email format'
-        ),
-    address: yup.string().required('Address is required'),
-    city: yup.string().required('City is required'),
+        .email('Invalid email format') // Only runs if the value is non-empty
+        .nullable(),
+    address: yup.string(),
+    city: yup.string(),
     state: yup
-        .string()
-        .required('State is required')
-        .oneOf(indianStates, 'Invalid state selected'),
+        .string(),
+    // .required('State is required')
+    // .oneOf(indianStates, 'Invalid state selected'),
     pincode: yup
         .string()
         .required('Pincode is required')
         .matches(/^[0-9]{6}$/, 'Must be a 6-digit number'),
-    message: yup.string().required('Message is required'),
+    message: yup.string(),
 });
 
 const Inquery = () => {
@@ -110,6 +107,8 @@ const Inquery = () => {
             }
         } catch (error) {
             console.error("invalid userid and password ", error);
+            setLoading(false);
+
         }
     };
 

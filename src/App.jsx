@@ -30,6 +30,7 @@ const App = () => {
               theme="light"
               transition={Bounce}
             />
+
             <RouteConfig />
           </AdminDetailsProvider>
         </CustomerContextProvider>

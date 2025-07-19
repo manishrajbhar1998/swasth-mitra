@@ -2,3 +2,11 @@ section,
 .section {
     padding: 0 0 !important;
 }
+
+.dropdown-active {
+    color: #25d366;
+
+    span {
+        color: #25d366;
+    }
+}

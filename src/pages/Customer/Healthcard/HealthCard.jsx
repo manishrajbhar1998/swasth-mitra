@@ -14,6 +14,13 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                     <p className="tagline">Your Health, Our Priority</p>
                 </div> */}
 
+                <div className="health-card-header" style={{ backgroundColor: plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37" }}>
+                    <img src={logo} alt="Swasth Mitra Logo" className="main-logo" />
+                    <p style={{ color: plan == "Family Plan" ? "#000" : "#fff" }}>
+                        <span className="main-title">Swasth Mithra</span>
+                        <p className="tagline">Your Health, Our Priority</p>
+                    </p>
+                </div>
                 <div className="card-body">
                     <div className="user-info">
                         <img
@@ -35,11 +42,12 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                         <span className="label">Validity:</span>
                         <span className="value">{validity}</span>
                     </div>
-                    <div className="card-footer" style={{ backgroundColor: plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37" }}>
-                        <img src={logo} alt="Swasth Mitra Logo" className="logo" />
-                        <span style={{ color: plan == "Family Plan" ? "#000" : "#fff" }}>Swasth Mithra</span>
-                    </div>
+
                 </div>
+                {/* <div className="card-footer" style={{ backgroundColor: plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37" }}>
+                    <img src={logo} alt="Swasth Mitra Logo" className="logo" />
+                    <span style={{ color: plan == "Family Plan" ? "#000" : "#fff" }}>Swasth Mithra</span>
+                </div> */}
             </div>
 
             {/* {Object.keys(familyMembers).length > 0 && ( */}

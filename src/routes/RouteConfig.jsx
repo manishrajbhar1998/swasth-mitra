@@ -17,10 +17,12 @@ import HealthImpact from '../pages/HealthImpact/HealthImpact'
 import BlogDetails from '../pages/BlogDetails/BlogDetails'
 import { AdminProtectedRoute, CustomerProtectedRoute } from './ProtectRoutes'
 import NewPasswordCard from '../components/NewPasswordCard/NewPasswordCard'
+import ScrollToHash from '../util/ScrollToHash'
 
 const RouteConfig = () => {
     return (
         <BrowserRouter>
+            <ScrollToHash />
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
