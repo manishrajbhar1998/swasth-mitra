@@ -5,6 +5,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import RegisteredUser from "../pages/RegisteredUser/RegisteredUser";
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import ManageAdmin from "../pages/ManageAdmin/ManageAdmin";
 import * as Yup from 'yup';
 
@@ -978,6 +979,12 @@ export const DRAWER_LIST = [
         icon: AdminPanelSettingsOutlinedIcon,
         path: "/admin/dashboard/manageAdmin",
         Component: ManageAdmin,
+    },
+    {
+        label: "Delayed Inquery",
+        icon: PendingActionsIcon,
+        path: "/admin/dashboard/delayedInquery",
+        Component: InqueryDetails,
     },
 ];
 
