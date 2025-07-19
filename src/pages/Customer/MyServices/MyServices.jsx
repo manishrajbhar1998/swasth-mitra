@@ -34,13 +34,13 @@ const services = [
         icon: <ManageAccountsIcon />,
         iconColor: "#fa9733",
         title: "My Manager",
-        number: "8965321458"
+        number: "+91 8886815815"
     },
     {
         icon: <CheckIcon />,
         iconColor: "#fa5d3b",
         title: "Services Consume",
-        number: 10
+        number: 0
     }
 ]
 
@@ -81,6 +81,8 @@ const MyServices = ({ dashboardData }) => {
 
     const { state } = useContext(CustomerConext);
     const { login } = state;
+
+    console.log("dashboardData :: ", dashboardData);
 
     let members;
     if (dashboardData) {
@@ -183,7 +185,7 @@ const MyServices = ({ dashboardData }) => {
                                         </div>
                                         <IconButton
                                             onClick={() => handleDownload(mainCardRef, login?.firstName)}
-                                            style={{ position: 'absolute', top: 20, right: 20 }}
+                                            style={{ position: 'absolute', top: 30, right: 30 }}
                                         >
                                             <DownloadIcon />
                                         </IconButton>
@@ -206,7 +208,7 @@ const MyServices = ({ dashboardData }) => {
                                                 </div>
                                                 <IconButton
                                                     onClick={() => handleDownload(familyCardRef, details.name)}
-                                                    style={{ position: 'absolute', top: 20, right: 20 }}
+                                                    style={{ position: 'absolute', top: 30, right: 30 }}
                                                 >
                                                     <DownloadIcon />
                                                 </IconButton>

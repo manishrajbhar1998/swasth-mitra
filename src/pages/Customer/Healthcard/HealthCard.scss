@@ -7,7 +7,7 @@
     margin: 20px;
 
     .card {
-        width: 280px;
+        width: 260px;
         background: #ffffff;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -24,7 +24,6 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 10px !important;
 
             .user-info {
                 display: flex;
@@ -32,6 +31,8 @@
                 margin-bottom: 20px;
                 flex-direction: column;
                 gap: 10px;
+                padding-bottom: 10px;
+                // border-bottom: 1px solid #666;
 
                 .health-icon {
                     width: 55px;
@@ -106,14 +107,48 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding: 0 !important;
+        overflow: hidden;
+
+        .card-back-header {
+            margin-bottom: 16px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+
+            .main-logo {
+                height: 50px;
+                margin-bottom: 5px;
+            }
+
+            .main-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: inherit;
+                padding: 0;
+                margin: 0;
+            }
+        }
 
         .contact-info {
             display: flex;
             flex-direction: column;
             gap: 10px;
-        }
+            margin-top: auto;
+            margin-bottom: 20px;
+            // border: 1px solid;
+            align-items: flex-start;
+            padding: 10px !important;
 
-        .card-footer {
+            .address,
+            .email,
+            .phone {
+                text-align: left;
+                vertical-align: middle;
+                display: flex;
+                gap: 5px;
+            }
         }
     }
 }

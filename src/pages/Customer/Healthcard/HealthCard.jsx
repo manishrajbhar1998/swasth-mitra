@@ -67,12 +67,19 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                         </ul>
                     </div> */}
 
+                <div className="card-back-header" style={{ backgroundColor: plan == "Family Plan" ? "#ffee8c" : plan == "Individual Plan" ? "#00b894" : "#d3af37" }}>
+                    <img src={logo} alt="Swasth Mitra Logo" className="main-logo" />
+                    <p style={{ color: plan == "Family Plan" ? "#000" : "#fff" }}>
+                        <span className="main-title">{plan}</span>
+                    </p>
+                </div>
                 <div className="contact-info">
-                    <div className="phone">📞 +91 8886815815</div>
-                    <div className="email">✉️ swastha.mitra@gmail.com</div>
+                    <div className="phone"> <span>📞</span> <span>+91 8886815815</span></div>
+                    <div className="email"><span>✉️</span> <span>swastha.mitra@gmail.com</span></div>
                     <div className="address">
-                        🏠 Swasth Mitra Next to paperbox company,<br />
-                        Mahakali Caves Roads, Andheri East, Mumbai – 400093
+                        <span>🏠</span> <span>Swasth Mitra Next to paperbox company,<br />
+                            Mahakali Caves Roads, Andheri East, Mumbai – 400093
+                        </span>
                     </div>
                 </div>
 
