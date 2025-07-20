@@ -18,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { api } from '../../apis/api';
+import { api, authApi } from '../../apis/api';
 import { POST_USER_REGISTER, GET_REGISTERED_USERS } from '../../constant/config';
 
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
@@ -104,7 +104,6 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             address: editData.address,
             role: editData.role,
             pinCode: editData.pinCode,
-            password: editData.password || '',
             createdBy: editData.createdBy || '',
             updatedBy: editData.updatedBy || '',
             city: editData.city,
@@ -119,7 +118,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
         };
         try {
             setLoading(true);
-            const response = await api.put(`${GET_REGISTERED_USERS}/${editData.id}`, JSON.stringify(reqBody));
+            const response = await authApi.put(`${GET_REGISTERED_USERS}/${editData.id}`, JSON.stringify(reqBody));
             if (response?.data) {
                 toast.success("Admin updated successfully");
                 setLoading(false);
