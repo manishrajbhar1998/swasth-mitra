@@ -44,6 +44,7 @@ const adminTypes = [
     "District Admin",
     "Distributor Admin",
     "Team Leads",
+    "Employee"
 ];
 
 const adminTypesObj = {
@@ -89,43 +90,33 @@ const LoginSchema = Yup.object().shape({
 const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = false, editData = null, onEditSuccess }) => {
     // Separate function for saving edited admin details
     const handleEditAdminSave = async () => {
-
         if (!editData || !editData.id) {
             toast.error('No admin selected for edit.');
             return;
         }
-        // Get current permissions from form (if available)
-        let currentPermissions = [];
-        if (window && window.document) {
-            const form = document.querySelector('form');
-            if (form) {
-                const checkboxes = form.querySelectorAll('input[type="checkbox"][value]');
-                currentPermissions = Array.from(checkboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
-            }
-        }
+        // Get current form values for editable fields
+        const formValues = getValues();
         const reqBody = {
-            firstName: editData.firstName,
-            lastName: editData.lastName,
-            dateOfBirth: editData.dateOfBirth,
-            gender: editData.gender,
+            firstName: formValues.firstName,
+            lastName: formValues.lastName,
+            dateOfBirth: formValues.dob ? dayjs(formValues.dob).format('DD-MM-YYYY') : editData.dateOfBirth,
+            gender: formValues.gender,
             maritalStatus: editData.maritalStatus,
-            email: editData.email,
-            phoneNumber: editData.phoneNumber,
-            address: editData.address,
-            role: editData.role,
-            pinCode: editData.pinCode,
+            email: formValues.email,
+            phoneNumber: formValues.mobile,
+            address: formValues.address,
+            role: adminTypesObj[formValues.adminType] || editData.role,
+            pinCode: formValues.pincode,
             createdBy: editData.createdBy || '',
             updatedBy: editData.updatedBy || '',
-            city: editData.city,
-            state: editData.state,
-            district: editData.district,
-            inquiryDetails: currentPermissions.includes("Inquery Details"),
-            registeredUsers: currentPermissions.includes("Registered Users"),
-            manageAdmin: currentPermissions.includes("Manage Admin"),
-            delayedEnquiries: currentPermissions.includes("Delay Enquiry"),
-            exportTableData: currentPermissions.includes("Export Table Data"),
+            city: formValues.city,
+            state: formValues.state,
+            district: formValues.district,
+            inquiryDetails: formValues.permissions.includes("Inquery Details"),
+            registeredUsers: formValues.permissions.includes("Registered Users"),
+            manageAdmin: formValues.permissions.includes("Manage Admin"),
+            delayedEnquiries: formValues.permissions.includes("Delay Enquiry"),
+            exportTableData: formValues.permissions.includes("Export Table Data"),
             status: status,
         };
         try {
@@ -153,7 +144,8 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
         control,
         setValue,
         reset,
-        watch
+        watch,
+        getValues
     } = useForm({
         resolver: yupResolver(LoginSchema),
         defaultValues: editMode && editData ? {

@@ -100,7 +100,7 @@ const Inquery = () => {
             city: data.city,
             state: data.state,
             district: data.district,
-            country: data.message,
+            userMsg: data.message,
             pinCode: data.pincode,
         };
 
@@ -113,8 +113,9 @@ const Inquery = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.error("invalid userid and password ", error);
+            toast.error(error?.response?.data?.errors[0])
             setLoading(false);
+
 
         }
     };
