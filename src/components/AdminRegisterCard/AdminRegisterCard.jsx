@@ -89,9 +89,21 @@ const LoginSchema = Yup.object().shape({
 const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = false, editData = null, onEditSuccess }) => {
     // Separate function for saving edited admin details
     const handleEditAdminSave = async () => {
+
         if (!editData || !editData.id) {
             toast.error('No admin selected for edit.');
             return;
+        }
+        // Get current permissions from form (if available)
+        let currentPermissions = [];
+        if (window && window.document) {
+            const form = document.querySelector('form');
+            if (form) {
+                const checkboxes = form.querySelectorAll('input[type="checkbox"][value]');
+                currentPermissions = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+            }
         }
         const reqBody = {
             firstName: editData.firstName,
@@ -109,11 +121,11 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             city: editData.city,
             state: editData.state,
             district: editData.district,
-            inquiryDetails: Boolean(editData.inquiryDetails),
-            registeredUsers: Boolean(editData.registeredUsers),
-            manageAdmin: Boolean(editData.manageAdmin),
-            delayedEnquiries: Boolean(editData.delayedEnquiries),
-            exportTableData: Boolean(editData.exportTableData),
+            inquiryDetails: currentPermissions.includes("Inquery Details"),
+            registeredUsers: currentPermissions.includes("Registered Users"),
+            manageAdmin: currentPermissions.includes("Manage Admin"),
+            delayedEnquiries: currentPermissions.includes("Delay Enquiry"),
+            exportTableData: currentPermissions.includes("Export Table Data"),
             status: status,
         };
         try {
