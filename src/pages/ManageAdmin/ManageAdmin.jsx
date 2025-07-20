@@ -8,6 +8,7 @@ import { authApi } from '../../apis/api';
 import './manageAdmin.scss';
 import RegisterCard from '../../components/RegisterCard/RegisterCard';
 import AdminRegisterCard from '../../components/AdminRegisterCard/AdminRegisterCard';
+import { useLoadingAdminDeatils } from '../../context/AdminContext/AdminContext';
 
 const ManageAdmin = () => {
 
@@ -15,6 +16,8 @@ const ManageAdmin = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showRegisterUser, setShowRegisterUser] = useState(false);
+    const { state } = useLoadingAdminDeatils();
+
 
 
     const columns = useMemo(
@@ -86,15 +89,18 @@ const ManageAdmin = () => {
                         }}
                         renderTopToolbarCustomActions={() => (
                             <Box sx={{ display: "flex", gap: "10px" }}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={<FileDownload />}
-                                    onClick={handleExport}
-                                    sx={{ height: "35px" }}
-                                >
-                                    Export to Excel
-                                </Button>
+                                {
+                                    state.exportTableData &&
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<FileDownload />}
+                                        onClick={handleExport}
+                                        sx={{ height: "35px" }}
+                                    >
+                                        Export to Excel
+                                    </Button>
+                                }
                                 <Button
                                     variant="contained"
                                     color="primary"

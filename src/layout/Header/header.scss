@@ -10,3 +10,29 @@ section,
         color: #25d366;
     }
 }
+
+.toggle-dropdown {
+    transition: transform 0.3s ease;
+}
+
+.toggle-dropdown.rotated {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: relative;
+
+    a {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .toggle-dropdown {
+        transition: transform 0.3s ease;
+    }
+
+    &:hover .toggle-dropdown {
+        transform: rotate(180deg);
+    }
+}

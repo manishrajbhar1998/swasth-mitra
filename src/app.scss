@@ -933,6 +933,10 @@ section,
     margin: 0;
     background-color: var(--background-color);
     position: relative;
+
+    @media (max-width: 1024px) {
+        // min-height: 70vh;
+    }
 }
 
 .hero img {
@@ -992,6 +996,7 @@ section,
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 20px;
+        min-height: 70vh;
     }
 }
 
@@ -1082,6 +1087,11 @@ section,
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+
+    @media (max-width: 1024px) {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 .hero .carousel-control-prev,

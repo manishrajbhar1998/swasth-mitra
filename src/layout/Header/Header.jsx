@@ -57,7 +57,6 @@ const Header = () => {
 
                 <nav id="navmenu" className="navmenu">
                     <ul>
-                        {/* <li><NavLink to="/" className={() => (location.hash === '' ? 'active' : '')} onClick={handleNavClick}>Home</NavLink></li> */}
                         <li>
                             <NavLink
                                 to="/"
@@ -87,7 +86,7 @@ const Header = () => {
 
                         <li className={`dropdown ${isDropdownActive ? 'dropdown-active' : ''}`}>
                             <a href="#" onClick={toggleDropdown}>
-                                <span>Company Overview</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
+                                <span>Company Overview</span> <i className={`bi bi-chevron-down toggle-dropdown  rotated}`}></i>
                             </a>
                             <ul>
                                 <li><NavLink to="/ourcompany" onClick={closeMobileNav}>Our Company</NavLink></li>

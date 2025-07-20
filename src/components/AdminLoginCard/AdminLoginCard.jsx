@@ -56,6 +56,7 @@ const AdminLoginCard = () => {
         try {
             setLoading(true);
             const response = await api.post(LOGIN_API, reqBody);
+
             if (response?.data) {
                 const adminData = {
                     userFirst: response.data.data.firstName,
@@ -63,13 +64,29 @@ const AdminLoginCard = () => {
                     role: response.data.data.role,
                     userName: data.email,
                     currentLoggedInUserId: response.data.data.userId,
+                    delayedEnquiries: response?.data?.data?.delayedEnquiries || null,
+                    exportTableData: response?.data?.data?.exportTableData || null,
+                    inquiryDetails: response?.data?.data?.inquiryDetails || null,
+                    manageAdmin: response?.data?.data?.manageAdmin || null,
+                    registeredUsers: response?.data?.data?.registeredUsers || null,
                 };
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 dispatch({ type: "SET_ADMIN_DETAILS", payload: adminData });
                 sessionStorage.setItem("adminDetails", JSON.stringify(adminData));
+
+                const keyArr = [
+                    "manageAdmin",
+                    "exportTableData",
+                    "inquiryDetails",
+                    "registeredUsers",
+                    "delayedEnquiries",
+                ];
+
+                const firstTruthyKey = keyArr.find(key => adminData[key]);
+
                 setTimeout(() => {
                     setLoading(false);
-                    navigate("/admin/dashboard/inquery");
+                    navigate(`/admin/dashboard/${firstTruthyKey}`);
 
                 }, 1000);
             }
