@@ -44,6 +44,7 @@ const adminTypes = [
     "District Admin",
     "Distributor Admin",
     "Team Leads",
+    "Employee"
 ];
 
 const adminTypesObj = {

@@ -100,7 +100,7 @@ const Inquery = () => {
             city: data.city,
             state: data.state,
             district: data.district,
-            country: data.message,
+            userMsg: data.message,
             pinCode: data.pincode,
         };
 
