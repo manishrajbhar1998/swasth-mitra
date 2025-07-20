@@ -87,7 +87,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 
-const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = false, editData = null, onEditSuccess }) => {
+const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = false, editData = null, onEditSuccess, setRefreshData }) => {
     // Separate function for saving edited admin details
     const handleEditAdminSave = async () => {
         if (!editData || !editData.id) {
@@ -127,6 +127,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                 setLoading(false);
                 if (onEditSuccess) onEditSuccess(response.data);
                 setShowRegisterUser(false);
+                setRefreshData((prev) => !prev);
             }
         } catch (error) {
             setLoading(false);
@@ -243,6 +244,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                 setTimeout(() => {
                     setShowRegisterUser(false);
                 }, 10);
+                setRefreshData((prev) => !prev);
             }
         } catch (error) {
             setLoading(false);

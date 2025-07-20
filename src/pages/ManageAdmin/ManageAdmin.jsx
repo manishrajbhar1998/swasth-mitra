@@ -19,6 +19,7 @@ const ManageAdmin = () => {
     const { state } = useLoadingAdminDeatils();
     const [editMode, setEditMode] = useState(false);
     const [editData, setEditData] = useState(null);
+    const [refreshData, setRefreshData] = useState(false);
 
 
     const columns = useMemo(
@@ -60,7 +61,7 @@ const ManageAdmin = () => {
         };
 
         fetchData();
-    }, []);
+    }, [refreshData]);
 
     const handleExport = () => {
         const worksheet = XLSX.utils.json_to_sheet(data);
@@ -159,6 +160,7 @@ const ManageAdmin = () => {
                         editMode={editMode}
                         editData={editData}
                         onEditSuccess={handleEditSuccess}
+                        setRefreshData={setRefreshData}
                     />
                 )
             }
