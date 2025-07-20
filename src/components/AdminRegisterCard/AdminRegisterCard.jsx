@@ -62,7 +62,8 @@ const permissionOptions = [
     { label: "Inquery Details", value: "Inquery Details" },
     { label: "Registered Users", value: "Registered Users" },
     { label: "Delay Enquiry", value: "Delay Enquiry" },
-    { label: "Export Table Data", value: "Export Table Data" }
+    { label: "Export Table Data", value: "Export Table Data" },
+    { label: "Create Admin", value: "Create Admin" }
 
 ];
 
@@ -117,6 +118,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             manageAdmin: formValues.permissions.includes("Manage Admin"),
             delayedEnquiries: formValues.permissions.includes("Delay Enquiry"),
             exportTableData: formValues.permissions.includes("Export Table Data"),
+            createUser: formValues.permissions.includes("Create Admin"), // Always send createUser permission
             status: status,
         };
         try {
@@ -169,7 +171,8 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                 ...(editData.inquiryDetails ? ["Inquery Details"] : []),
                 ...(editData.registeredUsers ? ["Registered Users"] : []),
                 ...(editData.delayedEnquiries ? ["Delay Enquiry"] : []),
-                ...(editData.exportTableData ? ["Export Table Data"] : [])
+                ...(editData.exportTableData ? ["Export Table Data"] : []),
+                ...(editData.createUser ? ["Create Admin"] : [])
             ]
         } : undefined
     });
@@ -200,7 +203,8 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                     ...(editData.inquiryDetails ? ["Inquery Details"] : []),
                     ...(editData.registeredUsers ? ["Registered Users"] : []),
                     ...(editData.delayedEnquiries ? ["Delay Enquiry"] : []),
-                    ...(editData.exportTableData ? ["Export Table Data"] : [])
+                    ...(editData.exportTableData ? ["Export Table Data"] : []),
+                    ...(editData.createUser ? ["Create Admin"] : [])
                 ]
             });
             setStatus(editData.status || 'IN_ACTIVE');
@@ -230,6 +234,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             manageAdmin: data.permissions.includes("Manage Admin"),
             delayedEnquiries: data.permissions.includes("Delay Enquiry"),
             exportTableData: data.permissions.includes("Export Table Data"),
+            createUser: data.permissions.includes("Create Admin"),
             ...(editMode ? { status } : {})
         };
 

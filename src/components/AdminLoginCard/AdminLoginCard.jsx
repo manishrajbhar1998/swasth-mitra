@@ -69,6 +69,7 @@ const AdminLoginCard = () => {
                     inquiryDetails: response?.data?.data?.inquiryDetails || null,
                     manageAdmin: response?.data?.data?.manageAdmin || null,
                     registeredUsers: response?.data?.data?.registeredUsers || null,
+                    createUser: response?.data?.data?.createUser || null,
                 };
                 localStorage.setItem("accessToken", response.data.data.accessToken);
                 dispatch({ type: "SET_ADMIN_DETAILS", payload: adminData });
@@ -80,6 +81,7 @@ const AdminLoginCard = () => {
                     "exportTableData",
                     "registeredUsers",
                     "delayedEnquiries",
+                    "createUser",
                 ];
 
                 const firstTruthyKey = keyArr.find(key => adminData[key]);

@@ -60,6 +60,7 @@ const RegisteredUser = () => {
             { header: 'Role', accessorKey: 'role', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Email', accessorKey: 'email', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Phone Number', accessorKey: 'phoneNumber', Cell: ({ cell }) => safeValue(cell.getValue()) },
+            { header: 'Member ID', accessorKey: 'memberId', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Address', accessorKey: 'address', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'State', accessorKey: 'state', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'District', accessorKey: 'district', Cell: ({ cell }) => safeValue(cell.getValue()) },

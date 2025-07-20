@@ -124,7 +124,7 @@ const IndividualPlan = () => {
             // Only send indiviual keys, all others empty
             formData.append('plan', plan || 'Individual Plan');
             const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
-            formData.append('amount', 9);
+            formData.append('amount', cleanAmount);
             // Flatten indiviual keys
             formData.append('pastDisease', data.indiviual.pastDisease);
             formData.append('pastDiseaseInput', data.indiviual.pastDiseaseInput);
