@@ -28,6 +28,7 @@ const RegisteredUser = () => {
     const [childTableDetails, setChildTableDetails] = useState({});
     const [expandedRowId, setExpandedRowId] = useState(null);
     const { setToastifyLoading } = useLoading ? useLoading() : { setToastifyLoading: () => { } };
+    const { refershData, setRefreshData } = useState(false);
 
 
 
@@ -85,7 +86,7 @@ const RegisteredUser = () => {
         };
 
         fetchData();
-    }, []);
+    }, [refershData]);
 
     const handleExport = () => {
         const worksheet = XLSX.utils.json_to_sheet(data);
@@ -160,7 +161,6 @@ const RegisteredUser = () => {
         try {
             setToastifyLoading && setToastifyLoading(true);
             const response = await authApi.put(`${GET_REGISTERED_USERS}/${selectedRowData.id}`, userPayload);
-            console.log('Update response:', response.data.data.status);
             if (response.data.data.status === 'ACTIVE') {
                 toast.success('User Account Activated successfully!');
             } else {
@@ -172,6 +172,7 @@ const RegisteredUser = () => {
             toast.error(error?.response?.data?.message || 'Failed to update status.');
         } finally {
             setToastifyLoading && setToastifyLoading(false);
+            setRefreshData(prev => !prev);
         }
     };
 
