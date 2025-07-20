@@ -33,6 +33,15 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+const adminType = {
+    SUPER_ADMIN: "Super Admin",
+    STATE_ADMIN: "State Admin",
+    DISTRICT_ADMIN: "District Admin",
+    DISTRIBUTOR_ADMIN: "Distributor Admin",
+    TEAM_LEADS: "Team Leads",
+    EMPLOYEE: "Employee"
+}
+
 
 
 const DashboardHeader = ({ open, setOpen }) => {
@@ -90,7 +99,7 @@ const DashboardHeader = ({ open, setOpen }) => {
                         }}
                     >
                         <Box className="live_chip">
-                            <span className="text">{state?.role === "SUPER_ADMIN" && "Super Admin"}</span>
+                            <span className="text">{adminType[state?.role]}</span>
                             <span className="chip"></span>
                         </Box>
 
