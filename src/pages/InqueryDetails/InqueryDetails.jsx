@@ -175,7 +175,7 @@ export default function InqueryDetails() {
           muiTableProps={{
             ref: tableRef,
           }}
-          renderTopToolbarCustomActions={() => (
+          renderTopToolbarCustomActions={() => state.exportTableData ? (
             <Button
               variant="contained"
               color="primary"
@@ -186,7 +186,7 @@ export default function InqueryDetails() {
             >
               Export to Excel
             </Button>
-          )}
+          ) : null}
           renderRowActions={({ row }) => [
             <Button
               key="edit"

@@ -179,18 +179,21 @@ export default function DelayInqueryDetails() {
                     muiTableProps={{
                         ref: tableRef,
                     }}
-                    renderTopToolbarCustomActions={() => (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<FileDownload />}
-                            onClick={handleExport}
-                            className="mb-4"
-                            sx={{ height: "35px" }}
-                        >
-                            Export to Excel
-                        </Button>
-                    )}
+                    renderTopToolbarCustomActions={() =>
+                        state.exportTableData ?
+                            (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<FileDownload />}
+                                    onClick={handleExport}
+                                    className="mb-4"
+                                    sx={{ height: "35px" }}
+                                >
+                                    Export to Excel
+                                </Button>
+                            ) : null
+                    }
                     renderRowActions={({ row }) => [
                         <Button
                             key="edit"

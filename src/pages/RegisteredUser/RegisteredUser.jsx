@@ -24,10 +24,12 @@ const RegisteredUser = () => {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [modalStatus, setModalStatus] = useState('');
-    const { adminDetails } = useLoadingAdminDeatils();
+    const { state } = useLoadingAdminDeatils();
     const [childTableDetails, setChildTableDetails] = useState({});
     const [expandedRowId, setExpandedRowId] = useState(null);
     const { setToastifyLoading } = useLoading ? useLoading() : { setToastifyLoading: () => { } };
+
+
 
     // Helper to safely get value or hyphen
     const safeValue = (val) => (val === undefined || val === null || val === "") ? "-" : val;
@@ -329,15 +331,18 @@ const RegisteredUser = () => {
                     }
                     renderTopToolbarCustomActions={() => (
                         <Box sx={{ display: "flex", gap: "10px" }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                startIcon={<FileDownload />}
-                                onClick={handleExport}
-                                sx={{ height: "35px" }}
-                            >
-                                Export to Excel
-                            </Button>
+                            {
+                                state.exportTableData &&
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<FileDownload />}
+                                    onClick={handleExport}
+                                    sx={{ height: "35px" }}
+                                >
+                                    Export to Excel
+                                </Button>
+                            }
                             <Button
                                 variant="contained"
                                 color="primary"

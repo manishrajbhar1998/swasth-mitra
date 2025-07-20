@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, useTheme, Theme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -15,6 +15,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./sideBar.scss";
 import { DRAWER_WIDTH, DRAWER_LIST } from "../../constant/constant";
 import logo from "./../../assets/images/swastha-mitra-logo2.png";
+import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
 
 const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -70,10 +71,19 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
+const keyArr = [
+    "delayedEnquiries",
+    "exportTableData",
+    "inquiryDetails",
+    "manageAdmin",
+    "registeredUsers",
+];
+
 const SideBar = ({ open, setOpen }) => {
     const [openSubMenu, setOpenSubMenu] = React.useState(false);
     const [openMenus, setOpenMenus] = React.useState({ Reports: false });
-
+    const { state } = useLoadingAdminDeatils();
+    const [filterMenu, setFilterMenu] = useState([]);
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -104,6 +114,19 @@ const SideBar = ({ open, setOpen }) => {
         });
     };
 
+    useEffect(() => {
+        let data = [];
+        if (Object.keys(state).length > 0) {
+            for (let key in state) {
+                if (keyArr.includes(key) && state[key] === true) {
+                    data.push(key);
+                }
+            }
+
+            setFilterMenu(data);
+        }
+    }, [state]);
+
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader>
@@ -132,53 +155,74 @@ const SideBar = ({ open, setOpen }) => {
             </DrawerHeader>
             <Divider />
             <List sx={{ padding: "10px" }}>
-                {DRAWER_LIST.map((list, index) => (
-                    <div key={index}>
-                        <NavLink
-                            to={list?.path}
-                            key={index}
-                            style={({ isActive }) => ({
-                                textDecoration: "none",
-                                backgroundColor: isActive ? "red" : "#fff",
-                                color: isActive ? "#000 !important" : "#475562",
-                            })}
-                            onClick={(e) => handleLinkClick(e, list)}
-                            className={
-                                list.label === "Reports" ? "dactive" : ""
-                            }
-                        >
-                            <ListItem disablePadding>
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        padding: "0px !important",
-                                        paddingLeft: "10px !important",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        marginBottom: "10px",
-                                    }}
+                {DRAWER_LIST.map((list, index) => {
+                    if (
+                        filterMenu.length > 0 &&
+                        filterMenu?.includes(list?.key)
+                    ) {
+                        return (
+                            <div key={index}>
+                                <NavLink
+                                    to={list?.path}
+                                    key={index}
+                                    style={({ isActive }) => ({
+                                        textDecoration: "none",
+                                        backgroundColor: isActive
+                                            ? "red"
+                                            : "#fff",
+                                        color: isActive
+                                            ? "#000 !important"
+                                            : "#475562",
+                                    })}
+                                    onClick={(e) => handleLinkClick(e, list)}
+                                    className={
+                                        list.label === "Reports"
+                                            ? "dactive"
+                                            : ""
+                                    }
                                 >
-                                    <ListItemIcon
-                                        sx={{ minWidth: 35, color: "#000" }}
-                                        className="icon-link"
-                                    >
-                                        {React.createElement(list.icon, {
-                                            fontSize: "medium",
-                                        })}
-                                    </ListItemIcon>
+                                    <ListItem disablePadding>
+                                        <ListItemButton
+                                            sx={{
+                                                minHeight: 48,
+                                                padding: "0px !important",
+                                                paddingLeft: "10px !important",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                marginBottom: "10px",
+                                            }}
+                                        >
+                                            <ListItemIcon
+                                                sx={{
+                                                    minWidth: 35,
+                                                    color: "#000",
+                                                }}
+                                                className="icon-link"
+                                            >
+                                                {React.createElement(
+                                                    list.icon,
+                                                    {
+                                                        fontSize: "medium",
+                                                    }
+                                                )}
+                                            </ListItemIcon>
 
-                                    <ListItemText
-                                        primary={list?.label}
-                                        sx={{
-                                            opacity: open ? 1 : 0,
-                                            color: "#000",
-                                        }}
-                                    />
-                                </ListItemButton>
-                            </ListItem>
-                        </NavLink>
-                    </div>
-                ))}
+                                            <ListItemText
+                                                primary={list?.label}
+                                                sx={{
+                                                    opacity: open ? 1 : 0,
+                                                    color: "#000",
+                                                }}
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </NavLink>
+                            </div>
+                        );
+                    } else {
+                        null;
+                    }
+                })}
             </List>
         </Drawer>
     );

@@ -962,30 +962,35 @@ export const district = {
 
 export const DRAWER_WIDTH = 220;
 
+
 export const DRAWER_LIST = [
     {
         label: "Inquery Details",
         icon: DescriptionOutlinedIcon,
-        path: "/admin/dashboard/inquery",
+        path: "/admin/dashboard/inquiryDetails",
         Component: InqueryDetails,
+        key: "inquiryDetails"
     },
     {
         label: "Registered User",
         icon: PeopleAltOutlinedIcon,
-        path: "/admin/dashboard/registeredUser",
+        path: "/admin/dashboard/registeredUsers",
         Component: RegisteredUser,
+        key: "registeredUsers"
     },
     {
         label: "Manage Admin",
         icon: AdminPanelSettingsOutlinedIcon,
         path: "/admin/dashboard/manageAdmin",
         Component: ManageAdmin,
+        key: "manageAdmin"
     },
     {
         label: "Delayed Inquery",
         icon: PendingActionsIcon,
-        path: "/admin/dashboard/delayedInquery",
+        path: "/admin/dashboard/delayedEnquiries",
         Component: DelayInqueryDetails,
+        key: "delayedEnquiries"
     },
 ];
 
