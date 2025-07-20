@@ -20,7 +20,7 @@ const PresentDiseaseQuestionary = ({ register, errors, watch, control, namePrefi
         "Hepatitis",
         "Others",
     ];
-    console.log("errors :: ", errors);
+    // console.log("errors :: ", errors);
     return (
         <Box>
             <FormControl>

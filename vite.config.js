@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     ].filter(Boolean),
     server: {
       port: 3000,
-      allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in', 'https://swasthmitra.in'],
+      // allowedHosts: ['swasthmitra.in', 'www.swasthmitra.in', 'https://swasthmitra.in'],
       open: true, // Optional: auto opens browser
     },
   };

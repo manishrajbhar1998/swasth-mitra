@@ -45,7 +45,7 @@ const PurchasePlan = () => {
         setActiveStep((prevActiveStep) => 0);
     };
 
-    console.log("activeStep :: ", activeStep);
+    // console.log("activeStep :: ", activeStep);
 
     const renderComponent = {
         0: <BasicDetails handleNext={handleNext} planName={plan} planAmount={amount} />,

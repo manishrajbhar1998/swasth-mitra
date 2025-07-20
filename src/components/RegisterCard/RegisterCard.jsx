@@ -115,8 +115,8 @@ const RegisterCard = ({ setShowRegisterUser, type = "user", setRefreshData }) =>
 
     const navigate = useNavigate()
 
-    console.log("States:", indianStates);
-    console.log("District Obj:", district);
+    // console.log("States:", indianStates);
+    // console.log("District Obj:", district);
 
     return (
         <div className='register-user-wrapper'>

@@ -281,7 +281,7 @@ const PurchasePolicyPlan = () => {
                 setLoading(false);
                 navigate("/dashboard");
             }, 1200);
-            console.log('Purchase successful:', response.data);
+            // console.log('Purchase successful:', response.data);
         } catch (error) {
             setLoading(false);
             toast.error(error.response?.data?.errors[0] || 'Plan Purchase failed!');

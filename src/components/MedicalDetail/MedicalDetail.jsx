@@ -59,7 +59,7 @@ const MedicalDetail = ({ handleBack, planName, planAmount }) => {
     const { pastDiseases, existingDiseases } = watch();
     const onSubmit = (data) => {
 
-        console.log('Submitted data:', data);
+        // console.log('Submitted data:', data);
         // You can add your API call here
 
         // navigate("/dashboard");

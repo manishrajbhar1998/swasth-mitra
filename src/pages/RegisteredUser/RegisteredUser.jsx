@@ -15,6 +15,7 @@ import { useLoading } from '../../context/LoadingContext/LoadingContext';
 
 
 
+
 const RegisteredUser = () => {
 
     const tableRef = useRef(null);
@@ -31,6 +32,7 @@ const RegisteredUser = () => {
     const { refershData, setRefreshData } = useState(false);
 
 
+    // console.log("stateContext", state.userName);
 
     // Helper to safely get value or hyphen
     const safeValue = (val) => (val === undefined || val === null || val === "") ? "-" : val;
@@ -120,7 +122,6 @@ const RegisteredUser = () => {
 
     // Handler for default edit icon click
     const handleEditRow = (row) => {
-        console.log('Edit row clicked:', row.original);
         setSelectedRowData(row.original);
         setModalStatus(row.original.status || '');
         setEditModalOpen(true);
@@ -128,6 +129,7 @@ const RegisteredUser = () => {
 
     // Save handler for status update
     const handleSaveStatus = async () => {
+
         if (!selectedRowData?.id) {
             toast.error('User ID not found.');
             return;
@@ -155,7 +157,7 @@ const RegisteredUser = () => {
             registeredUsers: Boolean(selectedRowData.registeredUsers),
             manageAdmin: Boolean(selectedRowData.manageAdmin),
             status: modalStatus,
-            updatedBy: adminDetails?.email || 'system',
+            updatedBy: state.userName,
         };
 
         try {

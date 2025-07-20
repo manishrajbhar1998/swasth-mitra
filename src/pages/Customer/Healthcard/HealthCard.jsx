@@ -3,7 +3,7 @@ import './HealthCard.scss';
 import logo from '../../../assets/images/swastha-mitra-logo2.png';
 
 const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMembers }) => {
-    console.log("plan :: ", plan)
+    // console.log("plan :: ", plan)
     return (
         <div className="health-card-wrapper" >
             {/* Front: Main Member Info */}

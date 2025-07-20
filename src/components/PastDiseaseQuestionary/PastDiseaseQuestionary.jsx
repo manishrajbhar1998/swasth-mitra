@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 const PastDiseaseQuestionary = ({ register, errors, watch, control, namePrefix }) => {
 
     const pastDisease = watch(`${namePrefix}.pastDisease`);
-    console.log("errors :: ", errors);
+    // console.log("errors :: ", errors);
 
     return (
         <Box>

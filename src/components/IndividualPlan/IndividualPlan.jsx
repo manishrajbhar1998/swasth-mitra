@@ -156,7 +156,7 @@ const IndividualPlan = () => {
                 if (setLoading) setLoading(false);
                 navigate("/dashboard");
             }, 1200);
-            console.log('Purchase successful:', response.data);
+            // console.log('Purchase successful:', response.data);
         } catch (error) {
             if (setLoading) setLoading(false);
             toast.error(error.response?.data?.errors?.[0] || 'Plan Purchase failed!');

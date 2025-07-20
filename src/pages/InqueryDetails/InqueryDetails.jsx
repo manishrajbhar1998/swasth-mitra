@@ -119,7 +119,7 @@ export default function InqueryDetails() {
 
   // Open modal for editing
   const handleEditRow = (row) => {
-    console.log(row.original);
+    // console.log(row.original);
     setSelectedRowData(row.original);
     setModalValues(row.original);
     setEditModalOpen(true);
