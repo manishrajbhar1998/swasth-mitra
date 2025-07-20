@@ -1,4 +1,5 @@
 import InqueryDetails from "../pages/InqueryDetails/InqueryDetails";
+import DelayInqueryDetails from "../pages/InqueryDetails/DelayInquiryDetails";
 import PeopleIcon from '@mui/icons-material/People';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -988,7 +989,7 @@ export const DRAWER_LIST = [
         label: "Delayed Inquery",
         icon: PendingActionsIcon,
         path: "/admin/dashboard/delayedEnquiries",
-        Component: InqueryDetails,
+        Component: DelayInqueryDetails,
         key: "delayedEnquiries"
     },
 ];

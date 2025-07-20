@@ -25,7 +25,6 @@ export default function InqueryDetails() {
   const EDIT_FIELDS = [
     'userName', 'email', 'mobileNo', 'address', 'city', 'district', 'state', 'country', 'pinCode', 'status', 'followUpBy'
   ];
-
   const columns = useMemo(
     () => [
       { header: 'User Name', accessorKey: 'userName' },
@@ -36,7 +35,7 @@ export default function InqueryDetails() {
       { header: 'District', accessorKey: 'district' },
       { header: 'State', accessorKey: 'state' },
       { header: 'Pin Code', accessorKey: 'pinCode' },
-      { header: 'User Message', accessorKey: 'country' },
+      { header: 'User Message', accessorKey: 'userMsg' },
       {
         header: 'Status',
         accessorKey: 'status',

@@ -17,15 +17,17 @@ const ManageAdmin = () => {
     const [loading, setLoading] = useState(true);
     const [showRegisterUser, setShowRegisterUser] = useState(false);
     const { state } = useLoadingAdminDeatils();
-
+    const [editMode, setEditMode] = useState(false);
+    const [editData, setEditData] = useState(null);
 
 
     const columns = useMemo(
         () => [
             { header: 'First Name', accessorKey: 'firstName' },
             { header: 'Last Name', accessorKey: 'lastName' },
-            { header: 'Date of Birth', accessorKey: 'dateOfBirth' },
             { header: 'Role', accessorKey: 'role' },
+            { header: "Status", accessorKey: 'status' },
+            { header: 'Date of Birth', accessorKey: 'dateOfBirth' },
             { header: 'Gender', accessorKey: 'gender' },
             { header: 'Email', accessorKey: 'email' },
             { header: 'Phone Number', accessorKey: 'phoneNumber' },
@@ -68,8 +70,27 @@ const ManageAdmin = () => {
     };
 
     const handleRegister = () => {
+        setEditMode(false);
+        setEditData(null);
         setShowRegisterUser(true);
     }
+
+    // Edit handler
+    const handleEditRow = (row) => {
+        setEditMode(true);
+        setEditData(row.original);
+        setShowRegisterUser(true);
+    };
+
+    // Refresh table after edit
+    const handleEditSuccess = () => {
+        setShowRegisterUser(false);
+        setEditMode(false);
+        setEditData(null);
+        // Optionally, refetch data
+        // fetchData();
+        // Or update local state if you want
+    };
 
     return (
         <>
@@ -112,15 +133,34 @@ const ManageAdmin = () => {
                                 </Button>
                             </Box>
                         )}
+                        renderRowActions={({ row }) => [
+                            <Button
+                                key="edit"
+                                variant="text"
+                                color="primary"
+                                size="small"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleEditRow(row);
+                                }}
+                            >
+                                <span className="material-icons">edit</span>
+                            </Button>
+                        ]}
                     />
 
                 </Grid>
             </Container>
             {
-                showRegisterUser &&
-
-                <AdminRegisterCard setShowRegisterUser={setShowRegisterUser} type="admin" />
-
+                showRegisterUser && (
+                    <AdminRegisterCard
+                        setShowRegisterUser={setShowRegisterUser}
+                        type="admin"
+                        editMode={editMode}
+                        editData={editData}
+                        onEditSuccess={handleEditSuccess}
+                    />
+                )
             }
         </>
 

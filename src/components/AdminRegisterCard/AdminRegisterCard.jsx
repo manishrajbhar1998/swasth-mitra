@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import './adminRegisterCard.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,8 +18,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { api } from '../../apis/api';
-import { POST_USER_REGISTER } from '../../constant/config';
+import { api, authApi } from '../../apis/api';
+import { POST_USER_REGISTER, GET_REGISTERED_USERS } from '../../constant/config';
 
 import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import Loader from '../../components/Loader/Loader';
@@ -51,7 +51,8 @@ const adminTypesObj = {
     "State Admin": "STATE_ADMIN",
     "District Admin": "DISTRICT_ADMIN",
     "Distributor Admin": "DISTRIBUTOR_ADMIN",
-    "Team Leads": "TEAM_LEAD"
+    "Team Leads": "TEAM_LEADS",
+    "Employee": "EMPLOYEE"
 }
 
 
@@ -85,60 +86,163 @@ const LoginSchema = Yup.object().shape({
 });
 
 
-const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
+const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = false, editData = null, onEditSuccess }) => {
+    // Separate function for saving edited admin details
+    const handleEditAdminSave = async () => {
+        if (!editData || !editData.id) {
+            toast.error('No admin selected for edit.');
+            return;
+        }
+        const reqBody = {
+            firstName: editData.firstName,
+            lastName: editData.lastName,
+            dateOfBirth: editData.dateOfBirth,
+            gender: editData.gender,
+            maritalStatus: editData.maritalStatus,
+            email: editData.email,
+            phoneNumber: editData.phoneNumber,
+            address: editData.address,
+            role: editData.role,
+            pinCode: editData.pinCode,
+            createdBy: editData.createdBy || '',
+            updatedBy: editData.updatedBy || '',
+            city: editData.city,
+            state: editData.state,
+            district: editData.district,
+            inquiryDetails: Boolean(editData.inquiryDetails),
+            registeredUsers: Boolean(editData.registeredUsers),
+            manageAdmin: Boolean(editData.manageAdmin),
+            delayedEnquiries: Boolean(editData.delayedEnquiries),
+            exportTableData: Boolean(editData.exportTableData),
+            status: status,
+        };
+        try {
+            setLoading(true);
+            const response = await authApi.put(`${GET_REGISTERED_USERS}/${editData.id}`, JSON.stringify(reqBody));
+            if (response?.data) {
+                toast.success("Admin updated successfully");
+                setLoading(false);
+                if (onEditSuccess) onEditSuccess(response.data);
+                setShowRegisterUser(false);
+            }
+        } catch (error) {
+            setLoading(false);
+            toast.error(error?.response?.data?.errors?.[0] || "Error occurred");
+        }
+    };
     const { loading, setLoading } = useLoading();
     const [districtOption, setDistrictOption] = useState([]);
+
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-        control
+        control,
+        setValue,
+        reset,
+        watch
     } = useForm({
         resolver: yupResolver(LoginSchema),
+        defaultValues: editMode && editData ? {
+            firstName: editData.firstName || '',
+            lastName: editData.lastName || '',
+            mobile: editData.phoneNumber || '',
+            email: editData.email || '',
+            password: '',
+            confirmPassword: '',
+            gender: editData.gender || '',
+            address: editData.address || '',
+            pincode: editData.pinCode || '',
+            dob: editData.dateOfBirth ? dayjs(editData.dateOfBirth) : null,
+            city: editData.city || '',
+            state: editData.state || '',
+            district: editData.district || '',
+            adminType: Object.keys(adminTypesObj).find(key => adminTypesObj[key] === editData.role) || '',
+            permissions: [
+                ...(editData.manageAdmin ? ["Manage Admin"] : []),
+                ...(editData.inquiryDetails ? ["Inquery Details"] : []),
+                ...(editData.registeredUsers ? ["Registered Users"] : []),
+                ...(editData.delayedEnquiries ? ["Delay Enquiry"] : []),
+                ...(editData.exportTableData ? ["Export Table Data"] : [])
+            ]
+        } : undefined
     });
+
+    // For status dropdown in edit mode
+    const [status, setStatus] = useState(editMode && editData ? editData.status || 'IN_ACTIVE' : 'IN_ACTIVE');
+
+    // Prefill form when editData changes
+    useEffect(() => {
+        if (editMode && editData) {
+            reset({
+                firstName: editData.firstName || '',
+                lastName: editData.lastName || '',
+                mobile: editData.phoneNumber || '',
+                email: editData.email || '',
+                password: '',
+                confirmPassword: '',
+                gender: editData.gender || '',
+                address: editData.address || '',
+                pincode: editData.pinCode || '',
+                dob: editData.dateOfBirth ? dayjs(editData.dateOfBirth) : null,
+                city: editData.city || '',
+                state: editData.state || '',
+                district: editData.district || '',
+                adminType: Object.keys(adminTypesObj).find(key => adminTypesObj[key] === editData.role) || '',
+                permissions: [
+                    ...(editData.manageAdmin ? ["Manage Admin"] : []),
+                    ...(editData.inquiryDetails ? ["Inquery Details"] : []),
+                    ...(editData.registeredUsers ? ["Registered Users"] : []),
+                    ...(editData.delayedEnquiries ? ["Delay Enquiry"] : []),
+                    ...(editData.exportTableData ? ["Export Table Data"] : [])
+                ]
+            });
+            setStatus(editData.status || 'IN_ACTIVE');
+        }
+    }, [editMode, editData, reset]);
 
     const onSubmit = async (data) => {
         const reqBody = {
-            "firstName": data?.firstName,
-            "lastName": data.lastName,
-            "dateOfBirth": dayjs(data.dob).format('DD-MM-YYYY'),
-            "gender": data.gender,
-            "maritalStatus": data.maritalStatus,
-            "email": data.email,
-            "phoneNumber": data.mobile,
-            "address": data.address,
-            "city": data.city,
-            "state": data.state,
-            "district": data.district,
-            "role": adminTypesObj[data.adminType],
+            firstName: data?.firstName,
+            lastName: data.lastName,
+            dateOfBirth: dayjs(data.dob).format('DD-MM-YYYY'),
+            gender: data.gender,
+            maritalStatus: editMode && editData ? editData.maritalStatus : data.maritalStatus || '',
+            email: data.email,
+            phoneNumber: data.mobile,
+            address: data.address,
+            role: adminTypesObj[data.adminType],
+            pinCode: data.pincode,
+            password: data.password,
+            createdBy: editMode && editData ? editData.createdBy || '' : '',
+            updatedBy: editMode && editData ? editData.updatedBy || '' : '',
+            city: data.city,
+            state: data.state,
+            district: data.district,
             inquiryDetails: data.permissions.includes("Inquery Details"),
             registeredUsers: data.permissions.includes("Registered Users"),
             manageAdmin: data.permissions.includes("Manage Admin"),
             delayedEnquiries: data.permissions.includes("Delay Enquiry"),
             exportTableData: data.permissions.includes("Export Table Data"),
-            "pinCode": data.pincode,
-            "planSelection": "",
-            "patientHistory": "",
-            "existingDiseases": "",
-            "password": data.password
-        }
+            ...(editMode ? { status } : {})
+        };
 
         try {
-            setLoading(true)
-            const response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));
+            setLoading(true);
+            let response;
+            // Only create admin
+            response = await api.post(POST_USER_REGISTER, JSON.stringify(reqBody));
             if (response?.data) {
-                toast.success("Registration Successfull")
-                setLoading(false)
+                toast.success("Registration Successfull");
+                setLoading(false);
                 setTimeout(() => {
-                    setShowRegisterUser(false)
-                }, 10)
+                    setShowRegisterUser(false);
+                }, 10);
             }
         } catch (error) {
-            console.log("error", error?.response?.data?.errors[0]);
-            setLoading(false)
-            toast.error(error?.response?.data?.errors[0])
-
+            setLoading(false);
+            toast.error(error?.response?.data?.errors?.[0] || "Error occurred");
         }
     };
 
@@ -148,12 +252,14 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
     return (
         <div className='admin-register-user-wrapper'>
             <Box className="register-card-wrapper">
-                <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' } }}>
+                <Box className="register-form" sx={{ flexBasis: { xs: '95%', sm: '90%', md: '30%' }, width: { xs: '95%', sm: '90%', md: '30%' } }}>
                     <Box className="register-form-header">
-                        <p className="register-form-header-text">Register new Admin</p>
+                        <p className="register-form-header-text">
+                            {editMode ? 'Edit Admin Details' : 'Register new Admin'}
+                        </p>
                     </Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <form onSubmit={handleSubmit(onSubmit)} noValidate style={{ height: "700px", overflowY: "auto" }}>
                             <Box sx={{
                                 display: 'flex', gap: '20px', flexDirection: {
                                     xs: 'column',
@@ -396,46 +502,49 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
                                 />
 
                             </Box>
-                            <Box sx={{
-                                display: 'flex', gap: '20px', flexDirection: {
-                                    xs: 'column',
-                                    sm: 'row',
-                                },
-                                padding: "0",
-                                marginTop: "-12px",
-                            }}>
-                                <Controller
-                                    name="password"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            fullWidth
-                                            label="Set Password"
-                                            type="password"
-                                            margin="normal"
-                                            error={!!errors.password}
-                                            helperText={errors.password?.message}
-                                        />
-                                    )}
-                                />
+                            {/* Show password fields only in create mode */}
+                            {!editMode && (
+                                <Box sx={{
+                                    display: 'flex', gap: '20px', flexDirection: {
+                                        xs: 'column',
+                                        sm: 'row',
+                                    },
+                                    padding: "0",
+                                    marginTop: "-12px",
+                                }}>
+                                    <Controller
+                                        name="password"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                fullWidth
+                                                label="Set Password"
+                                                type="password"
+                                                margin="normal"
+                                                error={!!errors.password}
+                                                helperText={errors.password?.message}
+                                            />
+                                        )}
+                                    />
 
-                                <Controller
-                                    name="confirmPassword"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            fullWidth
-                                            label="Confirm Password"
-                                            type="password"
-                                            margin="normal"
-                                            error={!!errors.confirmPassword}
-                                            helperText={errors.confirmPassword?.message}
-                                        />
-                                    )}
-                                />
-                            </Box>
+                                    <Controller
+                                        name="confirmPassword"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                fullWidth
+                                                label="Confirm Password"
+                                                type="password"
+                                                margin="normal"
+                                                error={!!errors.confirmPassword}
+                                                helperText={errors.confirmPassword?.message}
+                                            />
+                                        )}
+                                    />
+                                </Box>
+                            )}
                             <Box className="dob-wrapper" sx={{ alignItems: "center" }}>
                                 <Box>
                                     <Controller
@@ -460,27 +569,54 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
                                     />
                                 </Box>
                                 <Box>
-                                    <Controller
-                                        name="gender"
-                                        control={control}
-
-                                        defaultValue="male"
-                                        render={({ field }) => (
-                                            <FormControl component="fieldset" error={!!errors.gender} sx={{ display: "flex", alignItems: "center" }}>
-                                                <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000", marginBottom: "0px" }}>Gender</FormLabel>
-                                                <RadioGroup row {...field} sx={{ flexWrap: "nowrap" }}>
-                                                    <FormControlLabel value="male" control={<CustomRadio />} label="Male" />
-                                                    <FormControlLabel value="female" control={<CustomRadio />} label="Female" />
-                                                    <FormControlLabel value="other" control={<CustomRadio />} label="Other" />
-                                                </RadioGroup>
-                                                <Typography color="error">{errors.gender?.message}</Typography>
-                                            </FormControl>
-                                        )}
-                                    />
+                                    {/* Show Gender in create mode, Status dropdown in edit mode */}
+                                    {!editMode ? (
+                                        <Controller
+                                            name="gender"
+                                            control={control}
+                                            defaultValue="male"
+                                            render={({ field }) => (
+                                                <FormControl component="fieldset" error={!!errors.gender} sx={{ display: "flex", alignItems: "center" }}>
+                                                    <FormLabel component="legend" sx={{ fontSize: '16px', color: "#000", marginBottom: "0px" }}>Gender</FormLabel>
+                                                    <RadioGroup row {...field} sx={{ flexWrap: "nowrap" }}>
+                                                        <FormControlLabel value="male" control={<CustomRadio />} label="Male" />
+                                                        <FormControlLabel value="female" control={<CustomRadio />} label="Female" />
+                                                        <FormControlLabel value="other" control={<CustomRadio />} label="Other" />
+                                                    </RadioGroup>
+                                                    <Typography color="error">{errors.gender?.message}</Typography>
+                                                </FormControl>
+                                            )}
+                                        />
+                                    ) : (
+                                        <Controller
+                                            name="status"
+                                            control={control}
+                                            defaultValue={status}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    options={["ACTIVE", "IN_ACTIVE"]}
+                                                    value={field.value || null}
+                                                    onChange={(_, value) => {
+                                                        field.onChange(value);
+                                                        setStatus(value);
+                                                    }}
+                                                    renderInput={(params) => (
+                                                        <TextField
+                                                            {...params}
+                                                            label="Status"
+                                                            variant="outlined"
+                                                            sx={{ mt: 1 }}
+                                                        />
+                                                    )}
+                                                    fullWidth
+                                                />
+                                            )}
+                                        />
+                                    )}
                                 </Box>
                             </Box>
                             <Box sx={{ mt: 1, p: 2, border: '1px solid #ccc', borderRadius: 2 }}>
-                                <FormLabel component="legend" sx={{ mb: 1, fontSize: "16px", fontWeight: 600 }}>
+                                <FormLabel component="legend" sx={{ mb: 1, fontSize: "16px", fontWeight: 600, }}>
                                     Allow Admin Access
                                 </FormLabel>
 
@@ -524,11 +660,17 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user" }) => {
 
                             <Box className="btn-wrapper" sx={{ display: 'flex', gap: 1 }}>
                                 <Button fullWidth variant="contained" color="primary" onClick={() => setShowRegisterUser(false)} >
-                                    Chancel
+                                    Cancel
                                 </Button>
-                                <Button fullWidth variant="contained" color="primary" type="submit" >
-                                    Save
-                                </Button>
+                                {editMode ? (
+                                    <Button fullWidth variant="contained" color="primary" onClick={handleEditAdminSave} >
+                                        Save
+                                    </Button>
+                                ) : (
+                                    <Button fullWidth variant="contained" color="primary" type="submit" >
+                                        Save
+                                    </Button>
+                                )}
 
                             </Box>
                         </form>
