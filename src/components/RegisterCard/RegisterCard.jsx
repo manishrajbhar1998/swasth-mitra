@@ -58,7 +58,7 @@ const LoginSchema = Yup.object().shape({
     district: Yup.string().required('District is required')
 });
 
-const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
+const RegisterCard = ({ setShowRegisterUser, type = "user", setRefreshData }) => {
     const { loading, setLoading } = useLoading();
     const [districtOption, setDistrictOption] = useState([]);
 
@@ -102,6 +102,7 @@ const RegisterCard = ({ setShowRegisterUser, type = "user" }) => {
                 setTimeout(() => {
                     setShowRegisterUser(false)
                 }, 10)
+                setRefreshData(prev => !prev);
             }
         } catch (error) {
             console.log("error", error?.response?.data?.errors[0]);

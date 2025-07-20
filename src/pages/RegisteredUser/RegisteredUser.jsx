@@ -359,7 +359,10 @@ const RegisteredUser = () => {
             </Grid>
             {
                 showRegisterUser &&
-                <RegisterCard setShowRegisterUser={setShowRegisterUser} />
+                <RegisterCard
+                    setShowRegisterUser={setShowRegisterUser}
+                    setRefreshData={setRefreshData}
+                />
             }
             {/* Custom Edit Modal */}
             <Dialog open={editModalOpen} onClose={() => setEditModalOpen(false)} maxWidth="sm" fullWidth>
