@@ -9,25 +9,39 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const testimonialVideos = [
+
     {
         id: 1,
-        videoId: 'G3qnhJJRwY4',
-    },
-    {
-        id: 2,
         videoId: 'fbJfeIcDR_0',
     },
     {
-        id: 3,
+        id: 2,
         videoId: 'TFFgbvn2rPI',
+    },
+    {
+        id: 3,
+        videoId: 'j8_9t7ikPug',
     },
     {
         id: 4,
-        videoId: 'TFFgbvn2rPI',
+        videoId: 'faNH9dEPWv4',
     },
     {
         id: 5,
-        videoId: 'TFFgbvn2rPI',
+        videoId: '_lJQQbViqC8',
+    },
+    {
+        id: 6,
+        videoId: 'ObxcUDWPZI4',
+    }, {
+        id: 7,
+        videoId: 'iHkUSPQDK1U',
+    }, {
+        id: 8,
+        videoId: '330Knl3RPj8',
+    }, {
+        id: 9,
+        videoId: '9LbKXeRjEPs',
     },
 ];
 
@@ -50,7 +64,7 @@ const sliderSettings = {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,

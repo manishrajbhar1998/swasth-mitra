@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const plans = [
     {
         title: "Individual Plan",
-        price: "299/-",
+        price: "170/-",
         className: "individual_plan",
         id: "individual",
         shortFeatures: [
