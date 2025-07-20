@@ -16,7 +16,6 @@ import "./sideBar.scss";
 import { DRAWER_WIDTH, DRAWER_LIST } from "../../constant/constant";
 import logo from "./../../assets/images/swastha-mitra-logo2.png";
 import { useLoadingAdminDeatils } from "../../context/AdminContext/AdminContext";
-
 const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
 })(({ theme }) => ({
@@ -84,6 +83,7 @@ const SideBar = ({ open, setOpen }) => {
     const [openMenus, setOpenMenus] = React.useState({ Reports: false });
     const { state } = useLoadingAdminDeatils();
     const [filterMenu, setFilterMenu] = useState([]);
+
     const theme = useTheme();
     const navigate = useNavigate();
 
