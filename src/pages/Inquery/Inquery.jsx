@@ -113,8 +113,9 @@ const Inquery = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.error("invalid userid and password ", error);
+            toast.error(error?.response?.data?.errors[0])
             setLoading(false);
+
 
         }
     };

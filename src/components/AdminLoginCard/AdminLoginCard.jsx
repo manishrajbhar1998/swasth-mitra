@@ -75,9 +75,9 @@ const AdminLoginCard = () => {
                 sessionStorage.setItem("adminDetails", JSON.stringify(adminData));
 
                 const keyArr = [
+                    "inquiryDetails",
                     "manageAdmin",
                     "exportTableData",
-                    "inquiryDetails",
                     "registeredUsers",
                     "delayedEnquiries",
                 ];
