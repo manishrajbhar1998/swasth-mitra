@@ -84,8 +84,7 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                 </div>
 
                 <div className="card-footer">
-                    Powered by <strong>Swasth Mithra</strong>
-
+                    Powered by <strong style={{ color: "#57a585" }}>Swasth Mithra</strong>
                 </div>
             </div>
             {/* )} */}

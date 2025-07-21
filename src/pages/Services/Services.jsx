@@ -190,7 +190,7 @@ const Services = () => {
             <div className="container section-title" data-aos="fade-up">
                 <div>
                     <span>Our Plans</span>
-                    <p className="fs-5 fw-medium px-3">We offer thoughtfully articulated plans for everyone</p>
+                    <p className="fs-5 fw-medium px-3 text-center">We offer thoughtfully articulated plans for everyone</p>
                 </div>
             </div>
 

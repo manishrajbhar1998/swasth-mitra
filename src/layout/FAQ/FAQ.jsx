@@ -29,12 +29,7 @@ const Faq = () => {
 
     return (
         <div id="faq-wrapper" className="bg-color-2">
-            <div className="container section-title" data-aos="fade-up">
-                <div>
-                    <span>FAQ’s</span>
-                </div>
-            </div>
-
+            <p className="faq-heading">FAQ’s</p>
             <div className="container">
                 <div className="accordion">
                     {faqData.map((item, index) => (

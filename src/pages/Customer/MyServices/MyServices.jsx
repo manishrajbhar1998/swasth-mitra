@@ -33,14 +33,14 @@ const services = [
     {
         icon: <ManageAccountsIcon />,
         iconColor: "#fa9733",
-        title: "My Manager",
+        title: "24x7 Support",
         number: "8965321458"
     },
     {
         icon: <CheckIcon />,
         iconColor: "#fa5d3b",
         title: "Services Consume",
-        number: 10
+        number: 0
     }
 ]
 

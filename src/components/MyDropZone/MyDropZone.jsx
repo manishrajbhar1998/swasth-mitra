@@ -18,6 +18,17 @@ const MyDropzone = ({ onDrop, files }) => {
         },
     });
 
+    const getErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 'file-too-large':
+                return 'File size should be less than 2MB';
+            case 'file-invalid-type':
+                return 'Only image files are allowed';
+            default:
+                return 'File not accepted';
+        }
+    };
+
     return (
         <Box
             {...getRootProps()}
@@ -43,7 +54,9 @@ const MyDropzone = ({ onDrop, files }) => {
             {/* Show size error if any */}
             {fileRejections.length > 0 && (
                 <Typography color="error" fontSize="0.8rem" mt={1}>
-                    {fileRejections[0]?.errors[0]?.message}
+                    {fileRejections[0]?.errors.map((err, idx) => (
+                        <div key={idx}>{getErrorMessage(err.code)}</div>
+                    ))}
                 </Typography>
             )}
         </Box>

@@ -6,7 +6,7 @@ import emergencyIcon from '../../assets/img/emergency-patient.svg';
 
 const stats = [
     {
-        label: 'Doctors',
+        label: 'Location',
         count: 347,
         icon: doctorIcon,
     },

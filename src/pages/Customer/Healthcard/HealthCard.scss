@@ -83,7 +83,7 @@
             //     }
             // }
             .card-footer {
-                background-color: #00a67e;
+                // background-color: #00a67e;
                 color: #fff;
                 display: flex;
                 align-items: center;
@@ -94,6 +94,7 @@
                 font-weight: 600;
                 width: 100%;
                 margin-top: 20px;
+                color: #d3af37;
 
                 .logo {
                     height: 24px;
@@ -149,6 +150,11 @@
                 display: flex;
                 gap: 5px;
             }
+        }
+
+        .card-footer {
+            color: #d3af37;
+            font-weight: 600;
         }
     }
 }

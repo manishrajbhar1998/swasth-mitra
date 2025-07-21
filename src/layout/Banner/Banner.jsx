@@ -39,7 +39,7 @@ const Banner = () => {
           <img src={slide2} className="d-block w-100" alt="Slide 2" />
           <div className="carousel-container">
 
-            <div className="text-center mb-3">
+            <div className="text-center">
               <span className="logo-img-in-slider"></span>
             </div>
             <h2 className="text-center">Your Trusted Health Aly</h2>
