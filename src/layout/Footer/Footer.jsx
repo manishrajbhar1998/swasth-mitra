@@ -5,12 +5,15 @@ import logo from '../../assets/img/real-logo.svg';
 import xLogo from '../../assets/img/footer/icons8-x-logo-50.png';
 import fbLogo from '../../assets/img/footer/icons8-facebook-logo-48.png';
 import ytLogo from '../../assets/img/footer/icons8-youtube-logo-48.png';
+import instLogo from '../../assets/img/footer/instagram.png';
+
 const images = {
     footerBg,
     logo,
     xLogo,
     fbLogo,
     ytLogo,
+    instLogo
 };
 import pdf2 from '../../assets/policies/Terms_and_Conditions_SM.pdf';
 import pdf1 from '../../assets/policies/Cancellation_and_Refund_SM.pdf';
@@ -115,14 +118,14 @@ const Footer = () => {
 
                             <div className="social-icons">
                                 <span>FOLLOW US</span>
-                                <a href="#" aria-label="Follow us on X">
+                                <a href="https://x.com/Sushil944520" target="_blank" aria-label="Follow us on X">
                                     <img src={images.xLogo} alt="X" />
                                 </a>
-                                <a href="#" aria-label="Follow us on Facebook">
+                                <a href="https://www.facebook.com/people/Swasth-Mitra/61578740035638/" target="_blank" aria-label="Follow us on Facebook">
                                     <img src={images.fbLogo} alt="Facebook" />
                                 </a>
-                                <a href="#" aria-label="Follow us on YouTube">
-                                    <img src={images.ytLogo} alt="YouTube" />
+                                <a href="https://www.instagram.com/swasthmitra/" target="_blank" aria-label="Follow us on YouTube">
+                                    <img src={images.instLogo} alt="YouTube" style={{ width: "45px" }} />
                                 </a>
                             </div>
                         </div>

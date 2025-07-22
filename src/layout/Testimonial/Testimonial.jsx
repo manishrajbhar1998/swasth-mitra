@@ -94,7 +94,7 @@ const Testimonials = () => {
                             <iframe
                                 width="100%"
                                 height="400"
-                                src={`https://www.youtube.com/embed/${video.videoId}?autoplay=0&loop=1&playlist=${video.videoId}`}
+                                src={`https://www.youtube.com/embed/${video.videoId}?autoplay=0&loop=1&playlist=${video.videoId}&modestbranding=1&rel=0`}
                                 title={`Testimonial Video ${video.id}`}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
