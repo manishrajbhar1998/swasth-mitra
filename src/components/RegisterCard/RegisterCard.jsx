@@ -451,7 +451,7 @@ const RegisterCard = ({ setShowRegisterUser, type = "user", setRefreshData }) =>
                             </Box>
                             <Box className="btn-wrapper" sx={{ display: 'flex', gap: 1 }}>
                                 <Button fullWidth variant="contained" color="primary" onClick={() => setShowRegisterUser(false)} >
-                                    Chancel
+                                    Cancel
                                 </Button>
                                 <Button fullWidth variant="contained" color="primary" type="submit" >
                                     Save
