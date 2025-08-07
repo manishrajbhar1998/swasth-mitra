@@ -200,7 +200,7 @@ const PurchasePolicyPlan = () => {
             formData.append('plan', plan);
             // Clean amount: remove all non-digit and non-dot characters
             const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
-            formData.append('amount', 1);
+            formData.append('amount', cleanAmount);
             formData.append('anyChild', data.anyChild);
             formData.append('numofChild', data.numofChild);
 
