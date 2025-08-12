@@ -111,13 +111,7 @@ const MyServices = ({ dashboardData }) => {
         }
     };
 
-
-
-
-
     // console.log(dashboardData)
-
-
 
     return (
         <>
@@ -148,7 +142,6 @@ const MyServices = ({ dashboardData }) => {
                 </div>
             </div>
 
-
             {
                 dashboardData?.status !== "ACTIVE" ?
                     <div className='plan-pending-message'>
@@ -173,7 +166,7 @@ const MyServices = ({ dashboardData }) => {
                                     <div style={{ position: 'relative' }}>
                                         <div ref={mainCardRef}>
                                             <HealthCard
-                                                profilePhoto={member?.profilePhoto || avatar}
+                                                profilePhoto={`data:image/png;base64,${member?.profilePhoto}` || avatar}
                                                 name={`${login?.firstName} ${login?.lastName}`}
                                                 memberId={member.memberId}
                                                 plan={member.plan}
@@ -197,7 +190,7 @@ const MyServices = ({ dashboardData }) => {
                                             <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
                                                 <div ref={familyCardRef}>
                                                     <HealthCard
-                                                        profilePhoto={details.profilePhoto || avatar}
+                                                        profilePhoto={`data:image/png;base64,${member?.profilePhoto}` || avatar}
                                                         name={details.name}
                                                         memberId={member.memberId}
                                                         plan={member.plan}
