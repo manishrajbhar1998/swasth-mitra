@@ -137,7 +137,9 @@ const PurchasePolicyPlan = () => {
             numofChild: '',
             children: []
         },
-        resolver: yupResolver(validationSchema)
+        resolver: yupResolver(validationSchema),
+        mode: "onBlur",
+        reValidateMode: "onChange"
     })
 
     const { numofChild } = watch()

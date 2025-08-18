@@ -1022,14 +1022,25 @@ export const getPersonSchema = () =>
                     return ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type);
                 })
             ),
-        pastDisease: Yup.string().required('Please select an option'),
+        // pastDisease: Yup.string().required('Please select an option'),
+        pastDisease: Yup.string().when('name', {
+            is: (nameVal) => !!nameVal && nameVal.trim().length > 0,
+            then: (schema) => schema.required('Please select an option'),
+            otherwise: (schema) => schema.notRequired(),
+        }),
+
 
         pastDiseaseInput: Yup.string().when('pastDisease', {
             is: 'yes',
             then: (schema) => schema.required('Please provide details of the past disease'),
             otherwise: (schema) => schema.notRequired(),
         }),
-        presentDisease: Yup.string().required('Please select an option'),
+        // presentDisease: Yup.string().required('Please select an option'),
+        presentDisease: Yup.string().when('name', {
+            is: (nameVal) => !!nameVal && nameVal.trim().length > 0,
+            then: (schema) => schema.required('Please select an option'),
+            otherwise: (schema) => schema.notRequired(),
+        }),
         existingDiseases: Yup.array()
             .of(Yup.string())
             .when('presentDisease', {
