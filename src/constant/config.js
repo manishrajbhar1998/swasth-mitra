@@ -1,5 +1,5 @@
-// export const API_PATH = window._env?.API_PATH || "http://localhost:9001";
-export const API_PATH = window._env?.API_PATH || "https://www.swasthmitra.in/swasthyamitra";
+export const API_PATH = window._env?.API_PATH || "http://localhost:9001";
+// export const API_PATH = window._env?.API_PATH || "https://www.swasthmitra.in/swasthyamitra";
 
 // API URLs
 export const LOGIN_API = "/api/auth/login";

@@ -47,8 +47,8 @@ const IndividualPlan = () => {
         }
         const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
         const options = {
-            // key: "rzp_test_m7kwYdRW44PWYw", //Razorpay Test key 
-            key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
+            key: "rzp_test_m7kwYdRW44PWYw", //Razorpay Test key 
+            // key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
             amount: Number(cleanAmount) * 100, // Amount in paise
             currency: "INR",
             name: "Swasth Mitra",
@@ -67,6 +67,15 @@ const IndividualPlan = () => {
             theme: {
                 color: "#3399cc",
             },
+            modal: {
+                ondismiss: function () {
+                    // Payment was cancelled or failed
+                    onSubmit(formDataValues, {
+                        paymentStatus: "FAILED",
+                        paymentId: "",
+                    });
+                }
+            }
         };
         const rzp = new window.Razorpay(options);
         rzp.open();
@@ -118,36 +127,42 @@ const IndividualPlan = () => {
     });
 
     const onSubmit = async (data, paymentInfo = {}) => {
+        // Build payload object for logging
+        const payload = {
+            plan: plan || 'Individual Plan',
+            amount: typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount,
+            pastDisease: data.indiviual.pastDisease,
+            pastDiseaseInput: data.indiviual.pastDiseaseInput,
+            presentDisease: data.indiviual.presentDisease,
+            existingDiseases: data.indiviual.existingDiseases?.join(','),
+            presentDiseaseOther: data.indiviual.presentDiseaseOther,
+            profilePic: data.indiviual.avatar && data.indiviual.avatar.length > 0 ? data.indiviual.avatar[0] : null,
+            paymentStatus: paymentInfo.paymentStatus || '',
+            paymentId: paymentInfo.paymentId || '',
+            spouse: '',
+            father: '',
+            mother: '',
+            anyChild: '',
+            numofChild: '',
+            children: ''
+        };
+        console.log('Form Payload:', payload);
+        // If payment failed, do not hit API
+        if (paymentInfo.paymentStatus === 'FAILED') {
+            toast.error('Payment failed! Your plan purchase was unsuccessful. Please try again or check your payment method.');
+            if (setLoading) setLoading(false);
+            return;
+        }
         try {
             if (setLoading) setLoading(true);
             const formData = new FormData();
-            // Only send indiviual keys, all others empty
-            formData.append('plan', plan || 'Individual Plan');
-            const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
-            formData.append('amount', cleanAmount);
-            // Flatten indiviual keys
-            formData.append('pastDisease', data.indiviual.pastDisease);
-            formData.append('pastDiseaseInput', data.indiviual.pastDiseaseInput);
-            formData.append('presentDisease', data.indiviual.presentDisease);
-            formData.append('existingDiseases', data.indiviual.existingDiseases?.join(','));
-            formData.append('presentDiseaseOther', data.indiviual.presentDiseaseOther);
-            if (data.indiviual.avatar && data.indiviual.avatar.length > 0) {
-                formData.append('profilePic', data.indiviual.avatar[0]);
-            }
-            // Add payment info if available
-            if (paymentInfo.paymentStatus) {
-                formData.append('paymentStatus', paymentInfo.paymentStatus);
-            }
-            if (paymentInfo.paymentId) {
-                formData.append('paymentId', paymentInfo.paymentId);
-            }
-            // All other keys empty for individual plan
-            formData.append('spouse', '');
-            formData.append('father', '');
-            formData.append('mother', '');
-            formData.append('anyChild', '');
-            formData.append('numofChild', '');
-            formData.append('children', '');
+            Object.entries(payload).forEach(([key, value]) => {
+                if (key === 'profilePic' && value) {
+                    formData.append('profilePic', value);
+                } else if (key !== 'profilePic') {
+                    formData.append(key, value);
+                }
+            });
             const response = await authApi.post(POST_PURCHASE_PLAN_API, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
@@ -156,7 +171,6 @@ const IndividualPlan = () => {
                 if (setLoading) setLoading(false);
                 navigate("/dashboard");
             }, 1200);
-            // console.log('Purchase successful:', response.data);
         } catch (error) {
             if (setLoading) setLoading(false);
             toast.error(error.response?.data?.errors?.[0] || 'Plan Purchase failed!');
@@ -206,6 +220,6 @@ const IndividualPlan = () => {
             </form>
         </Box>
     );
-};
+}
 
 export default IndividualPlan;
