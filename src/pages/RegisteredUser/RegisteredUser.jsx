@@ -55,7 +55,7 @@ const RegisteredUser = () => {
             { header: 'Marital Status', accessorKey: 'maritalStatus', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Plan Type', accessorKey: 'plan', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Payment Status', accessorKey: 'paymentStatus', Cell: ({ cell }) => safeValue(cell.getValue()) },
-            { header: 'Account Status', accessorKey: 'status', Cell: ({ cell }) => safeValue(cell.getValue()) },
+            { header: 'Plan Status', accessorKey: 'status', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Plan Expiry', accessorKey: 'planExpiryDate', Cell: ({ cell }) => formatPlanExpiry(cell.getValue()) },
             { header: 'Role', accessorKey: 'role', Cell: ({ cell }) => safeValue(cell.getValue()) },
             { header: 'Email', accessorKey: 'email', Cell: ({ cell }) => safeValue(cell.getValue()) },
@@ -288,7 +288,7 @@ const RegisteredUser = () => {
         memberId: "Member ID",
         plan: "Plan",
         paymentStatus: "Payment Status",
-        status: "Status"
+        status: "Plan Status"
     };
 
     return (

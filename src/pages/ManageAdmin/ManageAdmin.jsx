@@ -21,15 +21,23 @@ const ManageAdmin = () => {
     const [editData, setEditData] = useState(null);
     const [refreshData, setRefreshData] = useState(false);
 
+    console.log("editData", editData)
+
 
     const columns = useMemo(
         () => [
             { header: 'First Name', accessorKey: 'firstName' },
             { header: 'Last Name', accessorKey: 'lastName' },
             { header: 'Role', accessorKey: 'role' },
-            { header: "Status", accessorKey: 'status' },
+            { header: "Admin Status", accessorKey: 'status' },
             { header: 'Date of Birth', accessorKey: 'dateOfBirth' },
             { header: 'Gender', accessorKey: 'gender' },
+            { header: 'Marital Status', accessorKey: 'maritalStatus' },
+            { header: 'Plan Type', accessorKey: 'plan' },
+            { header: 'Payment Status', accessorKey: 'paymentStatus' },
+            // { header: 'Plan Status', accessorKey: 'status' },
+            { header: 'Plan Expiry', accessorKey: 'planExpiryDate' },
+            { header: 'Member ID', accessorKey: 'memberId' },
             { header: 'Email', accessorKey: 'email' },
             { header: 'Phone Number', accessorKey: 'phoneNumber' },
             { header: 'Address', accessorKey: 'address' },

@@ -120,6 +120,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             exportTableData: formValues.permissions.includes("Export Table Data"),
             createUser: formValues.permissions.includes("Create Admin"), // Always send createUser permission
             status: status,
+            planStatus: formValues.planStatus,
         };
         try {
             setLoading(true);
@@ -161,11 +162,12 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
             gender: editData.gender || '',
             address: editData.address || '',
             pincode: editData.pinCode || '',
-            dob: editData.dateOfBirth ? dayjs(editData.dateOfBirth) : null,
+            dob: editData.dateOfBirth ? (dayjs(editData.dateOfBirth, 'DD-MM-YYYY').isValid() ? dayjs(editData.dateOfBirth, 'DD-MM-YYYY') : dayjs(editData.dateOfBirth)) : null,
             city: editData.city || '',
             state: editData.state || '',
             district: editData.district || '',
             adminType: Object.keys(adminTypesObj).find(key => adminTypesObj[key] === editData.role) || '',
+            planStatus: editData.planStatus || 'IN_ACTIVE',
             permissions: [
                 ...(editData.manageAdmin ? ["Manage Admin"] : []),
                 ...(editData.inquiryDetails ? ["Inquery Details"] : []),
@@ -193,11 +195,12 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                 gender: editData.gender || '',
                 address: editData.address || '',
                 pincode: editData.pinCode || '',
-                dob: editData.dateOfBirth ? dayjs(editData.dateOfBirth) : null,
+                dob: editData.dateOfBirth ? (dayjs(editData.dateOfBirth, 'DD-MM-YYYY').isValid() ? dayjs(editData.dateOfBirth, 'DD-MM-YYYY') : dayjs(editData.dateOfBirth)) : null,
                 city: editData.city || '',
                 state: editData.state || '',
                 district: editData.district || '',
                 adminType: Object.keys(adminTypesObj).find(key => adminTypesObj[key] === editData.role) || '',
+                planStatus: editData.planStatus || 'IN_ACTIVE',
                 permissions: [
                     ...(editData.manageAdmin ? ["Manage Admin"] : []),
                     ...(editData.inquiryDetails ? ["Inquery Details"] : []),
@@ -366,6 +369,7 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                                                     disableFuture
                                                     value={field.value}
                                                     onChange={(date) => field.onChange(date)}
+                                                    format="DD/MM/YYYY"
                                                     renderInput={(params) => (
                                                         <TextField
                                                             {...params}
@@ -580,8 +584,8 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                                             )}
                                         />
                                     </Box>
-                                    <Box>
-                                        {/* Show Gender in create mode, Status dropdown in edit mode */}
+                                    <Box sx={{ display: 'flex', gap: '10px', flexDirection: { xs: 'column', sm: 'row' } }}>
+                                        {/* Show Gender in create mode, Status & Plan Status dropdowns in edit mode */}
                                         {!editMode ? (
                                             <Controller
                                                 name="gender"
@@ -600,30 +604,53 @@ const AdminRegisterCard = ({ setShowRegisterUser, type = "user", editMode = fals
                                                 )}
                                             />
                                         ) : (
-                                            <Controller
-                                                name="status"
-                                                control={control}
-                                                defaultValue={status}
-                                                render={({ field }) => (
-                                                    <Autocomplete
-                                                        options={["ACTIVE", "IN_ACTIVE"]}
-                                                        value={field.value || null}
-                                                        onChange={(_, value) => {
-                                                            field.onChange(value);
-                                                            setStatus(value);
-                                                        }}
-                                                        renderInput={(params) => (
-                                                            <TextField
-                                                                {...params}
-                                                                label="Status"
-                                                                variant="outlined"
-                                                                sx={{ mt: 1 }}
-                                                            />
-                                                        )}
-                                                        fullWidth
-                                                    />
-                                                )}
-                                            />
+                                            <>
+                                                <Controller
+                                                    name="status"
+                                                    control={control}
+                                                    defaultValue={status}
+                                                    render={({ field }) => (
+                                                        <Autocomplete
+                                                            options={["ACTIVE", "IN_ACTIVE"]}
+                                                            value={field.value || null}
+                                                            onChange={(_, value) => {
+                                                                field.onChange(value);
+                                                                setStatus(value);
+                                                            }}
+                                                            renderInput={(params) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                    label="Admin Status"
+                                                                    variant="outlined"
+                                                                    sx={{ mt: 1 }}
+                                                                />
+                                                            )}
+                                                            fullWidth
+                                                        />
+                                                    )}
+                                                />
+                                                {/* <Controller
+                                                    name="planStatus"
+                                                    control={control}
+                                                    defaultValue={editData?.planStatus || "IN_ACTIVE"}
+                                                    render={({ field }) => (
+                                                        <Autocomplete
+                                                            options={["ACTIVE", "IN_ACTIVE", "EXPIRED"]}
+                                                            value={field.value || null}
+                                                            onChange={(_, value) => field.onChange(value)}
+                                                            renderInput={(params) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                    label="Plan Status"
+                                                                    variant="outlined"
+                                                                    sx={{ mt: 1 }}
+                                                                />
+                                                            )}
+                                                            fullWidth
+                                                        />
+                                                    )}
+                                                /> */}
+                                            </>
                                         )}
                                     </Box>
                                 </Box>
