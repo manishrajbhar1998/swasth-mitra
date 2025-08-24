@@ -17,65 +17,82 @@ import { MdCelebration } from 'react-icons/md';
 import { FaHandshake } from 'react-icons/fa';
 
 
-const services = [
-    // {
-    //     icon: <CheckIcon />,
-    //     iconColor: "#e46f8c",
-    //     title: "Health Card",
-    //     number: 10
-    // },
-    // {
-    //     icon: <EventIcon />,
-    //     iconColor: "#5580c8",
-    //     title: "Upcoming Event",
-    //     number: "10/02/2025"
-    // },
-    {
-        icon: <ManageAccountsIcon />,
-        iconColor: "#fa9733",
-        title: "24x7 Support",
-        number: "8965321458"
-    },
-    {
-        icon: <CheckIcon />,
-        iconColor: "#fa5d3b",
-        title: "Services Consume",
-        number: 0
-    }
-]
-
-const members = [
-    {
-        name: "Rohit Sharma",
-        memberId: "SM123456",
-        expiry: "31-05-2026",
-        profilePhoto: "https://randomuser.me/api/portraits/men/75.jpg",
-        plan: "Gold Plan",
-        familyMembers: {
-            spouse: {
-                name: "Ritika Sharma",
-                dob: "1991-06-15",
-                profilePhoto: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
-            },
-            father: {
-                name: "Gopal Sharma",
-                dob: "1960-02-10",
-                profilePhoto: "https://randomuser.me/api/portraits/men/41.jpg",
-            },
-            mother: {
-                name: "Kamla Sharma",
-                dob: "1962-08-25",
-                profilePhoto: "https://randomuser.me/api/portraits/men/11.jpg",
-            },
-            child: {
-                name: "Aryan Sharma",
-                dob: "2015-11-20",
-                profilePhoto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
+const getHeaderTemplateData = (dashboardData) => {
+    // For Family Plan, aggregate all family members' diseases
+    let pastDiseases = [];
+    let existingDiseases = [];
+    if (dashboardData?.familyMembersDTO) {
+        const family = dashboardData.familyMembersDTO;
+        const relations = ["spouse", "father", "mother", "children"];
+        relations.forEach(rel => {
+            if (rel === "children" && Array.isArray(family.children)) {
+                family.children.forEach((child) => {
+                    if (child.name && child.name.trim() !== "") {
+                        if (child.pastDiseaseInput && child.pastDiseaseInput !== "undefined" && child.pastDiseaseInput !== "") pastDiseases.push(`${child.name}: ${child.pastDiseaseInput}`);
+                        if (Array.isArray(child.existingDiseases) && child.existingDiseases.length > 0 && child.existingDiseases[0] !== "undefined") existingDiseases.push(`${child.name}: ${child.existingDiseases.join(", ")}`);
+                    }
+                });
+            } else if (family[rel] && family[rel].name && family[rel].name.trim() !== "") {
+                const member = family[rel];
+                if (member.pastDiseaseInput && member.pastDiseaseInput !== "undefined" && member.pastDiseaseInput !== "") pastDiseases.push(`${member.name}: ${member.pastDiseaseInput}`);
+                if (Array.isArray(member.existingDiseases) && member.existingDiseases.length > 0 && member.existingDiseases[0] !== "undefined") existingDiseases.push(`${member.name}: ${member.existingDiseases.join(", ")}`);
             }
+        });
+    }
+    // For Individual Plan, just use the main user's data
+    if (!dashboardData?.familyMembersDTO) {
+        if (dashboardData?.pastDiseaseInput && dashboardData?.pastDiseaseInput !== "undefined" && dashboardData?.pastDiseaseInput !== "") {
+            pastDiseases.push(dashboardData.pastDiseaseInput);
+        }
+        const isExistingDiseasesEmpty = (
+            dashboardData?.existingDiseases === undefined || dashboardData?.existingDiseases === null ||
+            (Array.isArray(dashboardData?.existingDiseases) && (dashboardData?.existingDiseases.length === 0 || (dashboardData?.existingDiseases.length === 1 && dashboardData?.existingDiseases[0] === "undefined"))) ||
+            dashboardData?.existingDiseases === "" || dashboardData?.existingDiseases === "undefined"
+        );
+        const isPresentDiseaseOtherEmpty = (
+            dashboardData?.presentDiseaseOther === undefined || dashboardData?.presentDiseaseOther === null || dashboardData?.presentDiseaseOther === "" || dashboardData?.presentDiseaseOther === "undefined"
+        );
+        if (!isExistingDiseasesEmpty) {
+            if (Array.isArray(dashboardData?.existingDiseases)) {
+                existingDiseases.push(dashboardData.existingDiseases.join(", "));
+            } else {
+                existingDiseases.push(dashboardData.existingDiseases);
+            }
+        } else if (!isPresentDiseaseOtherEmpty) {
+            existingDiseases.push(dashboardData.presentDiseaseOther);
+        } else {
+            existingDiseases.push("No Existing Diseases");
         }
     }
-];
-
+    return [
+        {
+            icon: <ManageAccountsIcon />,
+            iconColor: "#fa9733",
+            title: "24x7 Support",
+            number: "8965321458"
+        },
+        {
+            icon: <FaHandshake />,
+            iconColor: "#00b894",
+            title: "Services Consume",
+            number: 0
+        },
+        {
+            icon: <MdCelebration />,
+            iconColor: "#e46f8c",
+            title: "Past Diseases",
+            text: pastDiseases.length > 0 ? pastDiseases : ["No Past Diseases"],
+            isList: true
+        },
+        {
+            icon: <AiOutlineHourglass />,
+            iconColor: "#fa5d3b",
+            title: "Existing Diseases",
+            text: existingDiseases.length > 0 ? existingDiseases : ["No Present Diseases"],
+            isList: true
+        }
+    ];
+}
 
 const MyServices = ({ dashboardData }) => {
 
@@ -111,7 +128,9 @@ const MyServices = ({ dashboardData }) => {
         }
     };
 
-    // console.log(dashboardData)
+    const services = getHeaderTemplateData(dashboardData);
+
+
 
     return (
         <>
@@ -133,7 +152,15 @@ const MyServices = ({ dashboardData }) => {
                                     <p>{ele.title}</p>
                                 </div>
                                 <div className='number'>
-                                    <p>{ele.number}</p>
+                                    {ele.isList ? (
+                                        <div style={{ maxHeight: 80, overflowY: 'auto', textAlign: 'left', paddingRight: 4 }}>
+                                            {ele.text.map((item, idx) => (
+                                                <div key={idx} style={{ whiteSpace: 'pre-line' }}>{item}</div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <p>{ele.number !== undefined && ele.number !== null ? ele.number : ele.text}</p>
+                                    )}
                                 </div>
                             </div>
                         ))
@@ -159,6 +186,7 @@ const MyServices = ({ dashboardData }) => {
                     <div className='myservices-wrapper'>
                         {members?.map((member, index) => {
                             const mainCardRef = useRef();
+                            console.log(member.familyMembers);
 
                             return (
                                 <React.Fragment key={index}>
@@ -172,6 +200,7 @@ const MyServices = ({ dashboardData }) => {
                                                 plan={member.plan}
                                                 validity={member.expiry}
                                                 familyMembers={member.familyMembers}
+                                                relation={null}
 
                                             />
                                         </div>
@@ -185,6 +214,7 @@ const MyServices = ({ dashboardData }) => {
 
                                     {/* Family Member Cards */}
                                     {Object.entries(member.familyMembers).map(([relation, details], idx) => {
+                                        if (!details.name || details.name.trim() === "") return null;
                                         const familyCardRef = useRef();
                                         return (
                                             <div key={`${index}-${idx}`} style={{ position: 'relative' }}>
@@ -196,6 +226,7 @@ const MyServices = ({ dashboardData }) => {
                                                         plan={member.plan}
                                                         validity={member.expiry}
                                                         familyMembers={member.familyMembers}
+                                                        relation={relation}
                                                     />
                                                 </div>
                                                 <IconButton

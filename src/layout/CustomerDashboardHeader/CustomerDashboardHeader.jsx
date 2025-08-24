@@ -13,7 +13,7 @@ import { useLoading } from '../../context/LoadingContext/LoadingContext';
 import { LOGOUT_API } from '../../constant/config';
 
 
-const CustomerDashboardHeader = () => {
+const CustomerDashboardHeader = ({ pastDisease, presentDisease }) => {
 
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const navigate = useNavigate()

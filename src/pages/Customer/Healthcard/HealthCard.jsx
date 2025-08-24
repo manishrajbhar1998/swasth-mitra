@@ -2,8 +2,12 @@ import React from 'react';
 import './HealthCard.scss';
 import logo from '../../../assets/images/swastha-mitra-logo2.png';
 
-const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMembers }) => {
-    // console.log("plan :: ", plan)
+const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMembers, relation }) => {
+
+    let relationLabel = "Self";
+    if (relation && typeof relation === 'string') {
+        relationLabel = relation.charAt(0).toUpperCase() + relation.slice(1);
+    }
     return (
         <div className="health-card-wrapper" >
             {/* Front: Main Member Info */}
@@ -33,6 +37,10 @@ const HealthCard = ({ profilePhoto, name, memberId, plan, validity, familyMember
                     <div className="info-row">
                         <span className="label">Member Id:</span>
                         <span className="value">{memberId}</span>
+                    </div>
+                    <div className="info-row">
+                        <span className="label">Relation:</span>
+                        <span className="value">{relationLabel}</span>
                     </div>
                     <div className="info-row">
                         <span className="label">Plan:</span>

@@ -179,9 +179,12 @@ const RegisteredUser = () => {
         }
     };
 
+    // console.log("childTableDetails", childTableDetails);
+
     // Helper to render child table
     const renderChildTable = (rowId) => {
         const detailsArr = childTableDetails[rowId];
+        // console.log("detailsArr: ", detailsArr);
         if (!detailsArr) return null;
         if (detailsArr.error) return <Box color="error.main">{safeValue(detailsArr.error)}</Box>;
         // If detailsArr is empty array, show no data found
@@ -195,7 +198,7 @@ const RegisteredUser = () => {
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Relation</Box>
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Name</Box>
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Date of Birth</Box>
-                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Present Disease</Box>
+                                {/* <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Present Disease</Box> */}
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Past Disease Input</Box>
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Existing Diseases</Box>
                                 <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Profile Photo</Box>
@@ -212,19 +215,59 @@ const RegisteredUser = () => {
         }
         const details = Array.isArray(detailsArr) ? detailsArr[0] : detailsArr;
         if (!details) return null;
-        // Prefer familyMembersDTO if present
+        // If familyMembersDTO is null, show individual user details as a single row
+        if (!details.familyMembersDTO) {
+            // Show 'No' if both pastDiseaseInput and existingDiseases are empty
+            const showNo = (
+                details.pastDiseaseInput === undefined || details.pastDiseaseInput === null || details.pastDiseaseInput === "" || details.pastDiseaseInput === "undefined"
+            ) && (
+                    details.existingDiseases === undefined || details.existingDiseases === null || (Array.isArray(details.existingDiseases) && (details.existingDiseases.length === 0 || (details.existingDiseases.length === 1 && details.existingDiseases[0] === "undefined")))
+                );
+            return (
+                <Box sx={{ mt: 2, mb: 2, border: '1px solid #eee', borderRadius: 2, p: 2, background: '#fafafa' }}>
+                    <Box sx={{ fontWeight: 600, mb: 1 }}>User Details</Box>
+                    <Box component="table" sx={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <Box component="thead">
+                            <Box component="tr" sx={{ background: '#f0f0f0' }}>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Relation</Box>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Name</Box>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Date of Birth</Box>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Past Disease Input</Box>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Existing Diseases</Box>
+                                <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Profile Photo</Box>
+                            </Box>
+                        </Box>
+                        <Box component="tbody">
+                            <Box component="tr">
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>Self</Box>
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(details.name)}</Box>
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{details.dateOfBirth ? new Date(details.dateOfBirth).toLocaleDateString() : '-'}</Box>
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{showNo ? "No" : safeValue(details.pastDiseaseInput)}</Box>
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{showNo ? "No" : (Array.isArray(details.existingDiseases) ? (details.existingDiseases.length ? details.existingDiseases.join(', ') : '-') : safeValue(details.existingDiseases))}</Box>
+                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{details.profilePic ? <img src={details.profilePic} alt="profile" style={{ width: 40, height: 40, borderRadius: 4 }} /> : '-'}</Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            );
+        }
+        // ...existing code for familyMembersDTO...
         const familyDTO = details.familyMembersDTO || {};
         const getMember = (key) => familyDTO[key] || details[key] || null;
         const family = [];
         const spouse = getMember('spouse');
-        if (spouse) family.push({ relation: 'Spouse', ...spouse });
+        if (spouse && spouse.name && spouse.name.trim() !== "") family.push({ relation: 'Spouse', ...spouse });
         const father = getMember('father');
-        if (father) family.push({ relation: 'Father', ...father });
+        if (father && father.name && father.name.trim() !== "") family.push({ relation: 'Father', ...father });
         const mother = getMember('mother');
-        if (mother) family.push({ relation: 'Mother', ...mother });
+        if (mother && mother.name && mother.name.trim() !== "") family.push({ relation: 'Mother', ...mother });
         const children = getMember('children');
         if (children && Array.isArray(children)) {
-            children.forEach((child, idx) => family.push({ relation: `Child ${idx + 1}`, ...child }));
+            children.forEach((child, idx) => {
+                if (child.name && child.name.trim() !== "") {
+                    family.push({ relation: `Child ${idx + 1}`, ...child });
+                }
+            });
         }
         return (
             <Box sx={{ mt: 2, mb: 2, border: '1px solid #eee', borderRadius: 2, p: 2, background: '#fafafa' }}>
@@ -235,7 +278,6 @@ const RegisteredUser = () => {
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Relation</Box>
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Name</Box>
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Date of Birth</Box>
-                            <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Present Disease</Box>
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Past Disease Input</Box>
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Existing Diseases</Box>
                             <Box component="th" sx={{ p: 1, border: '1px solid #ddd' }}>Profile Photo</Box>
@@ -247,22 +289,28 @@ const RegisteredUser = () => {
                                 <Box component="td" colSpan={7} sx={{ p: 1, border: '1px solid #ddd', textAlign: 'center' }}>No family details found.</Box>
                             </Box>
                         )}
-                        {family.map((mem, idx) => (
-                            <Box component="tr" key={idx}>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.relation)}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.name)}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{mem.dob ? new Date(mem.dob).toLocaleDateString() : '-'}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.presentDisease)}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.pastDiseaseInput)}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{Array.isArray(mem.existingDiseases) ? (mem.existingDiseases.length ? mem.existingDiseases.join(', ') : '-') : safeValue(mem.existingDiseases)}</Box>
-                                <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{mem.profilePhotoUrl ? <img src={mem.profilePhotoUrl} alt="profile" style={{ width: 40, height: 40, borderRadius: 4 }} /> : '-'}</Box>
-                            </Box>
-                        ))}
+                        {family.map((mem, idx) => {
+                            const showNo = (
+                                mem.pastDiseaseInput === undefined || mem.pastDiseaseInput === null || mem.pastDiseaseInput === "" || mem.pastDiseaseInput === "undefined"
+                            ) && (
+                                    mem.existingDiseases === undefined || mem.existingDiseases === null || (Array.isArray(mem.existingDiseases) && (mem.existingDiseases.length === 0 || (mem.existingDiseases.length === 1 && mem.existingDiseases[0] === "undefined")))
+                                );
+                            return (
+                                <Box component="tr" key={idx}>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.relation)}</Box>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{safeValue(mem.name)}</Box>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{mem.dob ? new Date(mem.dob).toLocaleDateString() : '-'}</Box>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{showNo ? "No" : safeValue(mem.pastDiseaseInput)}</Box>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{showNo ? "No" : (Array.isArray(mem.existingDiseases) ? (mem.existingDiseases.length ? mem.existingDiseases.join(', ') : '-') : safeValue(mem.existingDiseases))}</Box>
+                                    <Box component="td" sx={{ p: 1, border: '1px solid #ddd' }}>{mem.profilePhotoUrl ? <img src={mem.profilePhotoUrl} alt="profile" style={{ width: 40, height: 40, borderRadius: 4 }} /> : '-'}</Box>
+                                </Box>
+                            );
+                        })}
                     </Box>
                 </Box>
             </Box>
         );
-    };
+    }
 
     // Use getRowId for unique row identification
     const getRowId = useCallback((row) => row.memberId || row.email || row.id, []);
