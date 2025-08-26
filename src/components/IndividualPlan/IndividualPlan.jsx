@@ -47,8 +47,8 @@ const IndividualPlan = () => {
         }
         const cleanAmount = typeof amount === 'string' ? amount.replace(/[^\d.]/g, '') : amount;
         const options = {
-            key: "rzp_test_m7kwYdRW44PWYw", //Razorpay Test key 
-            // key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
+            // key: "rzp_test_m7kwYdRW44PWYw", //Razorpay Test key 
+            key: "rzp_live_y3M1CykMXog8r2", // Razorpay live key
             amount: Number(cleanAmount) * 100, // Amount in paise
             currency: "INR",
             name: "Swasth Mitra",
@@ -146,7 +146,6 @@ const IndividualPlan = () => {
             numofChild: '',
             children: ''
         };
-        console.log('Form Payload:', payload);
         // If payment failed, do not hit API
         if (paymentInfo.paymentStatus === 'FAILED') {
             toast.error('Payment failed! Your plan purchase was unsuccessful. Please try again or check your payment method.');
