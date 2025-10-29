@@ -4,6 +4,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const plans = [
     {
+        title: "Basic Plan",
+        price: "60/-",
+        className: "individual_plan",
+        id: "basic",
+        shortFeatures: [
+            "Instant help on mobile",
+            "Chat help during emergencies",
+            "Support in maintaining medical documents",
+            "Guidance to avail government schemes like Ayushman Bharat",
+        ],
+        longFeatures: [
+            "Support in maintaining patient medical documents",
+            "Emergency attendant in hospital",
+            "24x7 hospital assistance",
+            "24x7 call and chat support",
+            "Dedicated person available in-state hospitals",
+            "Emergency help for patients outside the state via call/chat (24x7)",
+            "Awareness campaigns and health tips",
+            "Help with stay needs like government/private guest houses",
+        ],
+        note: "💡 Ideal for individuals: students, professionals, or seniors.",
+    },
+    {
         title: "Individual Plan",
         price: "170/-",
         className: "individual_plan",
@@ -151,7 +174,7 @@ const PlanCard = ({ plan, isOpen, onToggle }) => {
                             style={{
                                 display: "flex", width: "fit-content", alignItems: "center", margin: "0px auto"
                             }}
-                            onClick={() => onToggle(null)}
+                            onClick={() => onToggle(plan.id)}
                         >
                             <span className="icon">
                                 <p className="icon-close fw-bold">

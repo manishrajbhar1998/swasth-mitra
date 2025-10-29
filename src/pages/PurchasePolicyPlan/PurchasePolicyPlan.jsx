@@ -26,6 +26,7 @@ import { getPersonSchema } from '../../constant/constant';
 import { useLocation } from 'react-router-dom';
 import PastDiseaseQuestionary from '../../components/PastDiseaseQuestionary/PastDiseaseQuestionary';
 import IndividualPlan from '../../components/IndividualPlan/IndividualPlan';
+import BasicPlan from '../../components/IndividualPlan/BasicPlan';
 import PresentDiseaseQuestionary from '../../components/PresentDiseaseQuestionary/PresentDiseaseQuestionary';
 import CustomerDashboardHeader from '../../layout/CustomerDashboardHeader/CustomerDashboardHeader';
 import Footer from '../../layout/Footer/Footer';
@@ -318,40 +319,102 @@ const PurchasePolicyPlan = () => {
                         {
                             plan === "Individual Plan" ?
                                 <IndividualPlan />
-                                :
-                                <form onSubmit={handleSubmit(onSubmit)}>
+                                : plan === "Basic Plan" ?
+                                    <BasicPlan />
+                                    :
+                                    <form onSubmit={handleSubmit(onSubmit)}>
 
-                                    <>
-                                        {/* Spouse Details */}
-                                        {
-                                            isMarried &&
+                                        <>
+                                            {/* Spouse Details */}
+                                            {
+                                                isMarried &&
+                                                <Box className="form-wrapper">
+                                                    <Typography className='title'>Spouse Details</Typography>
+                                                    <Box className="inner-box">
+                                                        <Box className="form-group">
+                                                            <TextField
+                                                                fullWidth
+                                                                label="Spouse Name"
+                                                                margin="normal"
+                                                                {...register('spouse.name')}
+                                                                error={!!errors?.spouse?.name}
+                                                                helperText={errors?.spouse?.name?.message}
+                                                            />
+                                                            <CustomerDatePicker control={control} name="spouse.dob" label="Spouse DOB" error={errors?.spouse?.dob?.message} />
+
+
+                                                        </Box>
+                                                        <Box className="form-group">
+                                                            <TextField
+                                                                fullWidth
+                                                                label="Spouse mobile number"
+                                                                margin="normal"
+                                                                {...register('spouse.mobile')}
+                                                                error={!!errors?.spouse?.mobile}
+                                                                helperText={errors?.spouse?.mobile?.message}
+                                                            />
+                                                            <Controller
+                                                                name="spouse.avatar"
+                                                                control={control}
+                                                                render={({ field: { onChange, value } }) => (
+                                                                    <MyDropzone
+                                                                        onDrop={(acceptedFiles) => {
+                                                                            onChange(acceptedFiles);
+                                                                        }}
+                                                                        files={value}
+                                                                    />
+                                                                )}
+                                                            />
+                                                        </Box>
+                                                        <Box className="form-group-2">
+                                                            <PastDiseaseQuestionary
+                                                                register={register}
+                                                                errors={errors}
+                                                                watch={watch}
+                                                                control={control}
+                                                                namePrefix="spouse"
+                                                            />
+                                                            <PresentDiseaseQuestionary
+                                                                register={register}
+                                                                errors={errors}
+                                                                watch={watch}
+                                                                control={control}
+                                                                namePrefix="spouse"
+                                                            />
+
+                                                        </Box>
+
+                                                    </Box>
+                                                </Box>
+                                            }
+                                            {/* father Details */}
                                             <Box className="form-wrapper">
-                                                <Typography className='title'>Spouse Details</Typography>
+                                                <Typography className='title'>Father's Details</Typography>
                                                 <Box className="inner-box">
                                                     <Box className="form-group">
                                                         <TextField
                                                             fullWidth
-                                                            label="Spouse Name"
+                                                            label="Father Name"
                                                             margin="normal"
-                                                            {...register('spouse.name')}
-                                                            error={!!errors?.spouse?.name}
-                                                            helperText={errors?.spouse?.name?.message}
+                                                            {...register('father.name')}
+                                                            error={!!errors?.father?.name}
+                                                            helperText={errors?.father?.name?.message}
                                                         />
-                                                        <CustomerDatePicker control={control} name="spouse.dob" label="Spouse DOB" error={errors?.spouse?.dob?.message} />
+                                                        <CustomerDatePicker control={control} name="father.dob" label="Father DOB" error={errors?.father?.dob?.message} />
 
 
                                                     </Box>
                                                     <Box className="form-group">
                                                         <TextField
                                                             fullWidth
-                                                            label="Spouse mobile number"
+                                                            label="Father mobile number"
                                                             margin="normal"
-                                                            {...register('spouse.mobile')}
-                                                            error={!!errors?.spouse?.mobile}
-                                                            helperText={errors?.spouse?.mobile?.message}
+                                                            {...register('father.mobile')}
+                                                            error={!!errors?.father?.mobile}
+                                                            helperText={errors?.father?.mobile?.message}
                                                         />
                                                         <Controller
-                                                            name="spouse.avatar"
+                                                            name="father.avatar"
                                                             control={control}
                                                             render={({ field: { onChange, value } }) => (
                                                                 <MyDropzone
@@ -369,171 +432,46 @@ const PurchasePolicyPlan = () => {
                                                             errors={errors}
                                                             watch={watch}
                                                             control={control}
-                                                            namePrefix="spouse"
+                                                            namePrefix="father"
                                                         />
                                                         <PresentDiseaseQuestionary
                                                             register={register}
                                                             errors={errors}
                                                             watch={watch}
                                                             control={control}
-                                                            namePrefix="spouse"
+                                                            namePrefix="father"
                                                         />
 
                                                     </Box>
 
                                                 </Box>
                                             </Box>
-                                        }
-                                        {/* father Details */}
-                                        <Box className="form-wrapper">
-                                            <Typography className='title'>Father's Details</Typography>
-                                            <Box className="inner-box">
-                                                <Box className="form-group">
-                                                    <TextField
-                                                        fullWidth
-                                                        label="Father Name"
-                                                        margin="normal"
-                                                        {...register('father.name')}
-                                                        error={!!errors?.father?.name}
-                                                        helperText={errors?.father?.name?.message}
-                                                    />
-                                                    <CustomerDatePicker control={control} name="father.dob" label="Father DOB" error={errors?.father?.dob?.message} />
-
-
-                                                </Box>
-                                                <Box className="form-group">
-                                                    <TextField
-                                                        fullWidth
-                                                        label="Father mobile number"
-                                                        margin="normal"
-                                                        {...register('father.mobile')}
-                                                        error={!!errors?.father?.mobile}
-                                                        helperText={errors?.father?.mobile?.message}
-                                                    />
-                                                    <Controller
-                                                        name="father.avatar"
-                                                        control={control}
-                                                        render={({ field: { onChange, value } }) => (
-                                                            <MyDropzone
-                                                                onDrop={(acceptedFiles) => {
-                                                                    onChange(acceptedFiles);
-                                                                }}
-                                                                files={value}
-                                                            />
-                                                        )}
-                                                    />
-                                                </Box>
-                                                <Box className="form-group-2">
-                                                    <PastDiseaseQuestionary
-                                                        register={register}
-                                                        errors={errors}
-                                                        watch={watch}
-                                                        control={control}
-                                                        namePrefix="father"
-                                                    />
-                                                    <PresentDiseaseQuestionary
-                                                        register={register}
-                                                        errors={errors}
-                                                        watch={watch}
-                                                        control={control}
-                                                        namePrefix="father"
-                                                    />
-
-                                                </Box>
-
-                                            </Box>
-                                        </Box>
-                                        {/* Mother Details */}
-                                        <Box className="form-wrapper">
-                                            <Typography className='title'>Mother's Details</Typography>
-                                            <Box className="inner-box">
-                                                <Box className="form-group">
-                                                    <TextField
-                                                        fullWidth
-                                                        label="Mother Name"
-                                                        margin="normal"
-                                                        {...register('mother.name')}
-                                                        error={!!errors?.mother?.name}
-                                                        helperText={errors?.mother?.name?.message}
-                                                    />
-                                                    <CustomerDatePicker control={control} name="mother.dob" label="Mother DOB" error={errors?.mother?.dob?.message} />
-                                                </Box>
-                                                <Box className="form-group">
-                                                    <TextField
-                                                        fullWidth
-                                                        label="Mother mobile number"
-                                                        margin="normal"
-                                                        {...register('mother.mobile')}
-                                                        error={!!errors?.mother?.mobile}
-                                                        helperText={errors?.mother?.mobile?.message}
-                                                    />
-                                                    <Controller
-                                                        name="mother.avatar"
-                                                        control={control}
-                                                        render={({ field: { onChange, value } }) => (
-                                                            <MyDropzone
-                                                                onDrop={(acceptedFiles) => {
-                                                                    onChange(acceptedFiles);
-                                                                }}
-                                                                files={value}
-                                                            />
-                                                        )}
-                                                    />
-                                                </Box>
-                                                <Box className="form-group-2">
-                                                    <PastDiseaseQuestionary
-                                                        register={register}
-                                                        errors={errors}
-                                                        watch={watch}
-                                                        control={control}
-                                                        namePrefix="mother"
-                                                    />
-                                                    <PresentDiseaseQuestionary
-                                                        register={register}
-                                                        errors={errors}
-                                                        watch={watch}
-                                                        control={control}
-                                                        namePrefix="mother"
-                                                    />
-
-                                                </Box>
-
-                                            </Box>
-                                        </Box>
-                                        {/* Dose you have any child */}
-                                        <Box className='form-wrapper'>
-                                            <Typography className='title'>Child Details</Typography>
-                                            <DoesHaveChildQuestionary
-                                                register={register}
-                                                errors={errors}
-                                                watch={watch}
-                                                control={control}
-                                                namePrefix="anyChild"
-                                            />
-                                        </Box>
-                                        {Array.from({ length: Number(numofChild) }, (_, index) => (
-                                            <Box key={index} className="form-wrapper">
-                                                <Typography className='title'>Child {index + 1} Details</Typography>
+                                            {/* Mother Details */}
+                                            <Box className="form-wrapper">
+                                                <Typography className='title'>Mother's Details</Typography>
                                                 <Box className="inner-box">
                                                     <Box className="form-group">
                                                         <TextField
                                                             fullWidth
-                                                            label={`Child ${index + 1} Name`}
+                                                            label="Mother Name"
                                                             margin="normal"
-                                                            {...register(`children.${index}.name`)}
-                                                            error={!!errors?.children?.[index]?.name}
-                                                            helperText={errors?.children?.[index]?.name?.message}
+                                                            {...register('mother.name')}
+                                                            error={!!errors?.mother?.name}
+                                                            helperText={errors?.mother?.name?.message}
                                                         />
-                                                        <CustomerDatePicker
-                                                            control={control}
-                                                            name={`children.${index}.dob`}
-                                                            label={`Child ${index + 1} DOB`}
-                                                            error={errors?.children?.[index]?.dob?.message}
-                                                        />
+                                                        <CustomerDatePicker control={control} name="mother.dob" label="Mother DOB" error={errors?.mother?.dob?.message} />
                                                     </Box>
                                                     <Box className="form-group">
+                                                        <TextField
+                                                            fullWidth
+                                                            label="Mother mobile number"
+                                                            margin="normal"
+                                                            {...register('mother.mobile')}
+                                                            error={!!errors?.mother?.mobile}
+                                                            helperText={errors?.mother?.mobile?.message}
+                                                        />
                                                         <Controller
-                                                            name={`children.${index}.avatar`}
+                                                            name="mother.avatar"
                                                             control={control}
                                                             render={({ field: { onChange, value } }) => (
                                                                 <MyDropzone
@@ -544,27 +482,92 @@ const PurchasePolicyPlan = () => {
                                                                 />
                                                             )}
                                                         />
-                                                        {errors?.children?.[index]?.avatar && (
-                                                            <Typography color="error" fontSize="0.8rem">
-                                                                {errors?.children?.[index]?.avatar?.message}
-                                                            </Typography>
-                                                        )}
                                                     </Box>
+                                                    <Box className="form-group-2">
+                                                        <PastDiseaseQuestionary
+                                                            register={register}
+                                                            errors={errors}
+                                                            watch={watch}
+                                                            control={control}
+                                                            namePrefix="mother"
+                                                        />
+                                                        <PresentDiseaseQuestionary
+                                                            register={register}
+                                                            errors={errors}
+                                                            watch={watch}
+                                                            control={control}
+                                                            namePrefix="mother"
+                                                        />
+
+                                                    </Box>
+
                                                 </Box>
                                             </Box>
-                                        ))}
-                                    </>
-                                    <Box>
-                                        <Button
-                                            variant="contained"
-                                            sx={{ marginTop: "10px" }}
-                                            color="primary"
-                                            onClick={handleSubmit((formDataValues) => handlePayment({ ...formDataValues, amount }))}
-                                        >
-                                            Pay Now
-                                        </Button>
-                                    </Box>
-                                </form>
+                                            {/* Dose you have any child */}
+                                            <Box className='form-wrapper'>
+                                                <Typography className='title'>Child Details</Typography>
+                                                <DoesHaveChildQuestionary
+                                                    register={register}
+                                                    errors={errors}
+                                                    watch={watch}
+                                                    control={control}
+                                                    namePrefix="anyChild"
+                                                />
+                                            </Box>
+                                            {Array.from({ length: Number(numofChild) }, (_, index) => (
+                                                <Box key={index} className="form-wrapper">
+                                                    <Typography className='title'>Child {index + 1} Details</Typography>
+                                                    <Box className="inner-box">
+                                                        <Box className="form-group">
+                                                            <TextField
+                                                                fullWidth
+                                                                label={`Child ${index + 1} Name`}
+                                                                margin="normal"
+                                                                {...register(`children.${index}.name`)}
+                                                                error={!!errors?.children?.[index]?.name}
+                                                                helperText={errors?.children?.[index]?.name?.message}
+                                                            />
+                                                            <CustomerDatePicker
+                                                                control={control}
+                                                                name={`children.${index}.dob`}
+                                                                label={`Child ${index + 1} DOB`}
+                                                                error={errors?.children?.[index]?.dob?.message}
+                                                            />
+                                                        </Box>
+                                                        <Box className="form-group">
+                                                            <Controller
+                                                                name={`children.${index}.avatar`}
+                                                                control={control}
+                                                                render={({ field: { onChange, value } }) => (
+                                                                    <MyDropzone
+                                                                        onDrop={(acceptedFiles) => {
+                                                                            onChange(acceptedFiles);
+                                                                        }}
+                                                                        files={value}
+                                                                    />
+                                                                )}
+                                                            />
+                                                            {errors?.children?.[index]?.avatar && (
+                                                                <Typography color="error" fontSize="0.8rem">
+                                                                    {errors?.children?.[index]?.avatar?.message}
+                                                                </Typography>
+                                                            )}
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                            ))}
+                                        </>
+                                        <Box>
+                                            <Button
+                                                variant="contained"
+                                                sx={{ marginTop: "10px" }}
+                                                color="primary"
+                                                onClick={handleSubmit((formDataValues) => handlePayment({ ...formDataValues, amount }))}
+                                            >
+                                                Pay Now
+                                            </Button>
+                                        </Box>
+                                    </form>
                         }
                     </LocalizationProvider>
                 </Box>
